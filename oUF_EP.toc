@@ -1,0 +1,9 @@
+## Interface: 30300
+## Author: Evilpaul
+## Version: 1.0
+## Title: oUF EP
+## Notes: Just another oUF layout
+## RequiredDeps: oUF
+## OptionalDeps: oUF_Experience, oUF_EPDebuff, oUF_HealComm4
+
+oUF_EP.xml

@@ -1,0 +1,5 @@
+- Buff/Debuff sizes (and region sizes)
+
+- unit hights and widths
+
+- unit positions
