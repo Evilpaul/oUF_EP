@@ -144,7 +144,7 @@ local function Style(self, unit)
 		castbar:SetStatusBarColor(1/4, 1/4, 2/5)
 		castbar:SetBackdrop(config.BACKDROP)
 		castbar:SetBackdropColor(0, 0, 0)
-		castbar.CustomTimeText = CustomCastTime
+		castbar.CustomTimeText = CustomCastText
 
 		local castbarBG = castbar:CreateTexture(nil, 'BORDER')
 		castbarBG:SetAllPoints(castbar)
@@ -193,8 +193,6 @@ local function Style(self, unit)
 		health:SetPoint('TOPRIGHT', self)
 		health:SetPoint('TOPLEFT', self)
 		health:SetHeight(21)
-
-		castbar.CustomTimeText = CustomCastText
 
 		self.Power = power
 		self.Castbar = castbar
