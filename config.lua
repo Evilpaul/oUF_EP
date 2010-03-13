@@ -66,6 +66,7 @@ oUF_EPConfig = {
 		[49016] = true, -- Buff: Hysteria
 		[47788] = true, -- Buff: Guardian Spirit
 		[10060] = true, -- Buff: Power Infusion
+		[33206] = true, -- Buff: Pain Suppression
 		[15359] = true, -- Buff: Inspiration
 		[16240] = true, -- Buff: Ancestral Healing
 	},
