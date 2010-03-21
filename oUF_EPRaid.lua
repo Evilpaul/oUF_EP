@@ -131,7 +131,7 @@ oUF:SetActiveStyle('oUF_EPRaid')
 -- define the raid groups
 local raid = {}
 for group = 1, NUM_RAID_GROUPS do
-	local header = oUF:SpawnHeader(nil, nil, 'party', 'showPlayer', group == 1, 'showParty', group == 1, 'showRaid', true)
+	local header = oUF:SpawnHeader(nil, nil, 'party,raid', 'showPlayer', group == 1, 'showParty', group == 1, 'showRaid', true)
 	header:SetAttribute('groupFilter', group)
 	header:SetAttribute('yOffset', -5)
 
@@ -145,7 +145,7 @@ for group = 1, NUM_RAID_GROUPS do
 end
 
 -- define the pet header
-local petHeader = oUF:SpawnHeader(nil, 'SecureGroupPetHeaderTemplate', nil, 'showPlayer', true, 'ShowParty', true, 'showRaid', true)
+local petHeader = oUF:SpawnHeader(nil, 'SecureGroupPetHeaderTemplate', 'party,raid', 'showPlayer', true, 'ShowParty', true, 'showRaid', true)
 petHeader:SetAttribute('yOffset', -5)
 petHeader:SetAttribute('xOffset', 5)
 petHeader:SetAttribute('maxColumns', 8)
