@@ -158,8 +158,8 @@ local function Style(self, unit)
 
 		local castbarText = castbar:CreateFontString(nil, 'OVERLAY')
 		castbarText:SetPoint('LEFT', 2, 0)
+		castbarText:SetPoint('RIGHT', castbarTime, 'LEFT', -5, 0)
 		castbarText:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
-		castbarText:SetPoint('RIGHT', castbarTime)
 		castbarText:SetJustifyH('LEFT')
 		castbar.Text = castbarText
 
