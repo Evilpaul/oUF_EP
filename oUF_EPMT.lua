@@ -26,12 +26,12 @@ local function Style(self, unit)
 	health.bg = healthBG
 
 	local healthValue = health:CreateFontString(nil, 'OVERLAY')
-	healthValue:SetFont(config.FONT, 12, 'OUTLINE')
+	healthValue:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
 	healthValue:SetPoint('RIGHT', health, -2, -1)
 	healthValue:SetJustifyH('RIGHT')
 
 	local info = health:CreateFontString(nil, 'OVERLAY')
-	info:SetFont(config.FONT, 12, 'OUTLINE')
+	info:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
 	info:SetPoint('LEFT', health, 2, -1)
 	info:SetPoint('RIGHT', healthValue, 'LEFT')
 	info:SetJustifyH('LEFT')

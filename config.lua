@@ -2,6 +2,8 @@ local _, playerClass = UnitClass('player')
 
 oUF_EPConfig = {
 	FONT = [=[Fonts\ARIALN.ttf]=],
+	FONTSIZE = 12,
+	FONTBORDER = 'OUTLINE',
 
 	TEXTURE = [=[Interface\AddOns\oUF_EP\media\minimalist]=],
 

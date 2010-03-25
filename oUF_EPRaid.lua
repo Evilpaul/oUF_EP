@@ -45,7 +45,7 @@ local function Style(self, unit)
 
 	local info = health:CreateFontString(nil, 'OVERLAY')
 	info:SetPoint('TOP', health,'TOP', 0, -3)
-	info:SetFont(config.FONT, 10, 'OUTLINE')
+	info:SetFont(config.FONT, 10, config.FONTBORDER)
 
 	-- ReadyCheck
 	local readycheck = health:CreateTexture(nil, 'OVERLAY')
@@ -83,7 +83,7 @@ local function Style(self, unit)
 	local healcommtext = health:CreateFontString(nil, 'OVERLAY')
 	healcommtext:SetTextColor(0, 1, 0)
 	healcommtext:SetPoint('TOP', info, 'BOTTOM', 0, 0)
-	healcommtext:SetFont(config.FONT, 10, 'OUTLINE')
+	healcommtext:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
 	self.HealCommTextFormat = shortVal
 
 	self.Health = health

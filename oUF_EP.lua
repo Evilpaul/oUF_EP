@@ -89,7 +89,7 @@ local function Style(self, unit)
 
 	local healthValue = health:CreateFontString(nil, 'OVERLAY')
 	healthValue:SetPoint('RIGHT', health, -2, 0)
-	healthValue:SetFont(config.FONT, 12, 'OUTLINE')
+	healthValue:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
 	healthValue:SetJustifyH('RIGHT')
 
 	if(slimUnit) then
@@ -152,14 +152,14 @@ local function Style(self, unit)
 
 		local castbarTime = castbar:CreateFontString(nil, 'OVERLAY')
 		castbarTime:SetPoint('RIGHT', -2, 0)
-		castbarTime:SetFont(config.FONT, 12, 'OUTLINE')
+		castbarTime:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
 		castbarTime:SetJustifyH('RIGHT')
 		castbar.Time = castbarTime
 
 		local castbarText = castbar:CreateFontString(nil, 'OVERLAY')
 		castbarText:SetPoint('LEFT', 2, 0)
+		castbarText:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
 		castbarText:SetPoint('RIGHT', castbarTime)
-		castbarText:SetFont(config.FONT, 12, 'OUTLINE')
 		castbarText:SetJustifyH('LEFT')
 		castbar.Text = castbarText
 
@@ -209,14 +209,14 @@ local function Style(self, unit)
 	if(petUnit or unit == 'player') then
 		local powerValue = health:CreateFontString(nil, 'OVERLAY')
 		powerValue:SetPoint('LEFT', health, 2, 0)
-		powerValue:SetFont(config.FONT, 12, 'OUTLINE')
+		powerValue:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
 		powerValue:SetJustifyH('LEFT')
 		self:Tag(powerValue, '[ep:power< ][ep:druid]')
 	else
 		local name = health:CreateFontString(nil, 'OVERLAY')
 		name:SetPoint('LEFT', health, 2, 0)
 		name:SetPoint('RIGHT', healthValue, 'LEFT')
-		name:SetFont(config.FONT, 12, 'OUTLINE')
+		name:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
 		name:SetJustifyH('LEFT')
 		self:Tag(name, '[ep:name][|cff0090ff >rare<|r]')
 	end
@@ -316,7 +316,7 @@ local function Style(self, unit)
 	local healcommtext = health:CreateFontString(nil, 'OVERLAY')
 	healcommtext:SetPoint('LEFT', name and name or health, 2, 0)
 	healcommtext:SetPoint('RIGHT', healthValue, 'LEFT', -5, 0)
-	healcommtext:SetFont(config.FONT, 12, 'OUTLINE')
+	healcommtext:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
 	healcommtext:SetTextColor(0, 1, 0)
 	healcommtext:SetJustifyH('RIGHT')
 	self.HealCommText = healcommtext
