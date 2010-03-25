@@ -98,15 +98,15 @@ local function Style(self, unit)
 		debuffs:SetWidth(72)
 		debuffs.num = 3
 		debuffs.size = 21
-		debuffs.spacing = 4
+		debuffs.spacing = config.SPACING
 		debuffs.PostCreateIcon = PostCreateAura
 
 		if(unit == 'focus') then
-			debuffs:SetPoint('TOPLEFT', self, 'TOPRIGHT', 4, 0)
+			debuffs:SetPoint('TOPLEFT', self, 'TOPRIGHT', config.SPACING, 0)
 			debuffs.initialAnchor = 'TOPLEFT'
 			debuffs.onlyShowPlayer = true
 		else
-			debuffs:SetPoint('TOPRIGHT', self, 'TOPLEFT', -4, 0)
+			debuffs:SetPoint('TOPRIGHT', self, 'TOPLEFT', -config.SPACING, 0)
 			debuffs.initialAnchor = 'TOPRIGHT'
 			debuffs['growth-x'] = 'LEFT'
 		end
@@ -177,11 +177,11 @@ local function Style(self, unit)
 		if(unit == 'target') then
 			castbar.PostCastStart = PostCastStart
 			castbar.PostChannelStart = PostCastStart
-			castbar:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -4)
-			castbarDummy:SetPoint('TOPLEFT', castbar, 'TOPRIGHT', 4, 0)
+			castbar:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -config.SPACING)
+			castbarDummy:SetPoint('TOPLEFT', castbar, 'TOPRIGHT', config.SPACING, 0)
 		else
-			castbar:SetPoint('TOPRIGHT', self, 'BOTTOMRIGHT', 0, -4)
-			castbarDummy:SetPoint('TOPRIGHT', castbar, 'TOPLEFT', -4, 0)
+			castbar:SetPoint('TOPRIGHT', self, 'BOTTOMRIGHT', 0, -config.SPACING)
+			castbarDummy:SetPoint('TOPRIGHT', castbar, 'TOPLEFT', -config.SPACING, 0)
 			castbar.SafeZone = castbar:CreateTexture(nil, 'ARTWORK')
 		end
 
@@ -223,31 +223,31 @@ local function Style(self, unit)
 
 	if(unit == 'player' or unit == 'target') then
 		local buffs = CreateFrame('Frame', nil, self)
-		buffs:SetPoint('BOTTOMLEFT', self, 'BOTTOMRIGHT', 4, 0)
+		buffs:SetPoint('BOTTOMLEFT', self, 'BOTTOMRIGHT', config.SPACING, 0)
 		buffs:SetHeight(54)
 		buffs:SetWidth(236)
 		buffs.num = 20
 		buffs.size = 25
-		buffs.spacing = 4
+		buffs.spacing = config.SPACING
 		buffs.initialAnchor = 'BOTTOMLEFT'
 		buffs['growth-y'] = 'UP'
 		buffs.PostCreateIcon = PostCreateAura
 
 		if(unit == 'target') then
 			local debuffs = CreateFrame('Frame', nil, self)
-			debuffs:SetPoint('TOPLEFT', self, 'BOTTOMRIGHT', 4, -4)
+			debuffs:SetPoint('TOPLEFT', self, 'BOTTOMRIGHT', config.SPACING, -config.SPACING)
 			debuffs:SetHeight(25)
 			debuffs:SetWidth(230)
 			debuffs.num = 20
 			debuffs.size = 25
-			debuffs.spacing = 4
+			debuffs.spacing = config.SPACING
 			debuffs.initialAnchor = 'TOPLEFT'
 			debuffs['growth-y'] = 'DOWN'
 			debuffs.PostCreateIcon = PostCreateAura
 			debuffs.PostUpdateIcon = PostUpdateDebuff
 
+			cpoints:SetPoint('RIGHT', self, 'LEFT', -config.SPACING, 0)
 			local cpoints = self:CreateFontString(nil, 'OVERLAY', 'SubZoneTextFont')
-			cpoints:SetPoint('RIGHT', self, 'LEFT', -9, 0)
 			cpoints:SetTextColor(1, 1, 1)
 			cpoints:SetJustifyH('RIGHT')
 
@@ -289,11 +289,11 @@ local function Style(self, unit)
 
 	if(petUnit) then
 		local auras = CreateFrame('Frame', nil, self)
-		auras:SetPoint('TOPRIGHT', self, 'TOPLEFT', -4, 0)
+		auras:SetPoint('TOPRIGHT', self, 'TOPLEFT', -config.SPACING, 0)
 		auras:SetHeight(44)
 		auras:SetWidth(256)
 		auras.size = 22
-		auras.spacing = 4
+		auras.spacing = config.SPACING
 		auras.initialAnchor = 'TOPRIGHT'
 		auras['growth-x'] = 'LEFT'
 		auras.PostCreateIcon = PostCreateAura

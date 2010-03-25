@@ -69,4 +69,6 @@ oUF_EPConfig = {
 		[15359] = true, -- Buff: Inspiration
 		[16240] = true, -- Buff: Ancestral Healing
 	},
+
+	SPACING = 4,
 }

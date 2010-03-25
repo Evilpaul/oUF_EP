@@ -133,10 +133,10 @@ local raid = {}
 for group = 1, NUM_RAID_GROUPS do
 	local header = oUF:SpawnHeader(nil, nil, 'party,raid', 'showPlayer', group == 1, 'showParty', group == 1, 'showRaid', true)
 	header:SetAttribute('groupFilter', group)
-	header:SetAttribute('yOffset', -5)
+	header:SetAttribute('yOffset', -config.SPACING)
 
 	if group > 1 then
-		header:SetPoint('TOPLEFT', raid[group - 1], 'TOPRIGHT', 5, 0)
+		header:SetPoint('TOPLEFT', raid[group - 1], 'TOPRIGHT', config.SPACING, 0)
 	else
 		header:SetPoint('TOPLEFT', UIParent, 'BOTTOMLEFT', 15, 350)
 	end
@@ -146,8 +146,8 @@ end
 
 -- define the pet header
 local petHeader = oUF:SpawnHeader(nil, 'SecureGroupPetHeaderTemplate', 'party,raid', 'showPlayer', true, 'ShowParty', true, 'showRaid', true)
-petHeader:SetAttribute('yOffset', -5)
-petHeader:SetAttribute('xOffset', 5)
+petHeader:SetAttribute('yOffset', -config.SPACING)
+petHeader:SetAttribute('xOffset', config.SPACING)
 petHeader:SetAttribute('maxColumns', 8)
 petHeader:SetAttribute('unitsPerColumn', 5)
 petHeader:SetAttribute('columnSpacing', 5)
@@ -169,7 +169,7 @@ local function UpdateLayout(...)
 		end
 	end
 
-	petHeader:SetPoint('TOPLEFT', raid[lastGroup], 'TOPRIGHT', 5, 0)
+	petHeader:SetPoint('TOPLEFT', raid[lastGroup], 'TOPRIGHT', config.SPACING, 0)
 end
 
 local updateFrame = CreateFrame('Frame')
