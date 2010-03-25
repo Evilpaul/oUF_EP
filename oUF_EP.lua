@@ -246,8 +246,9 @@ local function Style(self, unit)
 			debuffs.PostCreateIcon = PostCreateAura
 			debuffs.PostUpdateIcon = PostUpdateDebuff
 
+			local cpoints = self:CreateFontString(nil, 'OVERLAY')
 			cpoints:SetPoint('RIGHT', self, 'LEFT', -config.SPACING, 0)
-			local cpoints = self:CreateFontString(nil, 'OVERLAY', 'SubZoneTextFont')
+			cpoints:SetFont(config.FONT, 20, config.FONTBORDER)
 			cpoints:SetTextColor(1, 1, 1)
 			cpoints:SetJustifyH('RIGHT')
 
