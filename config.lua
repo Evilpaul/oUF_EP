@@ -42,7 +42,6 @@ oUF_EPConfig = {
 		[5229]  = playerClass == 'DRUID',	-- Druid: Enrage
 		[70725] = playerClass == 'DRUID',	-- Druid: Enraged Defense (4-part T-10)
 		[44401] = playerClass == 'MAGE',	-- Mage: Missile Barrage
-		[70543] = playerClass == 'MAGE',	-- Mage: Arcane Empowerment
 		[12536] = playerClass == 'MAGE',	-- Mage: Clearcasting (Arcane Concentration)
 		[12043] = playerClass == 'MAGE',	-- Mage: Presence of Mind
 		[57531] = playerClass == 'MAGE',	-- Mage: Arcane Potency
