@@ -47,6 +47,8 @@ oUF_EPConfig = {
 		[12536] = playerClass == 'MAGE',	-- Mage: Clearcasting (Arcane Concentration)
 		[12043] = playerClass == 'MAGE',	-- Mage: Presence of Mind
 		[57531] = playerClass == 'MAGE',	-- Mage: Arcane Potency
+		[12472] = playerClass == 'MAGE',	-- Mage: Icy Veins
+		[12042] = playerClass == 'MAGE',	-- Mage: Arcane Power
 		[59891] = playerClass == 'PRIEST',	-- Priest: Borrowed Time
 		[63734] = playerClass == 'PRIEST',	-- Priest: Serendipity
 		[63725] = playerClass == 'PRIEST',	-- Priest: Holy Concentration
