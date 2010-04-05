@@ -116,6 +116,8 @@ local function Style(self, unit)
 
 	self.Power = power
 
+	self.disallowVehicleSwap = true
+
 	-- Range checking
 	self.Range = true
 	self.inRangeAlpha = 1.0
