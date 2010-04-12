@@ -141,6 +141,7 @@ local function Style(self, unit)
 		self:SetAttribute('initial-width', 161)
 	else
 		local castbar = CreateFrame('StatusBar', nil, self)
+		castbar:SetWidth(petUnit and 105 or 205)
 		castbar:SetHeight(16)
 		castbar:SetStatusBarTexture(config.TEXTURE)
 		castbar:SetStatusBarColor(1/4, 1/4, 2/5)
