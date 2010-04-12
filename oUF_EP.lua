@@ -79,18 +79,44 @@ local function Style(self, unit)
 
 	local health = CreateFrame('StatusBar', nil, self)
 	health:SetStatusBarTexture(config.TEXTURE)
+	health:SetHeight(21)
 	health:SetStatusBarColor(1/4, 1/4, 2/5)
-	health:SetHeight(slimUnit and 21 or 21)
 
 	local healthBG = health:CreateTexture(nil, 'BORDER')
 	healthBG:SetAllPoints(health)
 	healthBG:SetTexture(1/3, 1/3, 1/3)
 	health.bg = healthBG
 
+	health:SetPoint('TOPRIGHT', self)
+	health:SetPoint('TOPLEFT', self)
+	health:SetHeight(21)
+
 	local healthValue = health:CreateFontString(nil, 'OVERLAY')
 	healthValue:SetPoint('RIGHT', health, -2, 0)
 	healthValue:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
 	healthValue:SetJustifyH('RIGHT')
+
+	local power = CreateFrame('StatusBar', nil, self)
+	power:SetPoint('BOTTOMRIGHT', self)
+	power:SetPoint('BOTTOMLEFT', self)
+	power:SetPoint('TOP', health, 'BOTTOM', 0, -1)
+	power:SetStatusBarTexture(config.TEXTURE)
+	power:SetHeight(4)
+
+	power.colorClass = true
+	power.colorTapping = true
+	power.colorDisconnected = true
+	power.colorReaction = not petUnit
+	power.colorHappiness = petUnit
+	power.colorPower = petUnit
+
+	local powerBG = power:CreateTexture(nil, 'BORDER')
+	powerBG:SetAllPoints(power)
+	powerBG:SetTexture([=[Interface\ChatFrame\ChatFrameBackground]=])
+	powerBG.multiplier = 1 / 3
+	power.bg = powerBG
+
+	self:SetAttribute('initial-height', 25)
 
 	if(slimUnit) then
 		local debuffs = CreateFrame('Frame', nil, self)
@@ -111,34 +137,10 @@ local function Style(self, unit)
 			debuffs['growth-x'] = 'LEFT'
 		end
 
-		health:SetAllPoints(self)
-
 		self.Debuffs = debuffs
-		self:SetAttribute('initial-height', 21)
 		self:SetAttribute('initial-width', 161)
 	else
-		local power = CreateFrame('StatusBar', nil, self)
-		power:SetPoint('BOTTOMRIGHT', self)
-		power:SetPoint('BOTTOMLEFT', self)
-		power:SetPoint('TOP', health, 'BOTTOM', 0, -1)
-		power:SetStatusBarTexture(config.TEXTURE)
-		power:SetHeight(4)
-
-		power.colorClass = true
-		power.colorTapping = true
-		power.colorDisconnected = true
-		power.colorReaction = not petUnit
-		power.colorHappiness = petUnit
-		power.colorPower = petUnit
-
-		local powerBG = power:CreateTexture(nil, 'BORDER')
-		powerBG:SetAllPoints(power)
-		powerBG:SetTexture([=[Interface\ChatFrame\ChatFrameBackground]=])
-		powerBG.multiplier = 1/3
-		power.bg = powerBG
-
 		local castbar = CreateFrame('StatusBar', nil, self)
-		castbar:SetWidth(petUnit and 105 or 205)
 		castbar:SetHeight(16)
 		castbar:SetStatusBarTexture(config.TEXTURE)
 		castbar:SetStatusBarColor(1/4, 1/4, 2/5)
@@ -190,19 +192,14 @@ local function Style(self, unit)
 		raidicon:SetHeight(16)
 		raidicon:SetWidth(16)
 
-		health:SetPoint('TOPRIGHT', self)
-		health:SetPoint('TOPLEFT', self)
-		health:SetHeight(21)
-
-		self.Power = power
 		self.Castbar = castbar
 		self.RaidIcon = raidicon
 
 		self.menu = SpawnMenu
 		self:SetAttribute('type2', 'menu')
-		self:SetAttribute('initial-height', 25)
 	end
 
+	self.Power = power
 	self.Health = health
 	self:Tag(healthValue, '[ep:health]')
 
