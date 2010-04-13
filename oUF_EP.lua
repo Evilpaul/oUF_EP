@@ -120,10 +120,10 @@ local function Style(self, unit)
 
 	if(slimUnit) then
 		local debuffs = CreateFrame('Frame', nil, self)
-		debuffs:SetHeight(21)
-		debuffs:SetWidth(72)
+		debuffs:SetHeight(25)
+		debuffs:SetWidth(85)
 		debuffs.num = 3
-		debuffs.size = 21
+		debuffs.size = 25
 		debuffs.spacing = config.SPACING
 		debuffs.PostCreateIcon = PostCreateAura
 
@@ -138,7 +138,7 @@ local function Style(self, unit)
 		end
 
 		self.Debuffs = debuffs
-		self:SetAttribute('initial-width', 161)
+		self:SetAttribute('initial-width', 140)
 	else
 		local castbar = CreateFrame('StatusBar', nil, self)
 		castbar:SetWidth(petUnit and 105 or 205)
