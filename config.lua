@@ -38,6 +38,7 @@ oUF_EPConfig = {
 	},
 
 	BUFFS = {
+		-- Class specific buffs
 		[52610] = playerClass == 'DRUID',	-- Druid: Savage Roar
 		[16870] = playerClass == 'DRUID',	-- Druid: Clearcast
 		[50213] = playerClass == 'DRUID',	-- Druid: Tiger's Fury
@@ -71,6 +72,8 @@ oUF_EPConfig = {
 		[18499] = playerClass == 'WARRIOR',	-- Warrior: Berserker Rage
 		[1719]  = playerClass == 'WARRIOR',	-- Warrior: Recklessness
 		[46916] = playerClass == 'WARRIOR',	-- Warrior: Slam
+
+		-- General buffs
 		[32182] = true, -- Buff: Heroism
 		[49016] = true, -- Buff: Hysteria
 		[47788] = true, -- Buff: Guardian Spirit
@@ -78,6 +81,26 @@ oUF_EPConfig = {
 		[33206] = true, -- Buff: Pain Suppression
 		[15359] = true, -- Buff: Inspiration
 		[16240] = true, -- Buff: Ancestral Healing
+
+		-- Trinket procs
+		[67669] = true, -- Abyssal Rune
+		[67684] = true, -- Talisman of Resurgance
+		[71568] = true, -- Ephemeral Snowflake
+		[60525] = true, -- Majestic Dragon Figurine
+		[71564] = true, -- Nevermelting Ice Crystal
+		[67671] = true, -- Banner of Victory
+		[60065] = true, -- Mirror of Truth / Coren's Chromium Coaster
+		[71586] = true, -- Corroded Skeleton Key
+		[67694] = true, -- Glyph of Indomitability
+		[67699] = true, -- Satrina's Impeding Scarab (normal)
+		[71403] = true, -- Needle-Encrusted Scorpion
+		[60233] = true, -- Darkmoon Card: Greatness (Agility)
+
+		-- Relic
+		[71175] = true, -- Idol of the Crying Moon
+
+		-- Trade skill buffs
+		[55637] = true, -- Lightweave Embroidery
 	},
 
 	SPACING = 4,
