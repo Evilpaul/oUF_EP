@@ -9,7 +9,12 @@ oUF_EPConfig = {
 
 	BACKDROP = {
 		bgFile = [=[Interface\ChatFrame\ChatFrameBackground]=],
-		insets = {top = -1, bottom = -1, left = -1, right = -1}
+		insets = {
+			top = -1 * (768 / 1080),
+			bottom = -1 * (768 / 1080),
+			left = -1 * (768 / 1080),
+			right = -1 * (768 / 1080)
+		}
 	},
 
 	COLORS = setmetatable({
