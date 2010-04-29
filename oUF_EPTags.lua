@@ -74,10 +74,7 @@ for name, func in pairs({
 		end
 	end,
 	['smallhealth'] = function(unit)
-		local min, max = UnitHealth(unit), UnitHealthMax(unit)
-		local perHP = min / max * 100
-		
-		return oUF.Tags['status'](unit) or format('%d%%', perHP)
+		return oUF.Tags['status'](unit) or oUF.Tags['perhp'](unit)
 	end,
 	['power'] = function(unit)
 		local power = UnitPower(unit)
