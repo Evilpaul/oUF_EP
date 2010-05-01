@@ -74,6 +74,8 @@ local function Style(self, unit)
 		self.outsideRangeAlpha = 0.65
 	end
 
+	self.disallowVehicleSwap = true
+
 	self:SetAttribute('initial-height', 25)	-- the frames' height
 	self:SetAttribute('initial-width', 100)	-- the frames' width
 end
