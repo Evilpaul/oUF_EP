@@ -244,11 +244,13 @@ local function Style(self, unit)
 			debuffs.PostCreateIcon = PostCreateAura
 			debuffs.PostUpdateIcon = PostUpdateDebuff
 
-			local cpoints = self:CreateFontString(nil, 'OVERLAY')
-			cpoints:SetPoint('RIGHT', self, 'LEFT', -config.SPACING, 0)
-			cpoints:SetFont(config.FONT, 20, config.FONTBORDER)
-			cpoints:SetTextColor(1, 1, 1)
-			cpoints:SetJustifyH('RIGHT')
+			local cpoints = {}
+			for i = 1, MAX_COMBO_POINTS do
+				cpoints[i] = self:CreateTexture(nil, 'ARTWORK')
+				cpoints[i]:SetSize(8, 8)
+				cpoints[i]:SetTexture(1, i == 5 and 0 or 1, i == 5 and 0 or 1, 1)
+				cpoints[i]:SetPoint('RIGHT', i == 1 and self or cpoints[i - 1], 'LEFT', -config.SPACING, 0)
+			end
 
 			self.Debuffs = debuffs
 			self.CPoints = cpoints
