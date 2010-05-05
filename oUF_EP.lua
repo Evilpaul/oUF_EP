@@ -120,8 +120,7 @@ local function Style(self, unit)
 
 	if(slimUnit) then
 		local debuffs = CreateFrame('Frame', nil, self)
-		debuffs:SetHeight(25)
-		debuffs:SetWidth(85)
+		debuffs:SetSize(85, 25)
 		debuffs.num = 3
 		debuffs.size = 25
 		debuffs.spacing = config.SPACING
@@ -141,8 +140,7 @@ local function Style(self, unit)
 		self:SetAttribute('initial-width', 140)
 	else
 		local castbar = CreateFrame('StatusBar', nil, self)
-		castbar:SetWidth(petUnit and 105 or 205)
-		castbar:SetHeight(16)
+		castbar:SetSize(petUnit and 105 or 205, 16)
 		castbar:SetStatusBarTexture(config.TEXTURE)
 		castbar:SetStatusBarColor(1/4, 1/4, 2/5)
 		castbar:SetBackdrop(config.BACKDROP)
@@ -167,8 +165,7 @@ local function Style(self, unit)
 		castbar.Text = castbarText
 
 		local castbarDummy = CreateFrame('Frame', nil, castbar)
-		castbarDummy:SetHeight(21)
-		castbarDummy:SetWidth(21)
+		castbarDummy:SetSize(21, 21)
 		castbarDummy:SetBackdrop(config.BACKDROP)
 		castbarDummy:SetBackdropColor(0, 0, 0)
 
@@ -190,8 +187,7 @@ local function Style(self, unit)
 
 		local raidicon = health:CreateTexture(nil, 'OVERLAY')
 		raidicon:SetPoint('TOP', self, 0, 8)
-		raidicon:SetHeight(16)
-		raidicon:SetWidth(16)
+		raidicon:SetSize(16, 16)
 
 		self.Castbar = castbar
 		self.RaidIcon = raidicon
@@ -222,8 +218,6 @@ local function Style(self, unit)
 	if(unit == 'player' or unit == 'target') then
 		local buffs = CreateFrame('Frame', nil, self)
 		buffs:SetPoint('BOTTOMLEFT', self, 'BOTTOMRIGHT', config.SPACING, 0)
-		buffs:SetHeight(54)
-		buffs:SetWidth(236)
 		buffs.num = 20
 		buffs.size = 25
 		buffs.spacing = config.SPACING
@@ -232,10 +226,11 @@ local function Style(self, unit)
 		buffs.PostCreateIcon = PostCreateAura
 
 		if(unit == 'target') then
+			buffs:SetSize(236, 54)
+
 			local debuffs = CreateFrame('Frame', nil, self)
 			debuffs:SetPoint('TOPLEFT', self, 'BOTTOMRIGHT', config.SPACING, -config.SPACING)
-			debuffs:SetHeight(25)
-			debuffs:SetWidth(230)
+			debuffs:SetSize(230, 25)
 			debuffs.num = 20
 			debuffs.size = 25
 			debuffs.spacing = config.SPACING
@@ -256,29 +251,26 @@ local function Style(self, unit)
 			self.CPoints = cpoints
 			self.Power.PostUpdate = PostUpdatePower
 		else
+			buffs:SetSize(145, 54)
 			buffs.CustomFilter = CustomBuffFilter
 			
 			local pvpFlag = self.Health:CreateTexture(nil, 'OVERLAY', 0, 8)
 			pvpFlag:SetPoint('TOPRIGHT', self, 'TOPRIGHT', 16, 12)
-			pvpFlag:SetHeight(32)
-			pvpFlag:SetWidth(32)
+			pvpFlag:SetSize(32, 32)
 			self.PvP = pvpFlag
 		end
 
 		local leader = health:CreateTexture(nil, 'OVERLAY')
 		leader:SetPoint('TOPLEFT', self, 0, 8)
-		leader:SetHeight(16)
-		leader:SetWidth(16)
+		leader:SetSize(16, 16)
 
 		local assistant = health:CreateTexture(nil, 'OVERLAY')
 		assistant:SetPoint('TOPLEFT', self, 0, 8)
-		assistant:SetHeight(16)
-		assistant:SetWidth(16)
+		assistant:SetSize(16, 16)
 
 		local lfdRole = health:CreateTexture(nil, 'OVERLAY')
 		lfdRole:SetPoint('TOPLEFT', self, 20, 8)
-		lfdRole:SetHeight(16)
-		lfdRole:SetWidth(16)
+		lfdRole:SetSize(16, 16)
 
 		self.Leader = leader
 		self.Assistant = assistant
@@ -291,8 +283,7 @@ local function Style(self, unit)
 	if(petUnit) then
 		local auras = CreateFrame('Frame', nil, self)
 		auras:SetPoint('TOPRIGHT', self, 'TOPLEFT', -config.SPACING, 0)
-		auras:SetHeight(44)
-		auras:SetWidth(256)
+		auras:SetSize(256, 44)
 		auras.size = 22
 		auras.spacing = config.SPACING
 		auras.initialAnchor = 'TOPRIGHT'

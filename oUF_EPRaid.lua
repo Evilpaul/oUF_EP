@@ -50,15 +50,13 @@ local function Style(self, unit)
 	-- ReadyCheck
 	local readycheck = health:CreateTexture(nil, 'OVERLAY')
 	readycheck:SetPoint('CENTER', self, 'CENTER', 0, 0)
-	readycheck:SetHeight(16)
-	readycheck:SetWidth(16)
+	readycheck:SetSize(16, 16)
 	self.ReadyCheck = readycheck
 
 	-- add corner indicator for threat status
 	local threat = health:CreateTexture(nil, 'OVERLAY')
 	threat:SetPoint('TOPLEFT', health, 'TOPLEFT', 0, 0)
-	threat:SetHeight(5)
-	threat:SetWidth(5)
+	threat:SetSize(5, 5)
 	threat:SetTexture([[Interface\Minimap\ObjectIcons]])
 	threat:SetTexCoord(6/8, 7/8, 1/2, 1)
 
@@ -68,8 +66,7 @@ local function Style(self, unit)
 
 	-- add center icon for player removable debuff
 	local debuffIcon = health:CreateTexture(nil, 'OVERLAY')
-	debuffIcon:SetWidth(16)
-	debuffIcon:SetHeight(16)
+	debuffIcon:SetSize(16, 16)
 	debuffIcon:SetPoint('CENTER', self, 'CENTER', 0, 0)
 	self.EPDebuffIconFilter = true
 

@@ -38,8 +38,7 @@ local function Style(self, unit)
 
 	local raidIcon = health:CreateTexture(nil, 'OVERLAY')
 	raidIcon:SetPoint('CENTER', self, 'TOP', 1, 0)
-	raidIcon:SetHeight(16)
-	raidIcon:SetWidth(16)
+	raidIcon:SetSize(16, 16)
 
 	self.Health = health
 	self.RaidIcon = raidIcon
