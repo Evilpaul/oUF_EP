@@ -72,6 +72,8 @@ end
 local function PostCreateAura(element, button)
 	button:SetBackdrop(config.BACKDROP)
 	button:SetBackdropColor(0, 0, 0)
+	
+	button.count:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
 
 	button.cd:SetReverse()
 
