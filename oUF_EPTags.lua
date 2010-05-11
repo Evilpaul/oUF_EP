@@ -107,7 +107,7 @@ for name, func in pairs({
 	['raidname'] = function(unit)
 		local r, g, b = 1, 1, 1
 		local unitName = UnitName(unit)
-		
+
 		if(not UnitIsConnected(unit)) then
 			r, g, b = 3/5, 3/5, 3/5
 			unitName = 'Offline'
@@ -124,7 +124,7 @@ for name, func in pairs({
 				unitName = format("-%s", shortVal(max - min))
 			end
 		end
-		
+
 		return ('%s%s|r'):format(Hex(r, g, b), utf8sub(unitName, 4))
 	end,
 }) do

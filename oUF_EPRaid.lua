@@ -36,17 +36,18 @@ local function Style(self, unit)
 	health:SetPoint('TOPRIGHT', self)
 	health:SetPoint('TOPLEFT', self)
 	health:SetStatusBarTexture(config.TEXTURE)
-	health:SetStatusBarColor(0.25, 0.25, 0.35)
+	health:SetStatusBarColor(1 / 4, 1 / 4, 2 / 5)
 	health:SetHeight(21)
 
 	local healthBG = health:CreateTexture(nil, 'BORDER')
 	healthBG:SetAllPoints(health)
-	healthBG:SetTexture(0.3, 0.3, 0.3)
+	healthBG:SetTexture(1 / 3, 1 / 3, 1 / 3)
 	health.bg = healthBG
 
 	local info = health:CreateFontString(nil, 'OVERLAY')
 	info:SetPoint('TOP', health,'TOP', 0, -3)
 	info:SetFont(config.FONT, 10, config.FONTBORDER)
+	self:Tag(info, '[ep:raidname]')
 
 	-- ReadyCheck
 	local readycheck = health:CreateTexture(nil, 'OVERLAY')
@@ -59,7 +60,7 @@ local function Style(self, unit)
 	threat:SetPoint('TOPLEFT', health, 'TOPLEFT', 0, 0)
 	threat:SetSize(5, 5)
 	threat:SetTexture([[Interface\Minimap\ObjectIcons]])
-	threat:SetTexCoord(6/8, 7/8, 1/2, 1)
+	threat:SetTexCoord(6 / 8, 7 / 8, 1 / 2, 1)
 
 	-- add border colouring for any debuff
 	self.EPDebuffBackdrop = true
@@ -89,7 +90,6 @@ local function Style(self, unit)
 	self.EPDebuffIcon = debuffIcon
 	self.HealCommBar = healcommbar
 	self.HealCommText = healcommtext
-	self:Tag(info, '[ep:raidname]')
 
 	local power = CreateFrame('StatusBar', nil, self)
 	power:SetPoint('BOTTOMRIGHT', self)
@@ -101,8 +101,7 @@ local function Style(self, unit)
 
 	local powerBG = power:CreateTexture(nil, 'BORDER')
 	powerBG:SetAllPoints(power)
-	powerBG:SetTexture([=[Interface\ChatFrame\ChatFrameBackground]=])
-	powerBG.multiplier = 0.3
+	powerBG:SetTexture(1 / 3, 1 / 3, 1 / 3)
 	power.bg = powerBG
 
 	power.colorTapping = true
