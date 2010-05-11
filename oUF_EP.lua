@@ -279,14 +279,14 @@ local function addTags(self, showPower, showHealComm, showCombo)
 	healthValue:SetJustifyH('RIGHT')
 	self:Tag(healthValue, '[ep:health]')
 
-	local powerName = self.Health:CreateFontString(nil, 'OVERLAY')
-	powerName:SetPoint('LEFT', self.Health, 2, 0)
-	powerName:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
-	powerName:SetJustifyH('LEFT')
+	local info = self.Health:CreateFontString(nil, 'OVERLAY')
+	info:SetPoint('LEFT', self.Health, 2, 0)
+	info:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
+	info:SetJustifyH('LEFT')
 	if showPower then
-		self:Tag(powerName, '[ep:power< ][ep:druid]')
+		self:Tag(info, '[ep:power< ][ep:druid]')
 	else
-		self:Tag(powerName, '[ep:name][|cff0090ff >rare<|r]')
+		self:Tag(info, '[ep:name][|cff0090ff >rare<|r]')
 	end
 
 	if showHealComm then
