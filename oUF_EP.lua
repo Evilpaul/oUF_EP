@@ -68,12 +68,24 @@ do
 	end
 end
 
+local function UpdateTooltip(self)
+	GameTooltip:SetUnitAura(self.parent:GetParent().unit, self:GetID(), self.filter)
+
+	if(self.owner and UnitExists(self.owner)) then
+		GameTooltip:AddLine(format('Cast by %s', UnitName(self.owner) or UNKNOWN))
+	end
+
+	GameTooltip:Show()
+end
+
 -- Generic PostCreateAura function
 local function PostCreateAura(element, button)
 	button:SetBackdrop(config.BACKDROP)
 	button:SetBackdropColor(0, 0, 0)
 	
 	button.count:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
+	
+	button.UpdateTooltip = UpdateTooltip
 
 	button.cd:SetReverse()
 
