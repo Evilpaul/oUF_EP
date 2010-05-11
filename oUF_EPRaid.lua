@@ -1,7 +1,8 @@
+local _, ns = ...
+local config = ns.oUF_EP_Config
+
 local format = string.format
 local mmax = math.max
-
-local config = oUF_EPConfig
 
 local function shortVal(value)
 

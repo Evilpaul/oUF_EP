@@ -1,6 +1,7 @@
 -- Big thanks to P3lim, a lot of this code is shamelessly ripped off from his work
+local _, ns = ...
+local config = ns.oUF_EP_Config
 
-local config = oUF_EPConfig
 
 local function SpawnMenu(self)
 	ToggleDropDownMenu(1, nil, _G[string.gsub(self.unit, '^.', string.upper) .. 'FrameDropDown'], 'cursor')

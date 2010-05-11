@@ -1,4 +1,5 @@
-local config = oUF_EPConfig
+local _, ns = ...
+local config = ns.oUF_EP_Config
 
 local function PostUpdatePower(element, unit, min, max)
 	element:GetParent().Health:SetHeight(max ~= 0 and 21 or 25)
