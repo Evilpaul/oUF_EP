@@ -291,12 +291,15 @@ local function addTags(self, showPower, showHealComm, showCombo)
 
 	if showHealComm then
 		local healcommtext = self.Health:CreateFontString(nil, 'OVERLAY')
-		healcommtext:SetPoint('LEFT', powerName, 2, 0)
-		healcommtext:SetPoint('RIGHT', healthValue, 'LEFT', -5, 0)
+		healcommtext:SetPoint('RIGHT', healthValue, 'LEFT', -config.SPACING, 0)
 		healcommtext:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
 		healcommtext:SetTextColor(0, 1, 0)
 		healcommtext:SetJustifyH('RIGHT')
 		self.HealCommText = healcommtext
+		
+		info:SetPoint('RIGHT', healcommtext, 'LEFT', -config.SPACING, 0)
+	else
+		info:SetPoint('RIGHT', healthValue, 'LEFT', -config.SPACING, 0)
 	end
 
 	if showCombo then
