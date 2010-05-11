@@ -381,7 +381,7 @@ local UnitSpecific = {
 
 	targettarget = function(self)
 		-- Targettarget specific layout code.
-		self:SetAttribute('initial-width', 140)
+		self:SetAttribute('initial-width', 144)
 		addHealthBar(self)
 		addPowerBar(self, true, false)
 		addDebuffs(self, 'TOPRIGHT', self, 'TOPLEFT', -config.SPACING, 0, 25, 85, 3, 25, 'LEFT', 'UP', false)
@@ -390,7 +390,7 @@ local UnitSpecific = {
 
 	focus = function(self)
 		-- Focus specific layout code.
-		self:SetAttribute('initial-width', 140)
+		self:SetAttribute('initial-width', 144)
 		addHealthBar(self)
 		addPowerBar(self, true, false)
 		addDebuffs(self, 'TOPLEFT', self, 'TOPRIGHT', config.SPACING, 0, 25, 85, 3, 25, 'RIGHT', 'UP', true)
