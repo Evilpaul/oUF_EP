@@ -1,7 +1,7 @@
 local _, playerClass = UnitClass('player')
 
+	FONT = [=[Interface\AddOns\oUF_EP\fonts\Sansation_Regular.ttf]=],
 oUF_EPConfig = {
-	FONT = [=[Fonts\ARIALN.ttf]=],
 	FONTSIZE = 12,
 	FONTBORDER = 'OUTLINE',
 
