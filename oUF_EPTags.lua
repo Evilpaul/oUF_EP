@@ -74,7 +74,7 @@ for name, func in pairs({
 		end
 	end,
 	['smallhealth'] = function(unit)
-		return oUF.Tags['status'](unit) or oUF.Tags['perhp'](unit) .. '%'
+		return oUF.Tags['status'](unit) or ('%s%%'):format(oUF.Tags['perhp'](unit))
 	end,
 	['power'] = function(unit)
 		local power = UnitPower(unit)
