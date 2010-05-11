@@ -71,9 +71,10 @@ local function Style(self, unit)
 
 	-- Range checking to tone down tanks that you cannot heal
 	if not(self:GetAttribute('unitsuffix') == 'target') then
-		self.Range = true
-		self.inRangeAlpha = 1.0
-		self.outsideRangeAlpha = 0.65
+		local range = {}
+		range.insideAlpha = 1.0
+		range.outsideAlpha = 0.65
+		self.Range = range
 	end
 
 	self.disallowVehicleSwap = true

@@ -116,9 +116,10 @@ local function Style(self, unit)
 	self.disallowVehicleSwap = true
 
 	-- Range checking
-	self.Range = true
-	self.inRangeAlpha = 1.0
-	self.outsideRangeAlpha = 0.5
+	local range = {}
+	range.insideAlpha = 1.0
+	range.outsideAlpha = 0.65
+	self.Range = range
 
 	self:SetAttribute('initial-height', 25)	-- the frames' height
 	self:SetAttribute('initial-width', 25)	-- the frames' width
