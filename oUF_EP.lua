@@ -307,6 +307,41 @@ local function addTags(self, showPower, showHealComm, showCombo)
 	end
 end
 
+-- Rune bar function
+local function addRuneBar(self)
+	local _, class = UnitClass('player')
+
+	if(class == 'DEATHKNIGHT') then
+		local runes = CreateFrame('Frame', nil, self)
+		runes:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -1)
+		runes:SetSize(230, 4)
+		runes:SetBackdrop(config.BACKDROP)
+		runes:SetBackdropColor(0, 0, 0)
+		runes.anchor = 'TOPLEFT'
+		runes.growth = 'RIGHT'
+		runes.height = 4
+		runes.spacing = 1
+		runes.width = (230 / 6) - 1
+		runes.order = { 1, 2, 3, 4, 5, 6 }
+
+		for i = 1, 6 do
+			local rune = CreateFrame('StatusBar', nil, self.Runes)
+			rune:SetStatusBarTexture(config.TEXTURE)
+			rune:SetBackdrop(config.BACKDROP)
+			rune:SetBackdropColor(0, 0, 0)
+
+			local runeBG = rune:CreateTexture(nil, 'BACKGROUND')
+			runeBG:SetAllPoints(rune)
+			runeBG:SetTexture(1 / 3, 1 / 3, 1 / 3)
+
+			rune.bg = runeBG
+			runes[i] = rune
+		end
+
+		self.Runes = runes
+	end
+end
+
 local UnitSpecific = {
 	player = function(self)
 		-- Player specific layout code.
@@ -330,6 +365,7 @@ local UnitSpecific = {
 		addBuffs(self, 'TOPRIGHT', Minimap, 'TOPLEFT', -config.SPACING, 0, 54, 344, 24, 25, 'LEFT', 'DOWN')
 		addDebuffs(self, 'BOTTOMRIGHT', Minimap, 'BOTTOMLEFT', -config.SPACING, 0, 54, 344, 24, 25, 'LEFT', 'DOWN', false)
 		addEPDebuff(self)
+		addRuneBar(self)
 	end,
 
 	target = function(self)
