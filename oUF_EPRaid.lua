@@ -1,5 +1,5 @@
 local _, ns = ...
-local config = ns.oUF_EP_Config
+local config = ns.config
 
 local format = string.format
 local mmax = math.max

@@ -1,6 +1,6 @@
 -- Big thanks to P3lim, a lot of this code is shamelessly ripped off from his work
 local _, ns = ...
-local config = ns.oUF_EP_Config
+local config = ns.config
 
 -- menu function
 local addMenu

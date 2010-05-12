@@ -27,9 +27,14 @@ local config = {
 			[4] = {1, 1, 0},
 			[5] = {0, 1, 0}
 		}, {__index = oUF.colors.reaction}),
+		runes = setmetatable({
+			[1] = {0.8, 0, 0},
+			[3] = {0, 0.4, 0.7},
+			[4] = {0.8, 0.8, 0.8}
+		}, {__index = oUF.colors.runes})
 	}, {__index = oUF.colors}),
 
 	SPACING = 4,
 }
 
-ns.oUF_EP_Config = config
+ns.config = config
