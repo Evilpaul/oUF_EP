@@ -29,20 +29,9 @@ local function utf8sub(string, i)
 			return string
 		end
 	end
-end	
-
-local function ShortenValue(value)
-	if(value >= 1e6) then
-		return ('%.2fm'):format(value / 1e6):gsub('%.?0+([km])$', '%1')
-	elseif(value >= 1e4) then
-		return ('%.1fk'):format(value / 1e3):gsub('%.?0+([km])$', '%1')
-	else
-		return value
-	end
 end
 
 local function shortVal(value)
-
 	local returnValue = ""
 
 	if (value > 1e6) then
@@ -64,11 +53,11 @@ for name, func in pairs({
 		if(status) then
 			return status
 		elseif(unit == 'target' and UnitCanAttack('player', unit)) then
-			return ('%s (%d|cff0090ff%%|r)'):format(ShortenValue(min), min / max * 100)
+			return ('%s (%d|cff0090ff%%|r)'):format(shortVal(min), min / max * 100)
 		elseif(unit == 'player' and min ~= max) then
 			return ('|cffff8080%d|r %d|cff0090ff%%|r'):format(min - max, min / max * 100)
 		elseif(min ~= max) then
-			return ('%s |cff0090ff/|r %s'):format(ShortenValue(min), ShortenValue(max))
+			return ('%s |cff0090ff/|r %s'):format(shortVal(min), shortVal(max))
 		else
 			return max
 		end
