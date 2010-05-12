@@ -66,6 +66,7 @@ do
 	end
 end
 
+-- Generic Aura Tooltip function
 local function UpdateTooltip(self)
 	GameTooltip:SetUnitAura(self.parent:GetParent().unit, self:GetID(), self.filter)
 
@@ -76,13 +77,13 @@ local function UpdateTooltip(self)
 	GameTooltip:Show()
 end
 
--- Generic PostCreateAura function
-local function PostCreateAura(element, button)
+-- Generic PostCreateIcon function
+local function PostCreateIcon(element, button)
 	button:SetBackdrop(config.BACKDROP)
 	button:SetBackdropColor(0, 0, 0)
-	
+
 	button.count:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
-	
+
 	button.UpdateTooltip = UpdateTooltip
 
 	button.cd:SetReverse()
@@ -102,7 +103,7 @@ local function addBuffs(self, point, relativeFrame, relativePoint, ofsx, ofsy, h
 	buffs.initialAnchor = point
 	buffs['growth-x'] = growthx
 	buffs['growth-y'] = growthy
-	buffs.PostCreateIcon = PostCreateAura
+	buffs.PostCreateIcon = PostCreateIcon
 
 	self.Buffs = buffs
 end
@@ -110,7 +111,7 @@ end
 -- debuffs function
 local addDebuffs
 do
-	local function PostUpdateDebuff(element, unit, button, index)
+	local function PostUpdateIcon(element, unit, button, index)
 		if(UnitIsUnit('player', unit) or UnitIsFriend('player', unit) or button.isPlayer) then
 			local _, _, _, _, type = UnitAura(unit, index, button.filter)
 			local colour = DebuffTypeColor[type] or DebuffTypeColor.none
@@ -134,27 +135,11 @@ do
 		debuffs['growth-x'] = growthx
 		debuffs['growth-y'] = growthy
 		debuffs.onlyShowPlayer = playerOnly
-		debuffs.PostCreateIcon = PostCreateAura
-		debuffs.PostUpdateIcon = PostUpdateAura
+		debuffs.PostCreateIcon = PostCreateIcon
+		debuffs.PostUpdateIcon = PostUpdateIcon
 
 		self.Debuffs = debuffs
 	end
-end
-
--- auras function
-local function addAuras(self, point, relativeFrame, relativePoint, ofsx, ofsy, height, width, num, size, growthx, growthy)
-	local auras = CreateFrame('Frame', nil, self)
-	auras:SetPoint(point, relativeFrame, relativePoint, ofsx, ofsy)
-	auras:SetSize(width, height)
-	auras.num = num
-	auras.size = size
-	auras.spacing = config.SPACING
-	auras.initialAnchor = point
-	auras['growth-x'] = growthx
-	auras['growth-y'] = growthy
-	auras.PostCreateIcon = PostCreateAura
-
-	self.Auras = auras
 end
 
 -- cast bar function
@@ -374,7 +359,7 @@ local UnitSpecific = {
 		addCastBar(self, false, true)
 		addRaidIcon(self)
 		addTags(self, true, true, false)
-		addAuras(self, 'TOPRIGHT', self, 'TOPLEFT', -config.SPACING, 0, 25, 85, 3, 25, 'LEFT', 'UP')
+		addDebuffs(self, 'TOPRIGHT', self, 'TOPLEFT', -config.SPACING, 0, 25, 85, 3, 25, 'LEFT', 'UP', false)
 	end,
 
 	targettarget = function(self)
