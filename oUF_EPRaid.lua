@@ -27,7 +27,7 @@ do
 		element:GetParent().Health:SetHeight(max ~= 0 and 21 or 25)
 	end
 
-	function addPowerBar(self, isPet)
+	function addPowerBar(self)
 		local power = CreateFrame('StatusBar', nil, self)
 		power:SetPoint('BOTTOMRIGHT', self, 'BOTTOMRIGHT', 0, 0)
 		power:SetPoint('BOTTOMLEFT', self, 'BOTTOMLEFT', 0, 0)
@@ -36,8 +36,8 @@ do
 		power:SetHeight(4)
 
 		power.colorDisconnected = true
-		power.colorPower = isPet
-		power.colorClass = not isPet
+		power.colorClass = true
+		power.colorReaction = true
 
 		power.PostUpdate = PostUpdatePower
 
@@ -153,7 +153,7 @@ local function Style(self, unit)
 	self:SetAttribute('initial-width', 25)
 
 	addHealthBar(self)
-	addPowerBar(self, self:GetAttribute('unitsuffix') == 'pet')
+	addPowerBar(self)
 	addEPDebuff(self)
 	addHealCommBars(self)
 	addTags(self)
