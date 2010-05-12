@@ -1,26 +1,143 @@
 local _, ns = ...
 local config = ns.config
 
-local format = string.format
 local mmax = math.max
 
-local function shortVal(value)
+-- health bar function
+local function addHealthBar(self)
+	local health = CreateFrame('StatusBar', nil, self)
+	health:SetPoint('TOPRIGHT', self, 'TOPRIGHT', 0, 0)
+	health:SetPoint('TOPLEFT', self, 'TOPLEFT', 0, 0)
+	health:SetStatusBarTexture(config.TEXTURE)
+	health:SetHeight(21)
+	health:SetStatusBarColor(1 / 4, 1 / 4, 2 / 5)
 
-	local returnValue = ""
+	local healthBG = health:CreateTexture(nil, 'BORDER')
+	healthBG:SetAllPoints(health)
+	healthBG:SetTexture(1 / 3, 1 / 3, 1 / 3)
+	health.bg = healthBG
 
-	if (value > 1e6) then
-		returnValue = format("%dm", value / 1e6)
-	elseif (value > 1e3) then
-		returnValue = format("%dk", value / 1e3)
-	else
-		returnValue = format("%d", value)
-	end
-
-	return returnValue
+	self.Health = health
 end
 
-local function PostUpdatePower(element, unit, min, max)
-	element:GetParent().Health:SetHeight(max ~= 0 and 21 or 25)
+-- power bar function
+local addPowerBar
+do
+	local function PostUpdatePower(element, unit, min, max)
+		element:GetParent().Health:SetHeight(max ~= 0 and 21 or 25)
+	end
+
+	function addPowerBar(self, isPet)
+		local power = CreateFrame('StatusBar', nil, self)
+		power:SetPoint('BOTTOMRIGHT', self, 'BOTTOMRIGHT', 0, 0)
+		power:SetPoint('BOTTOMLEFT', self, 'BOTTOMLEFT', 0, 0)
+		power:SetPoint('TOP', self.Health, 'BOTTOM', 0, -1)
+		power:SetStatusBarTexture(config.TEXTURE)
+		power:SetHeight(4)
+
+		power.colorDisconnected = true
+		power.colorPower = isPet
+		power.colorClass = not isPet
+
+		power.PostUpdate = PostUpdatePower
+
+		local powerBG = power:CreateTexture(nil, 'BORDER')
+		powerBG:SetAllPoints(power)
+		powerBG:SetTexture(1 / 3, 1 / 3, 1 / 3)
+		power.bg = powerBG
+
+		self.Power = power
+	end
+end
+
+-- EP debuff function
+local function addEPDebuff(self)
+	self.EPDebuffBackdrop = true
+	self.EPDebuffBackdropFilter = false
+
+	-- add center icon for player removable debuff
+	local debuffIcon = self.Health:CreateTexture(nil, 'OVERLAY')
+	debuffIcon:SetSize(16, 16)
+	debuffIcon:SetPoint('CENTER', self, 'CENTER', 0, 0)
+	self.EPDebuffIconFilter = true
+
+	self.EPDebuffIcon = debuffIcon
+end
+
+-- Healcomm bar function
+local function addHealCommBars(self)
+	local healcommbar = CreateFrame('StatusBar', nil, self.Health)
+	healcommbar:SetStatusBarTexture(config.TEXTURE)
+	healcommbar:SetStatusBarColor(0, 1, 0, 0.25)
+	healcommbar:SetPoint('LEFT', self.Health, 'LEFT', 0, 0)
+	self.allowHealCommOverflow = false
+
+	self.HealCommBar = healcommbar
+end
+
+-- Tag function
+local addTags
+do
+	local format = string.format
+
+	local function shortVal(value)
+		local returnValue = ""
+
+		if (value > 1e6) then
+			returnValue = format("%dm", value / 1e6)
+		elseif (value > 1e3) then
+			returnValue = format("%dk", value / 1e3)
+		else
+			returnValue = format("%d", value)
+		end
+
+		return returnValue
+	end
+
+	function addTags(self)
+		local info = self.Health:CreateFontString(nil, 'OVERLAY')
+		info:SetPoint('TOP', self.Health, 'TOP', 0, -3)
+		info:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
+		self:Tag(info, '[ep:raidname]')
+
+		local healcommtext = self.Health:CreateFontString(nil, 'OVERLAY')
+		healcommtext:SetPoint('TOP', info, 'BOTTOM', 0, 0)
+		healcommtext:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
+		healcommtext:SetTextColor(0, 1, 0)
+
+		self.HealCommTextFormat = shortVal
+
+		self.HealCommText = healcommtext
+	end
+end
+
+-- Range function
+local function addRange(self)
+	local range = {
+		insideAlpha = 1.0,
+		outsideAlpha = 0.65
+	}
+	self.Range = range
+end
+
+-- Ready Check function
+local function addReadyCheck(self)
+	local readycheck = self.Health:CreateTexture(nil, 'OVERLAY')
+	readycheck:SetPoint('CENTER', self, 'CENTER', 0, 0)
+	readycheck:SetSize(16, 16)
+
+	self.ReadyCheck = readycheck
+end
+
+-- Threat function
+local function addThreat(self)
+	local threat = self.Health:CreateTexture(nil, 'OVERLAY')
+	threat:SetPoint('TOPLEFT', self.Health, 'TOPLEFT', 0, 0)
+	threat:SetSize(5, 5)
+	threat:SetTexture([[Interface\Minimap\ObjectIcons]])
+	threat:SetTexCoord(6 / 8, 7 / 8, 1 / 2, 1)
+
+	self.Threat = threat
 end
 
 local function Style(self, unit)
@@ -32,97 +149,19 @@ local function Style(self, unit)
 	self:SetBackdrop(config.BACKDROP)
 	self:SetBackdropColor(0, 0, 0)
 
-	local health = CreateFrame('StatusBar', nil, self)
-	health:SetPoint('TOPRIGHT', self)
-	health:SetPoint('TOPLEFT', self)
-	health:SetStatusBarTexture(config.TEXTURE)
-	health:SetStatusBarColor(1 / 4, 1 / 4, 2 / 5)
-	health:SetHeight(21)
+	self:SetAttribute('initial-height', 25)
+	self:SetAttribute('initial-width', 25)
 
-	local healthBG = health:CreateTexture(nil, 'BORDER')
-	healthBG:SetAllPoints(health)
-	healthBG:SetTexture(1 / 3, 1 / 3, 1 / 3)
-	health.bg = healthBG
-
-	local info = health:CreateFontString(nil, 'OVERLAY')
-	info:SetPoint('TOP', health,'TOP', 0, -3)
-	info:SetFont(config.FONT, 10, config.FONTBORDER)
-	self:Tag(info, '[ep:raidname]')
-
-	-- ReadyCheck
-	local readycheck = health:CreateTexture(nil, 'OVERLAY')
-	readycheck:SetPoint('CENTER', self, 'CENTER', 0, 0)
-	readycheck:SetSize(16, 16)
-	self.ReadyCheck = readycheck
-
-	-- add corner indicator for threat status
-	local threat = health:CreateTexture(nil, 'OVERLAY')
-	threat:SetPoint('TOPLEFT', health, 'TOPLEFT', 0, 0)
-	threat:SetSize(5, 5)
-	threat:SetTexture([[Interface\Minimap\ObjectIcons]])
-	threat:SetTexCoord(6 / 8, 7 / 8, 1 / 2, 1)
-
-	-- add border colouring for any debuff
-	self.EPDebuffBackdrop = true
-	self.EPDebuffBackdropFilter = false
-
-	-- add center icon for player removable debuff
-	local debuffIcon = health:CreateTexture(nil, 'OVERLAY')
-	debuffIcon:SetSize(16, 16)
-	debuffIcon:SetPoint('CENTER', self, 'CENTER', 0, 0)
-	self.EPDebuffIconFilter = true
-
-	local healcommbar = CreateFrame('StatusBar', nil, health)
-	healcommbar:SetStatusBarTexture(config.TEXTURE)
-	healcommbar:SetStatusBarColor(0, 1, 0, 0.25)
-	healcommbar:SetPoint('LEFT', health, 'LEFT')
-
-	self.allowHealCommOverflow = false
-
-	local healcommtext = health:CreateFontString(nil, 'OVERLAY')
-	healcommtext:SetTextColor(0, 1, 0)
-	healcommtext:SetPoint('TOP', info, 'BOTTOM', 0, 0)
-	healcommtext:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
-	self.HealCommTextFormat = shortVal
-
-	self.Health = health
-	self.Threat = threat
-	self.EPDebuffIcon = debuffIcon
-	self.HealCommBar = healcommbar
-	self.HealCommText = healcommtext
-
-	local power = CreateFrame('StatusBar', nil, self)
-	power:SetPoint('BOTTOMRIGHT', self)
-	power:SetPoint('BOTTOMLEFT', self)
-	power:SetPoint('TOP', health, 'BOTTOM', 0, -1)
-	power:SetStatusBarTexture(config.TEXTURE)
-	power:SetHeight(4)
-	power.PostUpdate = PostUpdatePower
-
-	local powerBG = power:CreateTexture(nil, 'BORDER')
-	powerBG:SetAllPoints(power)
-	powerBG:SetTexture(1 / 3, 1 / 3, 1 / 3)
-	power.bg = powerBG
-
-	power.colorTapping = true
-	power.colorDisconnected = true
-	power.colorHappiness = self:GetAttribute('unitsuffix') == 'pet'
-	power.colorPower = self:GetAttribute('unitsuffix') == 'pet'
-	power.colorClass = true
-	power.colorReaction = self:GetAttribute('unitsuffix') ~= 'pet'
-
-	self.Power = power
+	addHealthBar(self)
+	addPowerBar(self, self:GetAttribute('unitsuffix') == 'pet')
+	addEPDebuff(self)
+	addHealCommBars(self)
+	addTags(self)
+	addRange(self)
+	addReadyCheck(self)
+	addThreat(self)
 
 	self.disallowVehicleSwap = true
-
-	-- Range checking
-	local range = {}
-	range.insideAlpha = 1.0
-	range.outsideAlpha = 0.65
-	self.Range = range
-
-	self:SetAttribute('initial-height', 25)	-- the frames' height
-	self:SetAttribute('initial-width', 25)	-- the frames' width
 end
 
 oUF:RegisterStyle('oUF_EPRaid', Style)

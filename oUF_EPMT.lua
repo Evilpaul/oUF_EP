@@ -1,8 +1,86 @@
 local _, ns = ...
 local config = ns.config
 
-local function PostUpdatePower(element, unit, min, max)
-	element:GetParent().Health:SetHeight(max ~= 0 and 21 or 25)
+-- health bar function
+local function addHealthBar(self)
+	local health = CreateFrame('StatusBar', nil, self)
+	health:SetPoint('TOPRIGHT', self, 'TOPRIGHT', 0, 0)
+	health:SetPoint('TOPLEFT', self, 'TOPLEFT', 0, 0)
+	health:SetStatusBarTexture(config.TEXTURE)
+	health:SetHeight(21)
+	health:SetStatusBarColor(1 / 4, 1 / 4, 2 / 5)
+
+	local healthBG = health:CreateTexture(nil, 'BORDER')
+	healthBG:SetAllPoints(health)
+	healthBG:SetTexture(1 / 3, 1 / 3, 1 / 3)
+	health.bg = healthBG
+
+	self.Health = health
+end
+
+-- power bar function
+local addPowerBar
+do
+	local function PostUpdatePower(element, unit, min, max)
+		element:GetParent().Health:SetHeight(max ~= 0 and 21 or 25)
+	end
+
+	function addPowerBar(self, isTarget)
+		local power = CreateFrame('StatusBar', nil, self)
+		power:SetPoint('BOTTOMRIGHT', self, 'BOTTOMRIGHT', 0, 0)
+		power:SetPoint('BOTTOMLEFT', self, 'BOTTOMLEFT', 0, 0)
+		power:SetPoint('TOP', self.Health, 'BOTTOM', 0, -1)
+		power:SetStatusBarTexture(config.TEXTURE)
+		power:SetHeight(4)
+
+		power.colorTapping = isTarget
+		power.colorDisconnected = true
+		power.colorClass = true
+		power.colorReaction = isTarget
+
+		power.PostUpdate = isTarget and PostUpdatePower or nil
+
+		local powerBG = power:CreateTexture(nil, 'BORDER')
+		powerBG:SetAllPoints(power)
+		powerBG:SetTexture(1 / 3, 1 / 3, 1 / 3)
+		power.bg = powerBG
+
+		self.Power = power
+	end
+end
+
+-- raid icon function
+local function addRaidIcon(self)
+	local raidicon = self.Health:CreateTexture(nil, 'OVERLAY')
+	raidicon:SetPoint('TOP', self, 'TOP', 0, 8)
+	raidicon:SetSize(16, 16)
+
+	self.RaidIcon = raidicon
+end
+
+-- Tag function
+local function addTags(self)
+	local healthValue = self.Health:CreateFontString(nil, 'OVERLAY')
+	healthValue:SetPoint('RIGHT', self.Health, 'RIGHT', -2, 0)
+	healthValue:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
+	healthValue:SetJustifyH('RIGHT')
+	self:Tag(healthValue, '[ep:smallhealth]')
+
+	local name = self.Health:CreateFontString(nil, 'OVERLAY')
+	name:SetPoint('LEFT', self.Health, 'LEFT', 2, 0)
+	name:SetPoint('RIGHT', healthValue, 'LEFT', -config.SPACING, 0)
+	name:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
+	name:SetJustifyH('LEFT')
+	self:Tag(name, '[ep:name]')
+end
+
+-- Range function
+local function addRange(self)
+	local range = {
+		insideAlpha = 1.0,
+		outsideAlpha = 0.65
+	}
+	self.Range = range
 end
 
 local function Style(self, unit)
@@ -17,64 +95,14 @@ local function Style(self, unit)
 	self:SetAttribute('initial-height', 25)
 	self:SetAttribute('initial-width', 100)
 
-	local health = CreateFrame('StatusBar', nil, self)
-	health:SetPoint('TOPRIGHT', self)
-	health:SetPoint('TOPLEFT', self)
-	health:SetStatusBarTexture(config.TEXTURE)
-	health:SetStatusBarColor(1 / 4, 1 / 4, 2 / 5)
-	health:SetHeight(21)
-
-	local healthBG = health:CreateTexture(nil, 'BORDER')
-	healthBG:SetAllPoints(health)
-	healthBG:SetTexture(1 / 3, 1 / 3, 1 / 3)
-	health.bg = healthBG
-
-	local healthValue = health:CreateFontString(nil, 'OVERLAY')
-	healthValue:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
-	healthValue:SetPoint('RIGHT', health, -2, -1)
-	healthValue:SetJustifyH('RIGHT')
-	self:Tag(healthValue, '[ep:smallhealth]')
-
-	local name = health:CreateFontString(nil, 'OVERLAY')
-	name:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
-	name:SetPoint('LEFT', health, 2, -1)
-	name:SetPoint('RIGHT', healthValue, 'LEFT')
-	name:SetJustifyH('LEFT')
-	self:Tag(name, '[ep:name]')
-
-	local power = CreateFrame('StatusBar', nil, self)
-	power:SetPoint('BOTTOMRIGHT', self)
-	power:SetPoint('BOTTOMLEFT', self)
-	power:SetPoint('TOP', health, 'BOTTOM', 0, -1)
-	power:SetStatusBarTexture(config.TEXTURE)
-	power:SetHeight(4)
-	power.PostUpdate = self:GetAttribute('unitsuffix') == 'target' and PostUpdatePower
-
-	local powerBG = power:CreateTexture(nil, 'BORDER')
-	powerBG:SetAllPoints(power)
-	powerBG:SetTexture(1 / 3, 1 / 3, 1 / 3)
-	power.bg = powerBG
-
-	power.colorTapping = self:GetAttribute('unitsuffix') == 'target'
-	power.colorDisconnected = true
-	power.colorClass = true
-	power.colorReaction = self:GetAttribute('unitsuffix') == 'target'
-
-	self.Health = health
-	self.Power = power
-
-	local raidIcon = health:CreateTexture(nil, 'OVERLAY')
-	raidIcon:SetPoint('CENTER', self, 'TOP', 1, 0)
-	raidIcon:SetSize(16, 16)
-
-	self.RaidIcon = raidIcon
+	addHealthBar(self)
+	addPowerBar(self, self:GetAttribute('unitsuffix') == 'target')
+	addRaidIcon(self)
+	addTags(self)
 
 	-- Range checking to tone down tanks that you cannot heal
 	if not(self:GetAttribute('unitsuffix') == 'target') then
-		local range = {}
-		range.insideAlpha = 1.0
-		range.outsideAlpha = 0.65
-		self.Range = range
+		addRange(self)
 	end
 
 	self.disallowVehicleSwap = true
