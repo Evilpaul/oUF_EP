@@ -47,12 +47,11 @@ do
 		power:SetStatusBarTexture(config.TEXTURE)
 		power:SetHeight(4)
 
-		power.colorClass = true
 		power.colorTapping = true
 		power.colorDisconnected = true
-		power.colorReaction = not isPet
-		power.colorHappiness = isPet
 		power.colorPower = isPet
+		power.colorClass = not isPet
+		power.colorReaction = not isPet
 
 		if(postUpdate) then
 			power.PostUpdate = PostUpdatePower
