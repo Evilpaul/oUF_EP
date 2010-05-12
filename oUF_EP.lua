@@ -18,6 +18,8 @@ end
 -- health bar function
 local function addHealthBar(self)
 	local health = CreateFrame('StatusBar', nil, self)
+	health:SetPoint('TOPRIGHT', self, 'TOPRIGHT', 0, 0)
+	health:SetPoint('TOPLEFT', self, 'TOPLEFT', 0, 0)
 	health:SetStatusBarTexture(config.TEXTURE)
 	health:SetHeight(21)
 	health:SetStatusBarColor(1 / 4, 1 / 4, 2 / 5)
@@ -26,9 +28,6 @@ local function addHealthBar(self)
 	healthBG:SetAllPoints(health)
 	healthBG:SetTexture(1 / 3, 1 / 3, 1 / 3)
 	health.bg = healthBG
-
-	health:SetPoint('TOPRIGHT', self)
-	health:SetPoint('TOPLEFT', self)
 
 	self.Health = health
 end
@@ -42,8 +41,8 @@ do
 
 	function addPowerBar(self, postUpdate, isPet)
 		local power = CreateFrame('StatusBar', nil, self)
-		power:SetPoint('BOTTOMRIGHT', self)
-		power:SetPoint('BOTTOMLEFT', self)
+		power:SetPoint('BOTTOMRIGHT', self, 'BOTTOMRIGHT', 0, 0)
+		power:SetPoint('BOTTOMLEFT', self, 'BOTTOMLEFT', 0, 0)
 		power:SetPoint('TOP', self.Health, 'BOTTOM', 0, -1)
 		power:SetStatusBarTexture(config.TEXTURE)
 		power:SetHeight(4)
@@ -189,13 +188,13 @@ do
 		castbarBG:SetTexture(1 / 3, 1 / 3, 1 / 3)
 
 		local castbarTime = castbar:CreateFontString(nil, 'OVERLAY')
-		castbarTime:SetPoint('RIGHT', -2, 0)
+		castbarTime:SetPoint('RIGHT', castbar, 'RIGHT', -2, 0)
 		castbarTime:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
 		castbarTime:SetJustifyH('RIGHT')
 		castbar.Time = castbarTime
 
 		local castbarText = castbar:CreateFontString(nil, 'OVERLAY')
-		castbarText:SetPoint('LEFT', 2, 0)
+		castbarText:SetPoint('LEFT', castbar, 'LEFT', 2, 0)
 		castbarText:SetPoint('RIGHT', castbarTime, 'LEFT', -5, 0)
 		castbarText:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
 		castbarText:SetJustifyH('LEFT')
@@ -229,7 +228,7 @@ end
 -- raid icon function
 local function addRaidIcon(self)
 	local raidicon = self.Health:CreateTexture(nil, 'OVERLAY')
-	raidicon:SetPoint('TOP', self, 0, 8)
+	raidicon:SetPoint('TOP', self, 'TOP', 0, 8)
 	raidicon:SetSize(16, 16)
 
 	self.RaidIcon = raidicon
@@ -238,13 +237,13 @@ end
 -- leader function
 local function addRaidRole(self)
 	local leader = self.Health:CreateTexture(nil, 'OVERLAY')
-	leader:SetPoint('TOPLEFT', self, 0, 8)
+	leader:SetPoint('TOPLEFT', self, 'TOPLEFT', 0, 8)
 	leader:SetSize(16, 16)
 
 	self.Leader = leader
 
 	local assistant = self.Health:CreateTexture(nil, 'OVERLAY')
-	assistant:SetPoint('TOPLEFT', self, 0, 8)
+	assistant:SetPoint('TOPLEFT', self, 'TOPLEFT', 0, 8)
 	assistant:SetSize(16, 16)
 
 	self.Assistant = assistant
@@ -253,7 +252,7 @@ end
 -- LFD role function
 local function addLFDRole(self)
 	local lfdRole = self.Health:CreateTexture(nil, 'OVERLAY')
-	lfdRole:SetPoint('TOPLEFT', self, 20, 8)
+	lfdRole:SetPoint('TOPLEFT', self, 'TOPLEFT', 20, 8)
 	lfdRole:SetSize(16, 16)
 
 	self.LFDRole = lfdRole
@@ -279,7 +278,7 @@ local function addHealCommBars(self)
 	local healcommbar = CreateFrame('StatusBar', nil, self.Health)
 	healcommbar:SetStatusBarTexture(config.TEXTURE)
 	healcommbar:SetStatusBarColor(0, 1, 0, 0.25)
-	healcommbar:SetPoint('LEFT', self.Health, 'LEFT')
+	healcommbar:SetPoint('LEFT', self.Health, 'LEFT', 0, 0)
 	self.allowHealCommOverflow = true
 
 	self.HealCommBar = healcommbar
@@ -288,13 +287,13 @@ end
 -- Tag function
 local function addTags(self, showPower, showHealComm, showCombo)
 	local healthValue = self.Health:CreateFontString(nil, 'OVERLAY')
-	healthValue:SetPoint('RIGHT', self.Health, -2, 0)
+	healthValue:SetPoint('RIGHT', self.Health, 'RIGHT', -2, 0)
 	healthValue:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
 	healthValue:SetJustifyH('RIGHT')
 	self:Tag(healthValue, '[ep:health]')
 
 	local info = self.Health:CreateFontString(nil, 'OVERLAY')
-	info:SetPoint('LEFT', self.Health, 2, 0)
+	info:SetPoint('LEFT', self.Health, 'LEFT', 2, 0)
 	info:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
 	info:SetJustifyH('LEFT')
 	if showPower then
@@ -419,8 +418,8 @@ end
 oUF:RegisterStyle('oUF_EP', Style)
 oUF:SetActiveStyle('oUF_EP')
 
-oUF:Spawn('player'):SetPoint('CENTER', -220, -250)
-oUF:Spawn('target'):SetPoint('CENTER', 220, -250)
+oUF:Spawn('player'):SetPoint('CENTER', UIParent, 'CENTER', -220, -250)
+oUF:Spawn('target'):SetPoint('CENTER', UIParent, 'CENTER', 220, -250)
 oUF:Spawn('targettarget'):SetPoint('BOTTOMRIGHT', oUF.units.target, 'TOPRIGHT', 0, config.SPACING)
 oUF:Spawn('focus'):SetPoint('BOTTOMLEFT', oUF.units.player, 'TOPLEFT', 0, config.SPACING)
 oUF:Spawn('pet'):SetPoint('RIGHT', oUF.units.player, 'LEFT', -25, 0)
