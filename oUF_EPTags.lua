@@ -70,7 +70,7 @@ for name, func in pairs({
 		if(power > 0) then
 			local _, type = UnitPowerType(unit)
 			local colors = _COLORS.power
-			return ('%s%d|r'):format(Hex(colors[type] or colors['RUNES']), power)
+			return ('%s%d|r'):format(Hex(colors[type]), power)
 		end
 	end,
 	['druid'] = function(unit)
