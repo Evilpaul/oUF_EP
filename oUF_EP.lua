@@ -293,7 +293,7 @@ local function addTags(self, showPower, showHealComm, showCombo)
 		healcommtext:SetTextColor(0, 1, 0)
 		healcommtext:SetJustifyH('RIGHT')
 		self.HealCommText = healcommtext
-		
+
 		info:SetPoint('RIGHT', healcommtext, 'LEFT', -config.SPACING, 0)
 	else
 		info:SetPoint('RIGHT', healthValue, 'LEFT', -config.SPACING, 0)
@@ -312,7 +312,6 @@ local UnitSpecific = {
 		-- Player specific layout code.
 		self:SetAttribute('initial-width', 230)
 		addMenu(self)
-		addHealthBar(self)
 		addPowerBar(self, false, false)
 		addCastBar(self, false, false)
 		addRaidIcon(self)
@@ -337,7 +336,6 @@ local UnitSpecific = {
 		-- Target specific layout code.
 		self:SetAttribute('initial-width', 230)
 		addMenu(self)
-		addHealthBar(self)
 		addPowerBar(self, true, false)
 		addCastBar(self, true, false)
 		addRaidIcon(self)
@@ -354,7 +352,6 @@ local UnitSpecific = {
 		-- Pet specific layout code.
 		self:SetAttribute('initial-width', 130)
 		addMenu(self)
-		addHealthBar(self)
 		addPowerBar(self, false, true)
 		addCastBar(self, false, true)
 		addRaidIcon(self)
@@ -365,7 +362,6 @@ local UnitSpecific = {
 	targettarget = function(self)
 		-- Targettarget specific layout code.
 		self:SetAttribute('initial-width', 144)
-		addHealthBar(self)
 		addPowerBar(self, true, false)
 		addDebuffs(self, 'TOPRIGHT', self, 'TOPLEFT', -config.SPACING, 0, 25, 85, 3, 25, 'LEFT', 'UP', false)
 		addTags(self, false, false, false)
@@ -374,7 +370,6 @@ local UnitSpecific = {
 	focus = function(self)
 		-- Focus specific layout code.
 		self:SetAttribute('initial-width', 144)
-		addHealthBar(self)
 		addPowerBar(self, true, false)
 		addDebuffs(self, 'TOPLEFT', self, 'TOPRIGHT', config.SPACING, 0, 25, 85, 3, 25, 'RIGHT', 'UP', true)
 		addTags(self, false, false, false)
@@ -393,6 +388,8 @@ local function Style(self, unit)
 	self:SetBackdropColor(0, 0, 0)
 
 	self:SetAttribute('initial-height', 25)
+
+	addHealthBar(self)
 
 	if(UnitSpecific[unit]) then
 		return UnitSpecific[unit](self)
