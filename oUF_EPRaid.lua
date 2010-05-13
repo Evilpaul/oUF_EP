@@ -97,12 +97,12 @@ do
 	function addTags(self)
 		local info = self.Health:CreateFontString(nil, 'OVERLAY')
 		info:SetPoint('TOP', self.Health, 'TOP', 0, -3)
-		info:SetFont(config.FONT, 10, config.FONTBORDER)
+		info:SetFont(config.FONT, config.FONTSIZESMALL, config.FONTBORDER)
 		self:Tag(info, '[ep:raidname]')
 
 		local healcommtext = self.Health:CreateFontString(nil, 'OVERLAY')
 		healcommtext:SetPoint('TOP', info, 'BOTTOM', 0, 0)
-		healcommtext:SetFont(config.FONT, 10, config.FONTBORDER)
+		healcommtext:SetFont(config.FONT, config.FONTSIZESMALL, config.FONTBORDER)
 		healcommtext:SetTextColor(0, 1, 0)
 
 		self.HealCommTextFormat = shortVal

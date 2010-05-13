@@ -4,6 +4,8 @@ local _, playerClass = UnitClass('player')
 local config = {
 	FONT = [=[Interface\AddOns\oUF_EP\fonts\Sansation_Regular.ttf]=],
 	FONTSIZE = 12,
+	FONTSIZESMALL = 10,
+	FONTSIZELARGE = 20,
 	FONTBORDER = 'THINOUTLINE',
 
 	TEXTURE = [=[Interface\AddOns\oUF_EP\media\minimalist]=],

@@ -300,8 +300,9 @@ local function addTags(self, showPower, showHealComm, showCombo)
 	end
 
 	if showCombo then
-		local cpoints = self:CreateFontString(nil, 'OVERLAY', 'SubZoneTextFont')
+		local cpoints = self:CreateFontString(nil, 'OVERLAY')
 		cpoints:SetPoint('RIGHT', self, 'LEFT', -config.SPACING, 0)
+		cpoints:SetFont(config.FONT, config.FONTSIZELARGE, config.FONTBORDER)
 		cpoints:SetJustifyH('RIGHT')
 		self:Tag(cpoints, '|cffffffff[cpoints]|r')
 	end
