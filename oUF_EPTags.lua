@@ -32,14 +32,14 @@ local function utf8sub(string, i)
 end
 
 local function shortVal(value)
-	local returnValue = ""
+	local returnValue = ''
 
-	if (value > 1e6) then
-		returnValue = format("%dm", value / 1e6)
-	elseif (value > 1e3) then
-		returnValue = format("%dk", value / 1e3)
+	if value > 1e6 then
+		returnValue = format('%dm', value / 1e6)
+	elseif value > 1e3 then
+		returnValue = format('%dk', value / 1e3)
 	else
-		returnValue = format("%d", value)
+		returnValue = format('%d', value)
 	end
 
 	return returnValue
@@ -50,71 +50,71 @@ for name, func in pairs({
 		local min, max = UnitHealth(unit), UnitHealthMax(unit)
 		local status = not UnitIsConnected(unit) and 'Offline' or UnitIsGhost(unit) and 'Ghost' or UnitIsDead(unit) and 'Dead'
 
-		if(status) then
+		if status then
 			return status
-		elseif(unit == 'target' and UnitCanAttack('player', unit)) then
-			return ('%s (%d|cff0090ff%%|r)'):format(shortVal(min), min / max * 100)
-		elseif(unit == 'player' and min ~= max) then
-			return ('|cffff8080%d|r %d|cff0090ff%%|r'):format(min - max, min / max * 100)
-		elseif(min ~= max) then
-			return ('%s |cff0090ff/|r %s'):format(shortVal(min), shortVal(max))
+		elseif unit == 'target' and UnitCanAttack('player', unit) then
+			return format('%s (%d|cff0090ff%%|r)', shortVal(min), min / max * 100)
+		elseif unit == 'player' and min ~= max then
+			return format('|cffff8080%d|r %d|cff0090ff%%|r', min - max, min / max * 100)
+		elseif min ~= max then
+			return format('%s |cff0090ff/|r %s', shortVal(min), shortVal(max))
 		else
 			return max
 		end
 	end,
 	['smallhealth'] = function(unit)
-		return oUF.Tags['status'](unit) or ('%s%%'):format(oUF.Tags['perhp'](unit))
+		return oUF.Tags['status'](unit) or format('%s%%', oUF.Tags['perhp'](unit))
 	end,
 	['power'] = function(unit)
 		local power = UnitPower(unit)
-		if(power > 0) then
+		if power > 0 then
 			local _, type = UnitPowerType(unit)
 			local colors = _COLORS.power
-			return ('%s%d|r'):format(Hex(colors[type]), power)
+			return format('%s%d|r', Hex(colors[type]), power)
 		end
 	end,
 	['druid'] = function(unit)
 		local min, max = UnitPower(unit, 0), UnitPowerMax(unit, 0)
-		if(UnitPowerType(unit) ~= 0 and min ~= max) then
-			return ('|cff0090ff%d%%|r'):format(min / max * 100)
+		if UnitPowerType(unit) ~= 0 and min ~= max then
+			return format('|cff0090ff%d%%|r', min / max * 100)
 		end
 	end,
 	['name'] = function(unit)
 		local reaction = UnitReaction(unit, 'player')
 
 		local r, g, b = 1, 1, 1
-		if((UnitIsTapped(unit) and not UnitIsTappedByPlayer(unit)) or not UnitIsConnected(unit)) then
+		if (UnitIsTapped(unit) and not UnitIsTappedByPlayer(unit)) or not UnitIsConnected(unit) then
 			r, g, b = 3/5, 3/5, 3/5
-		elseif(not UnitIsPlayer(unit) and reaction) then
+		elseif not UnitIsPlayer(unit) and reaction then
 			r, g, b = unpack(_COLORS.reaction[reaction])
-		elseif(UnitFactionGroup(unit) and UnitIsEnemy(unit, 'player') and UnitIsPVP(unit)) then
+		elseif UnitFactionGroup(unit) and UnitIsEnemy(unit, 'player') and UnitIsPVP(unit) then
 			r, g, b = 1, 0, 0
 		end
 
-		return ('%s%s|r'):format(Hex(r, g, b), UnitName(unit))
+		return format('%s%s|r', Hex(r, g, b), UnitName(unit))
 	end,
 	['raidname'] = function(unit)
 		local r, g, b = 1, 1, 1
 		local unitName = UnitName(unit)
 
-		if(not UnitIsConnected(unit)) then
+		if not UnitIsConnected(unit) then
 			r, g, b = 3/5, 3/5, 3/5
 			unitName = 'Offline'
-		elseif(UnitIsDead(unit)) then
+		elseif UnitIsDead(unit) then
 			r, g, b = 3/5, 3/5, 3/5
 			unitName = 'Dead'
-		elseif(UnitIsGhost(unit)) then
+		elseif UnitIsGhost(unit) then
 			r, g, b = 3/5, 3/5, 3/5
 			unitName = 'Ghost'
 		else
 			local min, max = UnitHealth(unit), UnitHealthMax(unit)
 			local perHP = min / max * 100
 			if(perHP < 90) then
-				unitName = format("-%s", shortVal(max - min))
+				unitName = format('-%s', shortVal(max - min))
 			end
 		end
 
-		return ('%s%s|r'):format(Hex(r, g, b), utf8sub(unitName, 4))
+		return format('%s%s|r', Hex(r, g, b), utf8sub(unitName, 4))
 	end,
 }) do
 	oUF.Tags['ep:' .. name] = func

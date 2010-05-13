@@ -53,7 +53,7 @@ do
 		power.colorClass = not isPet
 		power.colorReaction = not isPet
 
-		if(postUpdate) then
+		if postUpdate then
 			power.PostUpdate = PostUpdatePower
 		end
 
@@ -70,7 +70,7 @@ end
 local function UpdateTooltip(self)
 	GameTooltip:SetUnitAura(self.parent:GetParent().unit, self:GetID(), self.filter)
 
-	if(self.owner and UnitExists(self.owner)) then
+	if self.owner and UnitExists(self.owner) then
 		GameTooltip:AddLine(format('Cast by %s', UnitName(self.owner) or UNKNOWN))
 	end
 
@@ -112,7 +112,7 @@ end
 local addDebuffs
 do
 	local function PostUpdateIcon(element, unit, button, index)
-		if(UnitIsUnit('player', unit) or UnitIsFriend('player', unit) or button.isPlayer) then
+		if UnitIsUnit('player', unit) or UnitIsFriend('player', unit) or button.isPlayer then
 			local _, _, _, _, type = UnitAura(unit, index, button.filter)
 			local colour = DebuffTypeColor[type] or DebuffTypeColor.none
 
@@ -151,7 +151,7 @@ do
 
 	local function PostCastStart(element)
 		local text = element.Text
-		if(element.interrupt) then
+		if element.interrupt then
 			text:SetTextColor(1, 0, 0)
 		else
 			text:SetTextColor(1, 1, 1)
@@ -194,7 +194,7 @@ do
 		castbarIcon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 		castbar.Icon = castbarIcon
 
-		if(inverted) then
+		if inverted then
 			castbar.PostCastStart = PostCastStart
 			castbar.PostChannelStart = PostCastStart
 			castbar:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -config.SPACING)
@@ -312,7 +312,7 @@ end
 local function addRuneBar(self)
 	local _, class = UnitClass('player')
 
-	if(class == 'DEATHKNIGHT') then
+	if class == 'DEATHKNIGHT' then
 		local runes = CreateFrame('Frame', nil, self)
 		runes:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -1)
 		runes:SetSize(230, 4)
@@ -428,7 +428,7 @@ local function Style(self, unit)
 
 	addHealthBar(self)
 
-	if(UnitSpecific[unit]) then
+	if UnitSpecific[unit] then
 		return UnitSpecific[unit](self)
 	end
 end

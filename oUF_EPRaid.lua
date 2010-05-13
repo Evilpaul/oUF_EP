@@ -81,14 +81,14 @@ do
 	local format = string.format
 
 	local function shortVal(value)
-		local returnValue = ""
+		local returnValue = ''
 
-		if (value > 1e6) then
-			returnValue = format("%dm", value / 1e6)
-		elseif (value > 1e3) then
-			returnValue = format("%dk", value / 1e3)
+		if value > 1e6 then
+			returnValue = format('%dm', value / 1e6)
+		elseif value > 1e3 then
+			returnValue = format('%dk', value / 1e3)
 		else
-			returnValue = format("%d", value)
+			returnValue = format('%d', value)
 		end
 
 		return returnValue
