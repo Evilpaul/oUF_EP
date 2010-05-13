@@ -100,8 +100,7 @@ local function Style(self, unit)
 	addRaidIcon(self)
 	addTags(self)
 
-	-- Range checking to tone down tanks that you cannot heal
-	if not(self:GetAttribute('unitsuffix') == 'target') then
+	if self:GetAttribute('unitsuffix') ~= 'target' then
 		addRange(self)
 	end
 
