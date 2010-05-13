@@ -70,12 +70,7 @@ for name, func in pairs({
 		if power > 0 then
 			local _, type = UnitPowerType(unit)
 			local colors = _COLORS.power
-			local typeColor = Hex(colors[type])
-			if not typeColor then
-				print('no colour table entry for ' .. type)
-				typeColor = Hex(colors['RUNES'])
-			end
-			return format('%s%d|r', typeColor, power)
+			return format('%s%d|r', Hex(colors[type] or colors['FUEL']), power)
 		end
 	end,
 	['druid'] = function(unit)
