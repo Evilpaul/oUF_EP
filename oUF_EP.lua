@@ -362,7 +362,7 @@ local UnitSpecific = {
 		TicketStatusFrame:EnableMouse(false)
 		TicketStatusFrame:SetFrameStrata('BACKGROUND')
 
-		addBuffs(self, 'TOPRIGHT', Minimap, 'TOPLEFT', -config.SPACING, 0, 54, 344, 24, 25, 'LEFT', 'DOWN')
+		addBuffs(self, 'TOPRIGHT', Minimap, 'TOPLEFT', -config.SPACING, 0, 83, 344, 36, 25, 'LEFT', 'DOWN')
 		addDebuffs(self, 'BOTTOMRIGHT', Minimap, 'BOTTOMLEFT', -config.SPACING, 0, 54, 344, 24, 25, 'LEFT', 'DOWN', false)
 		addEPDebuff(self)
 		addRuneBar(self)
