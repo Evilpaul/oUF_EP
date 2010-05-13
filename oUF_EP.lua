@@ -318,18 +318,19 @@ local function addRuneBar(self)
 		runes:SetSize(230, 4)
 		runes:SetBackdrop(config.BACKDROP)
 		runes:SetBackdropColor(0, 0, 0)
-		runes.anchor = 'TOPLEFT'
-		runes.growth = 'RIGHT'
-		runes.height = 4
-		runes.spacing = 1
-		runes.width = (230 / 6) - 1
-		runes.order = { 1, 2, 3, 4, 5, 6 }
 
 		for i = 1, 6 do
-			local rune = CreateFrame('StatusBar', nil, self.Runes)
+			local rune = CreateFrame('StatusBar', nil, runes)
+			rune:SetSize((230 / 6) - 1, 4)
 			rune:SetStatusBarTexture(config.TEXTURE)
 			rune:SetBackdrop(config.BACKDROP)
 			rune:SetBackdropColor(0, 0, 0)
+
+			if i > 1 then
+				rune:SetPoint('LEFT', runes[i - 1], 'RIGHT', 1, 0)
+			else
+				rune:SetPoint('BOTTOMLEFT', runes, 'BOTTOMLEFT', 1, 0)
+			end
 
 			local runeBG = rune:CreateTexture(nil, 'BACKGROUND')
 			runeBG:SetAllPoints(rune)
