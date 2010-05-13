@@ -347,7 +347,6 @@ local UnitSpecific = {
 	player = function(self)
 		-- Player specific layout code.
 		self:SetAttribute('initial-width', 230)
-		addMenu(self)
 		addPowerBar(self, false, false)
 		addCastBar(self, false, false)
 		addRaidIcon(self)
@@ -372,7 +371,6 @@ local UnitSpecific = {
 	target = function(self)
 		-- Target specific layout code.
 		self:SetAttribute('initial-width', 230)
-		addMenu(self)
 		addPowerBar(self, true, false)
 		addCastBar(self, true, false)
 		addRaidIcon(self)
@@ -388,7 +386,6 @@ local UnitSpecific = {
 	pet = function(self)
 		-- Pet specific layout code.
 		self:SetAttribute('initial-width', 130)
-		addMenu(self)
 		addPowerBar(self, false, true)
 		addCastBar(self, false, true)
 		addRaidIcon(self)
@@ -427,6 +424,7 @@ local function Style(self, unit)
 	self:SetAttribute('initial-height', 25)
 
 	addHealthBar(self)
+	addMenu(self)
 
 	if UnitSpecific[unit] then
 		return UnitSpecific[unit](self)
