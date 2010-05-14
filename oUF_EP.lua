@@ -257,8 +257,14 @@ end
 
 -- EP debuff function
 local function addEPDebuff(self)
-	self.EPDebuffBackdrop = true
-	self.EPDebuffBackdropFilter = false
+	local debuffBackdrop = {
+		Alpha = 1,
+		Filter = false,
+		PreUpdate = nil,
+		PostUpdate = nil,
+	}
+
+	self.EPDebuffBackdrop = debuffBackdrop
 end
 
 -- Healcomm bar function

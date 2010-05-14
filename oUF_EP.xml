@@ -22,6 +22,7 @@
 		</Frames>
 	</Button>
 
+	<Script file='modules\EPDebuff.lua'/>
 	<Script file='config.lua'/>
 	<Script file='oUF_EPTags.lua'/>
 	<Script file='oUF_EP.lua'/>

@@ -52,16 +52,23 @@ end
 
 -- EP debuff function
 local function addEPDebuff(self)
-	self.EPDebuffBackdrop = true
-	self.EPDebuffBackdropFilter = false
-
-	-- add center icon for player removable debuff
 	local debuffIcon = self.Health:CreateTexture(nil, 'OVERLAY')
 	debuffIcon:SetSize(16, 16)
 	debuffIcon:SetPoint('CENTER', self, 'CENTER', 0, 0)
-	self.EPDebuffIconFilter = true
+	debuffIcon.Filter = true
+	debuffIcon.PreUpdate = nil
+	debuffIcon.PostUpdate = nil
 
 	self.EPDebuffIcon = debuffIcon
+
+	local debuffBackdrop = {
+		Alpha = 1,
+		Filter = false,
+		PreUpdate = nil,
+		PostUpdate = nil,
+	}
+
+	self.EPDebuffBackdrop = debuffBackdrop
 end
 
 -- Healcomm bar function
