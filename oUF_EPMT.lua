@@ -108,10 +108,13 @@ local function Style(self, unit)
 end
 
 oUF:RegisterStyle('oUF_EPMT', Style)
-oUF:SetActiveStyle('oUF_EPMT')
 
-local frame = oUF:SpawnHeader(nil, nil, 'raid', 'showRaid', true, 'groupFilter', 'MAINTANK')
-frame:SetPoint('TOPLEFT', UIParent, 'TOPLEFT', 15, -350)
-frame:SetAttribute('yOffset', -10)
-frame:SetAttribute('template', 'oUF_MT')
-frame:Show()
+oUF:Factory(function(self)
+	self:SetActiveStyle('oUF_EPMT')
+
+	local frame = self:SpawnHeader(nil, nil, 'raid', 'showRaid', true, 'groupFilter', 'MAINTANK')
+	frame:SetPoint('TOPLEFT', UIParent, 'TOPLEFT', 15, -350)
+	frame:SetAttribute('yOffset', -10)
+	frame:SetAttribute('template', 'oUF_MT')
+	frame:Show()
+end)

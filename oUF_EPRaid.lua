@@ -1,8 +1,6 @@
 local _, ns = ...
 local config = ns.config
 
-local mmax = math.max
-
 -- health bar function
 local function addHealthBar(self)
 	local health = CreateFrame('StatusBar', nil, self)
@@ -172,58 +170,65 @@ local function Style(self, unit)
 end
 
 oUF:RegisterStyle('oUF_EPRaid', Style)
-oUF:SetActiveStyle('oUF_EPRaid')
 
--- define the raid groups
-local raid = {}
-for group = 1, NUM_RAID_GROUPS do
-	local header = oUF:SpawnHeader(nil, nil, 'party,raid', 'showPlayer', group == 1, 'showParty', group == 1, 'showRaid', true)
-	header:SetAttribute('groupFilter', group)
-	header:SetAttribute('yOffset', -config.SPACING)
+local spawnFunction
+do
+	local mmax = math.max
 
-	if group > 1 then
-		header:SetPoint('TOPLEFT', raid[group - 1], 'TOPRIGHT', config.SPACING, 0)
-	else
-		header:SetPoint('TOPLEFT', UIParent, 'BOTTOMLEFT', 15, 350)
-	end
-	header:Show()
-	raid[group] = header
-end
+	function spawnFunction(self)
+		self:SetActiveStyle('oUF_EPRaid')
 
--- define the pet header
-local petHeader = oUF:SpawnHeader(nil, 'SecureGroupPetHeaderTemplate', 'party,raid', 'showPlayer', true, 'ShowParty', true, 'showRaid', true)
-petHeader:SetAttribute('yOffset', -config.SPACING)
-petHeader:SetAttribute('xOffset', config.SPACING)
-petHeader:SetAttribute('maxColumns', 8)
-petHeader:SetAttribute('unitsPerColumn', 5)
-petHeader:SetAttribute('columnSpacing', 5)
-petHeader:SetAttribute('columnAnchorPoint', 'LEFT')
-petHeader:Show()
+		-- define the raid groups
+		local raid = {}
+		for group = 1, NUM_RAID_GROUPS do
+			local header = self:SpawnHeader(nil, nil, 'party,raid', 'showPlayer', group == 1, 'showParty', group == 1, 'showRaid', true)
+			header:SetAttribute('groupFilter', group)
+			header:SetAttribute('yOffset', -config.SPACING)
 
--- move the pet header to after the last non-empty raid group
-local function UpdateLayout(...)
-	if InCombatLockdown() then return end
-
-	local lastGroup = 1
-	local numRaidMembers = GetNumRaidMembers()
-	if numRaidMembers > 0 then
-		-- loop through ALL raid members and find the last group (blargh)
-		local playerGroup
-		for member = 1, numRaidMembers do
-			_, _, playerGroup, _, _, _, _, _, _, _, _ = GetRaidRosterInfo(member)
-			lastGroup = mmax(lastGroup, playerGroup)
+			if group > 1 then
+				header:SetPoint('TOPLEFT', raid[group - 1], 'TOPRIGHT', config.SPACING, 0)
+			else
+				header:SetPoint('TOPLEFT', UIParent, 'BOTTOMLEFT', 15, 350)
+			end
+			header:Show()
+			raid[group] = header
 		end
-	end
 
-	petHeader:SetPoint('TOPLEFT', raid[lastGroup], 'TOPRIGHT', config.SPACING, 0)
+		-- define the pet header
+		local petHeader = self:SpawnHeader(nil, 'SecureGroupPetHeaderTemplate', 'party,raid', 'showPlayer', true, 'ShowParty', true, 'showRaid', true)
+		petHeader:SetAttribute('yOffset', -config.SPACING)
+		petHeader:SetAttribute('xOffset', config.SPACING)
+		petHeader:SetAttribute('maxColumns', 8)
+		petHeader:SetAttribute('unitsPerColumn', 5)
+		petHeader:SetAttribute('columnSpacing', 5)
+		petHeader:SetAttribute('columnAnchorPoint', 'LEFT')
+		petHeader:Show()
+
+		local updateFrame = CreateFrame('Frame')
+		updateFrame:SetScript('OnEvent', function(...)
+			if InCombatLockdown() then return end
+
+			local lastGroup = 1
+			local numRaidMembers = GetNumRaidMembers()
+			if numRaidMembers > 0 then
+				-- loop through ALL raid members and find the last group (blargh)
+				local playerGroup
+				for member = 1, numRaidMembers do
+					_, _, playerGroup, _, _, _, _, _, _, _, _ = GetRaidRosterInfo(member)
+					lastGroup = mmax(lastGroup, playerGroup)
+				end
+			end
+
+			petHeader:SetPoint('TOPLEFT', raid[lastGroup], 'TOPRIGHT', config.SPACING, 0)
+		end)
+		updateFrame:RegisterEvent('PARTY_MEMBERS_CHANGED')
+		updateFrame:RegisterEvent('PLAYER_ENTERING_WORLD')
+		updateFrame:RegisterEvent('PLAYER_REGEN_ENABLED')
+		updateFrame:RegisterEvent('RAID_ROSTER_UPDATE')
+		updateFrame:RegisterEvent('VARIABLES_LOADED')
+		updateFrame:RegisterEvent('UNIT_ENTERED_VEHICLE')
+		updateFrame:RegisterEvent('UNIT_EXITED_VEHICLE')
+	end
 end
 
-local updateFrame = CreateFrame('Frame')
-updateFrame:SetScript('OnEvent', UpdateLayout)
-updateFrame:RegisterEvent('PARTY_MEMBERS_CHANGED')
-updateFrame:RegisterEvent('PLAYER_ENTERING_WORLD')
-updateFrame:RegisterEvent('PLAYER_REGEN_ENABLED')
-updateFrame:RegisterEvent('RAID_ROSTER_UPDATE')
-updateFrame:RegisterEvent('VARIABLES_LOADED')
-updateFrame:RegisterEvent('UNIT_ENTERED_VEHICLE')
-updateFrame:RegisterEvent('UNIT_EXITED_VEHICLE')
+oUF:Factory(spawnFunction)

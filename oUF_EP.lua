@@ -445,10 +445,13 @@ local function Style(self, unit)
 end
 
 oUF:RegisterStyle('oUF_EP', Style)
-oUF:SetActiveStyle('oUF_EP')
 
-oUF:Spawn('player'):SetPoint('CENTER', UIParent, 'CENTER', -220, -250)
-oUF:Spawn('target'):SetPoint('CENTER', UIParent, 'CENTER', 220, -250)
-oUF:Spawn('targettarget'):SetPoint('BOTTOMRIGHT', oUF.units.target, 'TOPRIGHT', 0, config.SPACING)
-oUF:Spawn('focus'):SetPoint('BOTTOMLEFT', oUF.units.player, 'TOPLEFT', 0, config.SPACING)
-oUF:Spawn('pet'):SetPoint('RIGHT', oUF.units.player, 'LEFT', -25, 0)
+oUF:Factory(function(self)
+	self:SetActiveStyle('oUF_EP')
+
+	self:Spawn('player'):SetPoint('CENTER', UIParent, 'CENTER', -220, -250)
+	self:Spawn('target'):SetPoint('CENTER', UIParent, 'CENTER', 220, -250)
+	self:Spawn('targettarget'):SetPoint('BOTTOMRIGHT', self.units.target, 'TOPRIGHT', 0, config.SPACING)
+	self:Spawn('focus'):SetPoint('BOTTOMLEFT', self.units.player, 'TOPLEFT', 0, config.SPACING)
+	self:Spawn('pet'):SetPoint('RIGHT', self.units.player, 'LEFT', -25, 0)
+end)

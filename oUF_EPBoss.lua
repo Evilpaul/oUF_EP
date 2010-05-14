@@ -91,17 +91,20 @@ local function Style(self, unit)
 end
 
 oUF:RegisterStyle('oUF_EPBoss', Style)
-oUF:SetActiveStyle('oUF_EPBoss')
 
-local bossFrames = {}
-for i = 1, MAX_BOSS_FRAMES do
-	local unit = oUF:Spawn('boss' .. i)
+oUF:Factory(function(self)
+	self:SetActiveStyle('oUF_EPBoss')
 
-	if i > 1 then
-		unit:SetPoint('TOPRIGHT', bossFrames[i - 1], 'BOTTOMRIGHT', 0, -10)
-	else
-		unit:SetPoint('TOPRIGHT', UIParent, 'TOPRIGHT', -15, -350)
+	local bossFrames = {}
+	for i = 1, MAX_BOSS_FRAMES do
+		local unit = self:Spawn('boss' .. i)
+
+		if i > 1 then
+			unit:SetPoint('TOPRIGHT', bossFrames[i - 1], 'BOTTOMRIGHT', 0, -10)
+		else
+			unit:SetPoint('TOPRIGHT', UIParent, 'TOPRIGHT', -15, -350)
+		end
+
+		bossFrames[i] = unit
 	end
-
-	bossFrames[i] = unit
-end
+end)
