@@ -149,8 +149,12 @@ end
 -- cast bar function
 local addCastBar
 do
-	local function CustomCastText(element, duration)
+	local function CustomTimeText(element, duration)
 		element.Time:SetFormattedText('%.1f / %.1f', element.channeling and duration or (element.max - duration), element.max)
+	end
+
+	local function CustomDelayText(element, duration)
+		element.Time:SetFormattedText('%.1f |cffff0000-%.1f|r / %.1f', element.channeling and duration or (element.max - duration), element.delay, element.max)
 	end
 
 	local function PostCastStart(element)
@@ -169,7 +173,8 @@ do
 		castbar:SetStatusBarColor(1 / 4, 1 / 4, 2 / 5)
 		castbar:SetBackdrop(config.BACKDROP)
 		castbar:SetBackdropColor(0, 0, 0)
-		castbar.CustomTimeText = CustomCastText
+		castbar.CustomTimeText = CustomTimeText
+		castbar.CustomDelayText = CustomDelayText
 
 		local castbarBG = castbar:CreateTexture(nil, 'BORDER')
 		castbarBG:SetAllPoints(castbar)
