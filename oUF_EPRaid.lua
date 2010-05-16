@@ -156,6 +156,13 @@ local function addPriest(self)
 		ws:SetTexture(1, 0.6, 0)
 
 		self.WeakenedSoul = ws
+
+		local renew = self.Health:CreateTexture(nil, 'OVERLAY')
+		renew:SetPoint('TOPRIGHT', self.WeakenedSoul, 'TOPLEFT', -1, 0)
+		renew:SetSize(3, 3)
+		renew:SetTexture(0, 1, 0)
+
+		self.Renew = renew
 	end
 end
 
