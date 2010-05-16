@@ -23,6 +23,7 @@
 	</Button>
 
 	<Script file='modules\EPDebuff.lua'/>
+	<Script file='modules\WeakenedSoul.lua'/>
 	<Script file='config.lua'/>
 	<Script file='oUF_EPTags.lua'/>
 	<Script file='oUF_EP.lua'/>

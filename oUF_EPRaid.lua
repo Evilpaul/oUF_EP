@@ -145,6 +145,20 @@ local function addThreat(self)
 	self.Threat = threat
 end
 
+-- Priest specific function
+local function addPriest(self)
+	local _, class = UnitClass('player')
+
+	if class == 'PRIEST' then
+		local ws = self.Health:CreateTexture(nil, 'OVERLAY')
+		ws:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
+		ws:SetSize(3, 3)
+		ws:SetTexture(1, 0.6, 0)
+
+		self.WeakenedSoul = ws
+	end
+end
+
 local function Style(self, unit)
 	self.colors = config.COLORS
 
@@ -165,6 +179,8 @@ local function Style(self, unit)
 	addRange(self)
 	addReadyCheck(self)
 	addThreat(self)
+
+	addPriest(self)
 
 	self.disallowVehicleSwap = true
 end
