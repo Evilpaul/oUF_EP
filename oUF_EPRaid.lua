@@ -139,7 +139,7 @@ local function addThreat(self)
 	local threat = self.Health:CreateTexture(nil, 'OVERLAY')
 	threat:SetPoint('TOPLEFT', self.Health, 'TOPLEFT', 0, 0)
 	threat:SetSize(3, 3)
-	threat:SetTexture(1, 0, 0)
+	threat:SetTexture(1, 1, 1)
 
 	self.Threat = threat
 end
