@@ -163,6 +163,13 @@ local function addPriest(self)
 		renew:SetTexture(0, 1, 0)
 
 		self.Renew = renew
+
+		local pom = self.Health:CreateTexture(nil, 'OVERLAY')
+		pom:SetPoint('TOPRIGHT', self.Renew, 'TOPLEFT', -1, 0)
+		pom:SetSize(3, 3)
+		pom:SetTexture(0, 1, 1)
+
+		self.PrayerOfMending = pom
 	end
 end
 
