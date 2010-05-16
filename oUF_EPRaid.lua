@@ -138,9 +138,8 @@ end
 local function addThreat(self)
 	local threat = self.Health:CreateTexture(nil, 'OVERLAY')
 	threat:SetPoint('TOPLEFT', self.Health, 'TOPLEFT', 0, 0)
-	threat:SetSize(5, 5)
-	threat:SetTexture([[Interface\Minimap\ObjectIcons]])
-	threat:SetTexCoord(6 / 8, 7 / 8, 1 / 2, 1)
+	threat:SetSize(3, 3)
+	threat:SetTexture(1, 0, 0)
 
 	self.Threat = threat
 end
