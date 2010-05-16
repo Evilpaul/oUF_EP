@@ -35,7 +35,7 @@ local function GetDebuffInfo(unit, dispelTypes)
 		_, _, texture, _, debuffType, _, _, _, _ = UnitAura(unit, i, 'HARMFUL')
 
 		-- debuff does not exist, quit out of the loop
-		if not texture then break end
+		if not texture then return end
 
 		if dispelTypes[debuffType] then
 			return debuffType, texture
@@ -63,7 +63,7 @@ local function Update(self, event, unit)
 			self:SetBackdropBorderColor(origColor[self].border.r, origColor[self].border.g, origColor[self].border.b, origColor[self].border.a)
 		end
 
-		if backdrop.PostUpdate then backdrop:PostUpdate(unit) end
+		if backdrop.PostUpdate then backdrop:PostUpdate(unit, debuffType) end
 	end
 
 	local icon = self.EPDebuffIcon
@@ -79,7 +79,7 @@ local function Update(self, event, unit)
 			icon:SetTexture(nil)
 		end
 
-		if icon.PostUpdate then icon:PostUpdate(unit) end
+		if icon.PostUpdate then icon:PostUpdate(unit, debuffIcon) end
 	end
 end
 
