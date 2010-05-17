@@ -23,6 +23,7 @@
 	</Button>
 
 	<Script file='modules\DebuffHighlight.lua'/>
+	<Script file='modules\Lifebloom.lua'/>
 	<Script file='modules\PrayerOfMending.lua'/>
 	<Script file='modules\Regrowth.lua'/>
 	<Script file='modules\Rejuvenation.lua'/>

@@ -100,6 +100,13 @@ local ClassSpecific = {
 		regrowth:SetTexture(0, 1, 0)
 
 		self.Regrowth = regrowth
+
+		local lb = self.Health:CreateTexture(nil, 'OVERLAY')
+		lb:SetPoint('TOPRIGHT', self.Regrowth, 'TOPLEFT', -1, 0)
+		lb:SetSize(3, 3)
+		lb:SetTexture(0, 1, 1)
+
+		self.Lifebloom = lb
 	end,
 
 	PRIEST = function(self)
