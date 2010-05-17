@@ -143,6 +143,17 @@ local ClassSpecific = {
 
 		self.PrayerOfMending = pom
 
+	end,
+
+	SHAMAN = function(self)
+		local es = self.Health:CreateTexture(nil, 'OVERLAY')
+		es:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
+		es:SetSize(3, 3)
+		es:SetTexture(1, 0.6, 0)
+
+		self.EarthShield = es
+	end,
+
 	WARRIOR = function(self)
 		local vig = self.Health:CreateTexture(nil, 'OVERLAY')
 		vig:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
