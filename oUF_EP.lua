@@ -321,7 +321,6 @@ local UnitSpecific = {
 		addMenu(self)
 		addPowerBar(self, false, false)
 		addCastBar(self, false, false)
-		addRaidIcon(self)
 		addRaidRole(self)
 		addLFDRole(self)
 		addPVPFlag(self)
@@ -347,7 +346,6 @@ local UnitSpecific = {
 		addPowerBar(self, true, false)
 		addCastBar(self, true, false)
 		addRaidIcon(self)
-		addRaidRole(self)
 		addLFDRole(self)
 		addHealCommBars(self, true)
 		addTags(self, false, true, true)
@@ -362,7 +360,6 @@ local UnitSpecific = {
 		addMenu(self)
 		addPowerBar(self, false, true)
 		addCastBar(self, false, true)
-		addRaidIcon(self)
 		addTags(self, true, true, false)
 		addDebuffs(self, 'TOPRIGHT', self, 'TOPLEFT', -config.SPACING, 0, 25, 85, 3, 25, 'LEFT', 'UP', false)
 	end,
@@ -398,6 +395,7 @@ local function Style(self, unit)
 	self:SetAttribute('initial-height', 25)
 
 	addHealthBar(self)
+	addRaidIcon(self)
 
 	if UnitSpecific[unit] then
 		return UnitSpecific[unit](self)
