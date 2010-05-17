@@ -46,7 +46,7 @@ local function shortVal(value)
 end
 
 for name, func in pairs({
-	['health'] = function(unit)
+	['ep:health'] = function(unit)
 		local min, max = UnitHealth(unit), UnitHealthMax(unit)
 		local status = not UnitIsConnected(unit) and 'Offline' or UnitIsGhost(unit) and 'Ghost' or UnitIsDead(unit) and 'Dead'
 
@@ -62,10 +62,10 @@ for name, func in pairs({
 			return max
 		end
 	end,
-	['smallhealth'] = function(unit)
+	['ep:smallhealth'] = function(unit)
 		return oUF.Tags['status'](unit) or format('%s%%', oUF.Tags['perhp'](unit))
 	end,
-	['power'] = function(unit)
+	['ep:power'] = function(unit)
 		local power = UnitPower(unit)
 		if power > 0 then
 			local _, type = UnitPowerType(unit)
@@ -73,13 +73,13 @@ for name, func in pairs({
 			return format('%s%d|r', Hex(colors[type] or colors['FUEL']), power)
 		end
 	end,
-	['druid'] = function(unit)
+	['ep:druid'] = function(unit)
 		local min, max = UnitPower(unit, 0), UnitPowerMax(unit, 0)
 		if UnitPowerType(unit) ~= 0 and min ~= max then
 			return format('|cff0090ff%d%%|r', min / max * 100)
 		end
 	end,
-	['name'] = function(unit)
+	['ep:name'] = function(unit)
 		local reaction = UnitReaction(unit, 'player')
 
 		local r, g, b = 1, 1, 1
@@ -93,7 +93,7 @@ for name, func in pairs({
 
 		return format('%s%s|r', Hex(r, g, b), UnitName(unit))
 	end,
-	['raidname'] = function(unit)
+	['ep:raidname'] = function(unit)
 		local r, g, b = 1, 1, 1
 		local unitName = UnitName(unit)
 
@@ -117,7 +117,7 @@ for name, func in pairs({
 		return format('%s%s|r', Hex(r, g, b), utf8sub(unitName, 4))
 	end,
 }) do
-	oUF.Tags['ep:' .. name] = func
+	oUF.Tags[name] = func
 end
 
 oUF.TagEvents['ep:health'] = 'UNIT_HEALTH UNIT_MAXHEALTH'
