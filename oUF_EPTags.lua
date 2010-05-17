@@ -67,6 +67,7 @@ for name, func in pairs({
 	end,
 	['ep:power'] = function(unit)
 		local power = UnitPower(unit)
+
 		if power > 0 then
 			local _, type = UnitPowerType(unit)
 			local colors = _COLORS.power
@@ -75,6 +76,7 @@ for name, func in pairs({
 	end,
 	['ep:druid'] = function(unit)
 		local min, max = UnitPower(unit, 0), UnitPowerMax(unit, 0)
+
 		if UnitPowerType(unit) ~= 0 and min ~= max then
 			return format('|cff0090ff%d%%|r', min / max * 100)
 		end
@@ -84,7 +86,7 @@ for name, func in pairs({
 
 		local r, g, b = 1, 1, 1
 		if (UnitIsTapped(unit) and not UnitIsTappedByPlayer(unit)) or not UnitIsConnected(unit) then
-			r, g, b = 3/5, 3/5, 3/5
+			r, g, b = 3 / 5, 3 / 5, 3 / 5
 		elseif not UnitIsPlayer(unit) and reaction then
 			r, g, b = unpack(_COLORS.reaction[reaction])
 		elseif UnitFactionGroup(unit) and UnitIsEnemy(unit, 'player') and UnitIsPVP(unit) then
@@ -98,13 +100,13 @@ for name, func in pairs({
 		local unitName = UnitName(unit)
 
 		if not UnitIsConnected(unit) then
-			r, g, b = 3/5, 3/5, 3/5
+			r, g, b = 3 / 5, 3 / 5, 3 / 5
 			unitName = 'Offline'
 		elseif UnitIsDead(unit) then
-			r, g, b = 3/5, 3/5, 3/5
+			r, g, b = 3 / 5, 3 / 5, 3 / 5
 			unitName = 'Dead'
 		elseif UnitIsGhost(unit) then
-			r, g, b = 3/5, 3/5, 3/5
+			r, g, b = 3 / 5, 3 / 5, 3 / 5
 			unitName = 'Ghost'
 		else
 			local min, max = UnitHealth(unit), UnitHealthMax(unit)
