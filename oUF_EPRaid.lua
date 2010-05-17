@@ -144,11 +144,9 @@ local function addThreat(self)
 	self.Threat = threat
 end
 
--- Priest specific function
-local function addPriest(self)
-	local _, class = UnitClass('player')
+local ClassSpecific = {
 
-	if class == 'PRIEST' then
+	PRIEST = function(self)
 		local ws = self.Health:CreateTexture(nil, 'OVERLAY')
 		ws:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
 		ws:SetSize(3, 3)
@@ -169,8 +167,9 @@ local function addPriest(self)
 		pom:SetTexture(0, 1, 1)
 
 		self.PrayerOfMending = pom
-	end
-end
+
+	end,
+}
 
 local function Style(self, unit)
 	self.colors = config.COLORS
@@ -193,7 +192,10 @@ local function Style(self, unit)
 	addReadyCheck(self)
 	addThreat(self)
 
-	addPriest(self)
+	local _, class = UnitClass('player')
+	if ClassSpecific[class] then
+		return ClassSpecific[class](self)
+	end
 
 	self.disallowVehicleSwap = true
 end
