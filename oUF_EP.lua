@@ -402,6 +402,8 @@ local function Style(self, unit)
 	if UnitSpecific[unit] then
 		return UnitSpecific[unit](self)
 	end
+
+	self.disallowVehicleSwap = true
 end
 
 oUF:RegisterStyle('oUF_EP', Style)
