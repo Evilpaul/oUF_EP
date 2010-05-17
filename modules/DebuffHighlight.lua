@@ -1,6 +1,6 @@
 local _, ns = ...
 local oUF = ns.oUF or oUF
-assert(oUF, 'EPDebuff was unable to locate oUF install')
+assert(oUF, 'DebuffHighlight was unable to locate oUF install')
 
 local _, playerClass = UnitClass('player')
 local CanDispel = {
@@ -15,7 +15,7 @@ local dispellist = CanDispel[playerClass] or {}
 local origColor = {}
 
 local function StoreOriginalColors(self)
-	if self.EPDebuffBackdrop then
+	if self.DebuffBackdrop then
 		origColor[self] = {}
 
 		local r, g, b, a = self:GetBackdropColor()
@@ -46,9 +46,9 @@ local function GetDebuffInfo(unit, dispelTypes)
 end
 
 local function Update(self, event, unit)
-	if self.unit ~= unit  then return end
+	if self.unit ~= unit then return end
 
-	local backdrop = self.EPDebuffBackdrop
+	local backdrop = self.DebuffBackdrop
 	if backdrop then
 		if backdrop.PreUpdate then backdrop:PreUpdate(unit) end
 
@@ -66,7 +66,7 @@ local function Update(self, event, unit)
 		if backdrop.PostUpdate then backdrop:PostUpdate(unit, debuffType) end
 	end
 
-	local icon = self.EPDebuffIcon
+	local icon = self.DebuffIcon
 	if icon then
 		if icon.PreUpdate then icon:PreUpdate(unit) end
 
@@ -84,8 +84,8 @@ local function Update(self, event, unit)
 end
 
 local function Enable(self)
-	local edb, edi = self.EPDebuffBackdrop, self.EPDebuffIcon
-	if edb or edi then
+	local db, di = self.DebuffBackdrop, self.DebuffIcon
+	if db or di then
 		StoreOriginalColors(self)
 
 		self:RegisterEvent('UNIT_AURA', Update)
@@ -95,9 +95,10 @@ local function Enable(self)
 end
 
 local function Disable(self)
-	if self.EPDebuff then
+	local db, di = self.DebuffBackdrop, self.DebuffIcon
+	if db or di then
 		self:UnregisterEvent('UNIT_AURA', Update)
 	end
 end
 
-oUF:AddElement('EPDebuff', Update, Enable, Disable)
+oUF:AddElement('DebuffHighlight', Update, Enable, Disable)
