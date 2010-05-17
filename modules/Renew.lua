@@ -1,4 +1,4 @@
-if select(2, UnitClass("player")) ~= "PRIEST" then return end
+if select(2, UnitClass('player')) ~= 'PRIEST' then return end
 
 local _, ns = ...
 local oUF = ns.oUF or oUF
@@ -40,7 +40,7 @@ local function GetBuffInfo(unit)
 end
 
 local function Update(self, event, unit)
-	if self.unit ~= unit  then return end
+	if self.unit ~= unit then return end
 
 	local renew = self.Renew
 
