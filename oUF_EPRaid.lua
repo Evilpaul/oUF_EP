@@ -151,6 +151,15 @@ local ClassSpecific = {
 
 		self.Vigilance = vig
 	end,
+
+	WARLOCK = function(self)
+		local ss = self.Health:CreateTexture(nil, 'OVERLAY')
+		ss:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
+		ss:SetSize(3, 3)
+		ss:SetTexture(1, 0.6, 0)
+
+		self.Soulstone = ss
+	end,
 }
 
 local function Style(self, unit)
