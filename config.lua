@@ -1,5 +1,4 @@
 local _, ns = ...
-local _, playerClass = UnitClass('player')
 
 local config = {
 	FONT = [=[Interface\AddOns\oUF_EP\fonts\Sansation_Regular.ttf]=],
