@@ -119,6 +119,13 @@ local ClassSpecific = {
 		self.FocusMagic = fm
 	end,
 
+	PALADIN = function(self)
+		local ss = self.Health:CreateTexture(nil, 'OVERLAY')
+		ss:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
+		ss:SetSize(3, 3)
+		ss:SetTexture(1, 0.6, 0)
+
+		self.SacredShield = ss
 	end,
 
 	PRIEST = function(self)

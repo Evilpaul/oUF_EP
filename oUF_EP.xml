@@ -30,6 +30,7 @@
 	<Script file='modules\Regrowth.lua'/>
 	<Script file='modules\Rejuvenation.lua'/>
 	<Script file='modules\Renew.lua'/>
+	<Script file='modules\SacredShield.lua'/>
 	<Script file='modules\Soulstone.lua'/>
 	<Script file='modules\Vigilance.lua'/>
 	<Script file='modules\WeakenedSoul.lua'/>
