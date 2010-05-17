@@ -108,6 +108,8 @@ local ClassSpecific = {
 
 		self.Lifebloom = lb
 
+	end,
+
 	MAGE = function(self)
 		local fm = self.Health:CreateTexture(nil, 'OVERLAY')
 		fm:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
@@ -141,6 +143,13 @@ local ClassSpecific = {
 
 		self.PrayerOfMending = pom
 
+	WARRIOR = function(self)
+		local vig = self.Health:CreateTexture(nil, 'OVERLAY')
+		vig:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
+		vig:SetSize(3, 3)
+		vig:SetTexture(1, 0.6, 0)
+
+		self.Vigilance = vig
 	end,
 }
 
