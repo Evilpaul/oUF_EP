@@ -86,6 +86,14 @@ local function addThreat(self)
 end
 
 local ClassSpecific = {
+	DRUID = function(self)
+		local rejuv = self.Health:CreateTexture(nil, 'OVERLAY')
+		rejuv:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
+		rejuv:SetSize(3, 3)
+		rejuv:SetTexture(1, 0.6, 0)
+
+		self.Rejuvenation = rejuv
+	end,
 
 	PRIEST = function(self)
 		local ws = self.Health:CreateTexture(nil, 'OVERLAY')

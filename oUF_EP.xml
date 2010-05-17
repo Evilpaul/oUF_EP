@@ -24,6 +24,7 @@
 
 	<Script file='modules\DebuffHighlight.lua'/>
 	<Script file='modules\PrayerOfMending.lua'/>
+	<Script file='modules\Rejuvenation.lua'/>
 	<Script file='modules\Renew.lua'/>
 	<Script file='modules\WeakenedSoul.lua'/>
 
