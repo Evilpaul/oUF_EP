@@ -107,6 +107,16 @@ local ClassSpecific = {
 		lb:SetTexture(0, 1, 1)
 
 		self.Lifebloom = lb
+
+	MAGE = function(self)
+		local fm = self.Health:CreateTexture(nil, 'OVERLAY')
+		fm:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
+		fm:SetSize(3, 3)
+		fm:SetTexture(1, 0.6, 0)
+
+		self.FocusMagic = fm
+	end,
+
 	end,
 
 	PRIEST = function(self)
