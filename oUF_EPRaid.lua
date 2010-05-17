@@ -108,6 +108,7 @@ local ClassSpecific = {
 
 		self.Lifebloom = lb
 
+		addDebuffHighlightIcon(self)
 	end,
 
 	MAGE = function(self)
@@ -117,6 +118,8 @@ local ClassSpecific = {
 		fm:SetTexture(1, 0.6, 0)
 
 		self.FocusMagic = fm
+
+		addDebuffHighlightIcon(self)
 	end,
 
 	PALADIN = function(self)
@@ -133,6 +136,8 @@ local ClassSpecific = {
 		bol:SetTexture(0, 1, 0)
 
 		self.BeaconOfLight = bol
+
+		addDebuffHighlightIcon(self)
 	end,
 
 	PRIEST = function(self)
@@ -157,6 +162,7 @@ local ClassSpecific = {
 
 		self.PrayerOfMending = pom
 
+		addDebuffHighlightIcon(self)
 	end,
 
 	SHAMAN = function(self)
@@ -166,6 +172,8 @@ local ClassSpecific = {
 		es:SetTexture(1, 0.6, 0)
 
 		self.EarthShield = es
+
+		addDebuffHighlightIcon(self)
 	end,
 
 	WARRIOR = function(self)
