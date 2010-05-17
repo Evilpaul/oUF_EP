@@ -126,6 +126,13 @@ local ClassSpecific = {
 		ss:SetTexture(1, 0.6, 0)
 
 		self.SacredShield = ss
+
+		local bol = self.Health:CreateTexture(nil, 'OVERLAY')
+		bol:SetPoint('TOPRIGHT', self.SacredShield, 'TOPLEFT', -1, 0)
+		bol:SetSize(3, 3)
+		bol:SetTexture(0, 1, 0)
+
+		self.BeaconOfLight = bol
 	end,
 
 	PRIEST = function(self)

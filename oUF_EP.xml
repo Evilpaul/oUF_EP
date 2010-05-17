@@ -22,6 +22,7 @@
 		</Frames>
 	</Button>
 
+	<Script file='modules\BeaconOfLight.lua'/>
 	<Script file='modules\DebuffHighlight.lua'/>
 	<Script file='modules\EarthShield.lua'/>
 	<Script file='modules\FocusMagic.lua'/>
