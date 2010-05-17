@@ -93,6 +93,13 @@ local ClassSpecific = {
 		rejuv:SetTexture(1, 0.6, 0)
 
 		self.Rejuvenation = rejuv
+
+		local regrowth = self.Health:CreateTexture(nil, 'OVERLAY')
+		regrowth:SetPoint('TOPRIGHT', self.Rejuvenation, 'TOPLEFT', -1, 0)
+		regrowth:SetSize(3, 3)
+		regrowth:SetTexture(0, 1, 0)
+
+		self.Regrowth = regrowth
 	end,
 
 	PRIEST = function(self)
