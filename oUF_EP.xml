@@ -28,7 +28,10 @@
 	<Script file='modules\WeakenedSoul.lua'/>
 
 	<Script file='config.lua'/>
+	<Script file='common.lua'/>
+
 	<Script file='oUF_EPTags.lua'/>
+
 	<Script file='oUF_EP.lua'/>
 	<Script file='oUF_EPRaid.lua'/>
 	<Script file='oUF_EPMT.lua'/>

@@ -1,22 +1,9 @@
 local _, ns = ...
 local config = ns.config
-
--- health bar function
-local function addHealthBar(self)
-	local health = CreateFrame('StatusBar', nil, self)
-	health:SetPoint('TOPRIGHT', self, 'TOPRIGHT', 0, 0)
-	health:SetPoint('TOPLEFT', self, 'TOPLEFT', 0, 0)
-	health:SetStatusBarTexture(config.TEXTURE)
-	health:SetHeight(21)
-	health:SetStatusBarColor(1 / 4, 1 / 4, 2 / 5)
-
-	local healthBG = health:CreateTexture(nil, 'BORDER')
-	healthBG:SetAllPoints(health)
-	healthBG:SetTexture(1 / 3, 1 / 3, 1 / 3)
-	health.bg = healthBG
-
-	self.Health = health
-end
+local addHealthBar = ns.addHealthBar
+local addDebuffHighlightBackdrop = ns.addDebuffHighlightBackdrop
+local addHealCommBars = ns.addHealCommBars
+local addRange = ns.addRange
 
 -- power bar function
 local addPowerBar
@@ -48,56 +35,19 @@ do
 	end
 end
 
--- EP debuff function
-local function addEPDebuff(self)
+local function addDebuffHighlightIcon(self)
 	local debuffIcon = self.Health:CreateTexture(nil, 'OVERLAY')
 	debuffIcon:SetSize(16, 16)
 	debuffIcon:SetPoint('CENTER', self, 'CENTER', 0, 0)
 	debuffIcon.Filter = true
-	debuffIcon.PreUpdate = nil
-	debuffIcon.PostUpdate = nil
 
-	self.EPDebuffIcon = debuffIcon
-
-	local debuffBackdrop = {
-		Alpha = 1,
-		Filter = false,
-		PreUpdate = nil,
-		PostUpdate = nil,
-	}
-
-	self.EPDebuffBackdrop = debuffBackdrop
-end
-
--- Healcomm bar function
-local function addHealCommBars(self)
-	local healcommbar = CreateFrame('StatusBar', nil, self.Health)
-	healcommbar:SetStatusBarTexture(config.TEXTURE)
-	healcommbar:SetStatusBarColor(0, 1, 0, 0.25)
-	healcommbar:SetPoint('LEFT', self.Health, 'LEFT', 0, 0)
-	self.allowHealCommOverflow = false
-
-	self.HealCommBar = healcommbar
+	self.DebuffIcon = debuffIcon
 end
 
 -- Tag function
 local addTags
 do
-	local format = string.format
-
-	local function shortVal(value)
-		local returnValue = ''
-
-		if value > 1e6 then
-			returnValue = format('%dm', value / 1e6)
-		elseif value > 1e3 then
-			returnValue = format('%dk', value / 1e3)
-		else
-			returnValue = format('%d', value)
-		end
-
-		return returnValue
-	end
+	local shortVal = ns.shortVal
 
 	function addTags(self)
 		local info = self.Health:CreateFontString(nil, 'OVERLAY')
@@ -114,15 +64,6 @@ do
 
 		self.HealCommText = healcommtext
 	end
-end
-
--- Range function
-local function addRange(self)
-	local range = {
-		insideAlpha = 1.0,
-		outsideAlpha = 0.65
-	}
-	self.Range = range
 end
 
 -- Ready Check function
@@ -185,8 +126,8 @@ local function Style(self, unit)
 
 	addHealthBar(self)
 	addPowerBar(self)
-	addEPDebuff(self)
-	addHealCommBars(self)
+	addDebuffHighlightBackdrop(self)
+	addHealCommBars(self, false)
 	addTags(self)
 	addRange(self)
 	addReadyCheck(self)

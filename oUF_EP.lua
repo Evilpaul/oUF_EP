@@ -1,6 +1,10 @@
 -- Big thanks to P3lim, a lot of this code is shamelessly ripped off from his work
 local _, ns = ...
 local config = ns.config
+local addHealthBar = ns.addHealthBar
+local addRaidIcon = ns.addRaidIcon
+local addDebuffHighlightBackdrop = ns.addDebuffHighlightBackdrop
+local addHealCommBars = ns.addHealCommBars
 
 -- menu function
 local addMenu
@@ -17,23 +21,6 @@ do
 		self.menu = SpawnMenu
 		self:SetAttribute('type2', 'menu')
 	end
-end
-
--- health bar function
-local function addHealthBar(self)
-	local health = CreateFrame('StatusBar', nil, self)
-	health:SetPoint('TOPRIGHT', self, 'TOPRIGHT', 0, 0)
-	health:SetPoint('TOPLEFT', self, 'TOPLEFT', 0, 0)
-	health:SetStatusBarTexture(config.TEXTURE)
-	health:SetHeight(21)
-	health:SetStatusBarColor(1 / 4, 1 / 4, 2 / 5)
-
-	local healthBG = health:CreateTexture(nil, 'BORDER')
-	healthBG:SetAllPoints(health)
-	healthBG:SetTexture(1 / 3, 1 / 3, 1 / 3)
-	health.bg = healthBG
-
-	self.Health = health
 end
 
 -- power bar function
@@ -218,15 +205,6 @@ do
 	end
 end
 
--- raid icon function
-local function addRaidIcon(self)
-	local raidicon = self.Health:CreateTexture(nil, 'OVERLAY')
-	raidicon:SetPoint('TOP', self, 'TOP', 0, 8)
-	raidicon:SetSize(16, 16)
-
-	self.RaidIcon = raidicon
-end
-
 -- leader function
 local function addRaidRole(self)
 	local leader = self.Health:CreateTexture(nil, 'OVERLAY')
@@ -258,29 +236,6 @@ local function addPVPFlag(self)
 	pvpFlag:SetSize(32, 32)
 
 	self.PvP = pvpFlag
-end
-
--- EP debuff function
-local function addEPDebuff(self)
-	local debuffBackdrop = {
-		Alpha = 1,
-		Filter = false,
-		PreUpdate = nil,
-		PostUpdate = nil,
-	}
-
-	self.EPDebuffBackdrop = debuffBackdrop
-end
-
--- Healcomm bar function
-local function addHealCommBars(self)
-	local healcommbar = CreateFrame('StatusBar', nil, self.Health)
-	healcommbar:SetStatusBarTexture(config.TEXTURE)
-	healcommbar:SetStatusBarColor(0, 1, 0, 0.25)
-	healcommbar:SetPoint('LEFT', self.Health, 'LEFT', 0, 0)
-	self.allowHealCommOverflow = true
-
-	self.HealCommBar = healcommbar
 end
 
 -- Tag function
@@ -370,7 +325,7 @@ local UnitSpecific = {
 		addRaidRole(self)
 		addLFDRole(self)
 		addPVPFlag(self)
-		addHealCommBars(self)
+		addHealCommBars(self, true)
 		addTags(self, true, true, false)
 
 		-- Turn off some Blizzard stuff
@@ -381,7 +336,7 @@ local UnitSpecific = {
 
 		addBuffs(self, 'TOPRIGHT', Minimap, 'TOPLEFT', -config.SPACING, 0, 83, 344, 36, 25, 'LEFT', 'DOWN')
 		addDebuffs(self, 'BOTTOMRIGHT', Minimap, 'BOTTOMLEFT', -config.SPACING, 0, 54, 344, 24, 25, 'LEFT', 'DOWN', false)
-		addEPDebuff(self)
+		addDebuffHighlightBackdrop(self)
 		addRuneBar(self)
 	end,
 
@@ -394,11 +349,11 @@ local UnitSpecific = {
 		addRaidIcon(self)
 		addRaidRole(self)
 		addLFDRole(self)
-		addHealCommBars(self)
+		addHealCommBars(self, true)
 		addTags(self, false, true, true)
 		addBuffs(self, 'BOTTOMLEFT', self, 'BOTTOMRIGHT', config.SPACING, 0, 54, 236, 20, 25, 'RIGHT', 'UP')
 		addDebuffs(self, 'TOPLEFT', self, 'BOTTOMRIGHT', config.SPACING, -config.SPACING, 54, 236, 20, 25, 'RIGHT', 'DOWN', false)
-		addEPDebuff(self)
+		addDebuffHighlightBackdrop(self)
 	end,
 
 	pet = function(self)

@@ -1,6 +1,7 @@
+local _, ns = ...
+local shortVal = ns.shortVal
 local unpack = unpack
 local format = string.format
-local gsub = string.gsub
 
 local function utf8sub(string, i)
 	local bytes = string:len()
@@ -29,20 +30,6 @@ local function utf8sub(string, i)
 			return string
 		end
 	end
-end
-
-local function shortVal(value)
-	local returnValue = ''
-
-	if value > 1e6 then
-		returnValue = format('%dm', value / 1e6)
-	elseif value > 1e3 then
-		returnValue = format('%dk', value / 1e3)
-	else
-		returnValue = format('%d', value)
-	end
-
-	return returnValue
 end
 
 for name, func in pairs({

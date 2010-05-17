@@ -1,22 +1,7 @@
 local _, ns = ...
 local config = ns.config
-
--- health bar function
-local function addHealthBar(self)
-	local health = CreateFrame('StatusBar', nil, self)
-	health:SetPoint('TOPRIGHT', self, 'TOPRIGHT', 0, 0)
-	health:SetPoint('TOPLEFT', self, 'TOPLEFT', 0, 0)
-	health:SetStatusBarTexture(config.TEXTURE)
-	health:SetHeight(21)
-	health:SetStatusBarColor(1 / 4, 1 / 4, 2 / 5)
-
-	local healthBG = health:CreateTexture(nil, 'BORDER')
-	healthBG:SetAllPoints(health)
-	healthBG:SetTexture(1 / 3, 1 / 3, 1 / 3)
-	health.bg = healthBG
-
-	self.Health = health
-end
+local addHealthBar = ns.addHealthBar
+local addRaidIcon = ns.addRaidIcon
 
 -- power bar function
 local addPowerBar
@@ -45,15 +30,6 @@ do
 
 		self.Power = power
 	end
-end
-
--- raid icon function
-local function addRaidIcon(self)
-	local raidicon = self.Health:CreateTexture(nil, 'OVERLAY')
-	raidicon:SetPoint('TOP', self, 'TOP', 0, 8)
-	raidicon:SetSize(16, 16)
-
-	self.RaidIcon = raidicon
 end
 
 -- Tag function
