@@ -278,7 +278,6 @@ do
 		updateFrame:RegisterEvent('PLAYER_ENTERING_WORLD')
 		updateFrame:RegisterEvent('PLAYER_REGEN_ENABLED')
 		updateFrame:RegisterEvent('RAID_ROSTER_UPDATE')
-		updateFrame:RegisterEvent('VARIABLES_LOADED')
 		updateFrame:RegisterEvent('UNIT_ENTERED_VEHICLE')
 		updateFrame:RegisterEvent('UNIT_EXITED_VEHICLE')
 	end
