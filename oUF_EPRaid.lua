@@ -174,15 +174,6 @@ local ClassSpecific = {
 		addDebuffHighlightIcon(self)
 	end,
 
-	WARRIOR = function(self)
-		local vig = self.Health:CreateTexture(nil, 'OVERLAY')
-		vig:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
-		vig:SetSize(3, 3)
-		vig:SetTexture(1, 0.6, 0)
-
-		self.Vigilance = vig
-	end,
-
 	WARLOCK = function(self)
 		local ss = self.Health:CreateTexture(nil, 'OVERLAY')
 		ss:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
@@ -190,6 +181,15 @@ local ClassSpecific = {
 		ss:SetTexture(1, 0.6, 0)
 
 		self.Soulstone = ss
+	end,
+
+	WARRIOR = function(self)
+		local vig = self.Health:CreateTexture(nil, 'OVERLAY')
+		vig:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
+		vig:SetSize(3, 3)
+		vig:SetTexture(1, 0.6, 0)
+
+		self.Vigilance = vig
 	end,
 }
 
