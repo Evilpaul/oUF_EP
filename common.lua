@@ -7,7 +7,7 @@ local function addHealthBar(self)
 	health:SetPoint('TOPRIGHT', self, 'TOPRIGHT', 0, 0)
 	health:SetPoint('TOPLEFT', self, 'TOPLEFT', 0, 0)
 	health:SetStatusBarTexture(config.TEXTURE)
-	health:SetHeight(21)
+	health:SetHeight(config.HEALTHHEIGHT)
 	health:SetStatusBarColor(1 / 4, 1 / 4, 2 / 5)
 
 	local healthBG = health:CreateTexture(nil, 'BORDER')

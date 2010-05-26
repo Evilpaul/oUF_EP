@@ -34,7 +34,7 @@ do
 		power:SetPoint('BOTTOMLEFT', self, 'BOTTOMLEFT', 0, 0)
 		power:SetPoint('TOP', self.Health, 'BOTTOM', 0, -1)
 		power:SetStatusBarTexture(config.TEXTURE)
-		power:SetHeight(4)
+		power:SetHeight(config.POWERHEIGHT)
 
 		power.colorTapping = true
 		power.colorDisconnected = true
@@ -153,7 +153,7 @@ do
 
 	function addCastBar(self, inverted, isPet)
 		local castbar = CreateFrame('StatusBar', nil, self)
-		castbar:SetSize(isPet and 105 or 205, 16)
+		castbar:SetSize((isPet and config.SECONDARYUNITWIDTH or config.PRIMARYUNITWIDTH) - 25, 16)
 		castbar:SetStatusBarTexture(config.TEXTURE)
 		castbar:SetStatusBarColor(1 / 4, 1 / 4, 2 / 5)
 		castbar:SetBackdrop(config.BACKDROP)
@@ -312,10 +312,14 @@ local function addRuneBar(self)
 	end
 end
 
+			self:SetAttribute('initial-width', config.PRIMARYUNITWIDTH)
+			self:SetAttribute('initial-width', config.PRIMARYUNITWIDTH)
+			self:SetAttribute('initial-width', config.SECONDARYUNITWIDTH)
+			self:SetAttribute('initial-width', config.SECONDARYUNITWIDTH)
+		self:SetAttribute('initial-height', config.UNITHEIGHT)
 local UnitSpecific = {
 	player = function(self)
 		-- Player specific layout code.
-		self:SetAttribute('initial-width', 230)
 		addMenu(self)
 		addPowerBar(self, false, false)
 		addCastBar(self, false, false)
@@ -339,7 +343,6 @@ local UnitSpecific = {
 
 	target = function(self)
 		-- Target specific layout code.
-		self:SetAttribute('initial-width', 230)
 		addMenu(self)
 		addPowerBar(self, true, false)
 		addCastBar(self, true, false)
@@ -354,7 +357,6 @@ local UnitSpecific = {
 
 	pet = function(self)
 		-- Pet specific layout code.
-		self:SetAttribute('initial-width', 130)
 		addMenu(self)
 		addPowerBar(self, false, true)
 		addCastBar(self, false, true)
@@ -364,7 +366,6 @@ local UnitSpecific = {
 
 	targettarget = function(self)
 		-- Targettarget specific layout code.
-		self:SetAttribute('initial-width', 144)
 		addPowerBar(self, true, false)
 		addDebuffs(self, 'TOPRIGHT', self, 'TOPLEFT', -config.SPACING, 0, 25, 85, 3, 25, 'LEFT', 'UP', false)
 		addTags(self, false, false, false)
@@ -372,7 +373,6 @@ local UnitSpecific = {
 
 	focus = function(self)
 		-- Focus specific layout code.
-		self:SetAttribute('initial-width', 144)
 		addPowerBar(self, true, false)
 		addDebuffs(self, 'TOPLEFT', self, 'TOPRIGHT', config.SPACING, 0, 25, 85, 3, 25, 'RIGHT', 'UP', true)
 		addTags(self, false, false, false)
@@ -390,7 +390,6 @@ local function Style(self, unit)
 	self:SetBackdrop(config.BACKDROP)
 	self:SetBackdropColor(0, 0, 0)
 
-	self:SetAttribute('initial-height', 25)
 
 	addHealthBar(self)
 	addRaidIcon(self)

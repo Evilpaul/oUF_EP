@@ -14,7 +14,7 @@ do
 		power:SetPoint('BOTTOMLEFT', self, 'BOTTOMLEFT', 0, 0)
 		power:SetPoint('TOP', self.Health, 'BOTTOM', 0, -1)
 		power:SetStatusBarTexture(config.TEXTURE)
-		power:SetHeight(4)
+		power:SetHeight(config.POWERHEIGHT)
 
 		power.colorTapping = true
 		power.colorReaction = true
@@ -55,8 +55,8 @@ local function Style(self, unit)
 	self:SetBackdrop(config.BACKDROP)
 	self:SetBackdropColor(0, 0, 0)
 
-	self:SetAttribute('initial-height', 25)
-	self:SetAttribute('initial-width', 100)
+		self:SetAttribute('initial-height', config.UNITHEIGHT)
+		self:SetAttribute('initial-width', config.TERTIARYUNITWIDTH)
 
 	addHealthBar(self)
 	addPowerBar(self)

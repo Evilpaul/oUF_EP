@@ -31,6 +31,15 @@ local config = {
 	}, {__index = oUF.colors}),
 
 	SPACING = 4,
-}
 
+	HEALTHHEIGHT = 21,
+	POWERHEIGHT = 4,
+	UNITHEIGHT = 25, -- should always equal healthHeight + powerHeight
+
+	PRIMARYUNITWIDTH = 230, -- primary frames (player & target)
+	SECONDARYUNITWIDTH = 144, -- secondary frames (pet, focus & targettarget)
+	TERTIARYUNITWIDTH = 100, -- tertiary frames (maintank, maintanktarget, boss)
+	RAIDUNITWIDTH = 25, -- raid frames
+
+}
 ns.config = config
