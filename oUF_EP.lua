@@ -9,9 +9,9 @@ local addHealCommBars = ns.addHealCommBars
 -- menu function
 local addMenu
 do
+	local format = string.format
 	local gsub = string.gsub
 	local upper = string.upper
-	local format = string.format
 
 	local function SpawnMenu(self)
 		ToggleDropDownMenu(1, nil, _G[format('%sFrameDropDown', gsub(self.unit, '^.', upper))], 'cursor')
