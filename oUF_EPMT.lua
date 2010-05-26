@@ -7,9 +7,7 @@ local addRange = ns.addRange
 -- power bar function
 local addPowerBar
 do
-	local function PostUpdatePower(element, unit, min, max)
-		element:GetParent().Health:SetHeight(max ~= 0 and 21 or 25)
-	end
+	local PostUpdatePower = ns.PostUpdatePower
 
 	function addPowerBar(self, isTarget)
 		local power = CreateFrame('StatusBar', nil, self)
