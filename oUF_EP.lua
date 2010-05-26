@@ -1,10 +1,6 @@
 -- Big thanks to P3lim, a lot of this code is shamelessly ripped off from his work
 local _, ns = ...
 local config = ns.config
-local addHealthBar = ns.addHealthBar
-local addRaidIcon = ns.addRaidIcon
-local addDebuffHighlightBackdrop = ns.addDebuffHighlightBackdrop
-local addHealCommBars = ns.addHealCommBars
 
 -- menu function
 local addMenu
@@ -55,30 +51,34 @@ do
 	end
 end
 
--- Generic Aura Tooltip function
-local function UpdateTooltip(self)
-	GameTooltip:SetUnitAura(self.parent:GetParent().unit, self:GetID(), self.filter)
+-- Generic PostCreateIcon function
+local PostCreateIcon
+do
+	local format = string.format
 
-	if self.owner and UnitExists(self.owner) then
-		GameTooltip:AddLine(format('Cast by %s', UnitName(self.owner) or UNKNOWN))
+	local function UpdateTooltip(self)
+		GameTooltip:SetUnitAura(self.parent:GetParent().unit, self:GetID(), self.filter)
+
+		if self.owner and UnitExists(self.owner) then
+			GameTooltip:AddLine(format('Cast by %s', UnitName(self.owner) or UNKNOWN))
+		end
+
+		GameTooltip:Show()
 	end
 
-	GameTooltip:Show()
-end
+	function PostCreateIcon(element, button)
+		button:SetBackdrop(config.BACKDROP)
+		button:SetBackdropColor(0, 0, 0)
 
--- Generic PostCreateIcon function
-local function PostCreateIcon(element, button)
-	button:SetBackdrop(config.BACKDROP)
-	button:SetBackdropColor(0, 0, 0)
+		button.count:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
 
-	button.count:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
+		button.UpdateTooltip = UpdateTooltip
 
-	button.UpdateTooltip = UpdateTooltip
+		button.cd:SetReverse()
 
-	button.cd:SetReverse()
-
-	button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-	button.icon:SetDrawLayer('ARTWORK')
+		button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+		button.icon:SetDrawLayer('ARTWORK')
+	end
 end
 
 -- buffs function
@@ -312,93 +312,105 @@ local function addRuneBar(self)
 	end
 end
 
+local UnitSpecific
+do
+	local addDebuffHighlightBackdrop = ns.addDebuffHighlightBackdrop
+	local addHealCommBars = ns.addHealCommBars
+
+	UnitSpecific = {
+		player = function(self)
+			-- Player specific layout code.
 			self:SetAttribute('initial-width', config.PRIMARYUNITWIDTH)
+			addMenu(self)
+			addPowerBar(self, false, false)
+			addCastBar(self, false, false)
+			addRaidRole(self)
+			addLFDRole(self)
+			addPVPFlag(self)
+			addHealCommBars(self, true)
+			addTags(self, true, true, false)
+
+			-- Turn off some Blizzard stuff
+			BuffFrame:Hide()
+			BuffFrame:UnregisterEvent('UNIT_AURA')
+			TicketStatusFrame:EnableMouse(false)
+			TicketStatusFrame:SetFrameStrata('BACKGROUND')
+
+			addBuffs(self, 'TOPRIGHT', Minimap, 'TOPLEFT', -config.SPACING, 0, 83, 344, 36, config.UNITHEIGHT, 'LEFT', 'DOWN')
+			addDebuffs(self, 'BOTTOMRIGHT', Minimap, 'BOTTOMLEFT', -config.SPACING, 0, 54, 344, 24, config.UNITHEIGHT, 'LEFT', 'DOWN', false)
+			addDebuffHighlightBackdrop(self)
+			addRuneBar(self)
+		end,
+
+		target = function(self)
+			-- Target specific layout code.
 			self:SetAttribute('initial-width', config.PRIMARYUNITWIDTH)
+			addMenu(self)
+			addPowerBar(self, true, false)
+			addCastBar(self, true, false)
+			addLFDRole(self)
+			addHealCommBars(self, true)
+			addTags(self, false, true, true)
+			addBuffs(self, 'BOTTOMLEFT', self, 'BOTTOMRIGHT', config.SPACING, 0, 54, 236, 20, config.UNITHEIGHT, 'RIGHT', 'UP')
+			addDebuffs(self, 'TOPLEFT', self, 'BOTTOMRIGHT', config.SPACING, -config.SPACING, 54, 236, 20, config.UNITHEIGHT, 'RIGHT', 'DOWN', false)
+			addDebuffHighlightBackdrop(self)
+		end,
+
+		pet = function(self)
+			-- Pet specific layout code.
 			self:SetAttribute('initial-width', config.SECONDARYUNITWIDTH)
+			addMenu(self)
+			addPowerBar(self, false, true)
+			addCastBar(self, false, true)
+			addTags(self, true, true, false)
+			addDebuffs(self, 'TOPRIGHT', self, 'TOPLEFT', -config.SPACING, 0, 25, 85, 3, config.UNITHEIGHT, 'LEFT', 'UP', false)
+		end,
+
+		targettarget = function(self)
+			-- Targettarget specific layout code.
 			self:SetAttribute('initial-width', config.SECONDARYUNITWIDTH)
+			addPowerBar(self, true, false)
+			addDebuffs(self, 'TOPRIGHT', self, 'TOPLEFT', -config.SPACING, 0, 25, 85, 3, config.UNITHEIGHT, 'LEFT', 'UP', false)
+			addTags(self, false, false, false)
+		end,
+
+		focus = function(self)
+			-- Focus specific layout code.
+			self:SetAttribute('initial-width', config.SECONDARYUNITWIDTH)
+			addPowerBar(self, true, false)
+			addDebuffs(self, 'TOPLEFT', self, 'TOPRIGHT', config.SPACING, 0, 25, 85, 3, config.UNITHEIGHT, 'RIGHT', 'UP', true)
+			addTags(self, false, false, false)
+		end,
+	}
+end
+
+local Style
+do
+	local addHealthBar = ns.addHealthBar
+	local addRaidIcon = ns.addRaidIcon
+
+	function Style(self, unit)
+		-- Shared layout code.
+		self.colors = config.COLORS
+
+		self:RegisterForClicks('AnyUp')
+		self:SetScript('OnEnter', UnitFrame_OnEnter)
+		self:SetScript('OnLeave', UnitFrame_OnLeave)
+
+		self:SetBackdrop(config.BACKDROP)
+		self:SetBackdropColor(0, 0, 0)
+
 		self:SetAttribute('initial-height', config.UNITHEIGHT)
-local UnitSpecific = {
-	player = function(self)
-		-- Player specific layout code.
-		addMenu(self)
-		addPowerBar(self, false, false)
-		addCastBar(self, false, false)
-		addRaidRole(self)
-		addLFDRole(self)
-		addPVPFlag(self)
-		addHealCommBars(self, true)
-		addTags(self, true, true, false)
 
-		-- Turn off some Blizzard stuff
-		BuffFrame:Hide()
-		BuffFrame:UnregisterEvent('UNIT_AURA')
-		TicketStatusFrame:EnableMouse(false)
-		TicketStatusFrame:SetFrameStrata('BACKGROUND')
-
-		addBuffs(self, 'TOPRIGHT', Minimap, 'TOPLEFT', -config.SPACING, 0, 83, 344, 36, 25, 'LEFT', 'DOWN')
-		addDebuffs(self, 'BOTTOMRIGHT', Minimap, 'BOTTOMLEFT', -config.SPACING, 0, 54, 344, 24, 25, 'LEFT', 'DOWN', false)
-		addDebuffHighlightBackdrop(self)
-		addRuneBar(self)
-	end,
-
-	target = function(self)
-		-- Target specific layout code.
-		addMenu(self)
-		addPowerBar(self, true, false)
-		addCastBar(self, true, false)
+		addHealthBar(self)
 		addRaidIcon(self)
-		addLFDRole(self)
-		addHealCommBars(self, true)
-		addTags(self, false, true, true)
-		addBuffs(self, 'BOTTOMLEFT', self, 'BOTTOMRIGHT', config.SPACING, 0, 54, 236, 20, 25, 'RIGHT', 'UP')
-		addDebuffs(self, 'TOPLEFT', self, 'BOTTOMRIGHT', config.SPACING, -config.SPACING, 54, 236, 20, 25, 'RIGHT', 'DOWN', false)
-		addDebuffHighlightBackdrop(self)
-	end,
 
-	pet = function(self)
-		-- Pet specific layout code.
-		addMenu(self)
-		addPowerBar(self, false, true)
-		addCastBar(self, false, true)
-		addTags(self, true, true, false)
-		addDebuffs(self, 'TOPRIGHT', self, 'TOPLEFT', -config.SPACING, 0, 25, 85, 3, 25, 'LEFT', 'UP', false)
-	end,
+		if UnitSpecific[unit] then
+			return UnitSpecific[unit](self)
+		end
 
-	targettarget = function(self)
-		-- Targettarget specific layout code.
-		addPowerBar(self, true, false)
-		addDebuffs(self, 'TOPRIGHT', self, 'TOPLEFT', -config.SPACING, 0, 25, 85, 3, 25, 'LEFT', 'UP', false)
-		addTags(self, false, false, false)
-	end,
-
-	focus = function(self)
-		-- Focus specific layout code.
-		addPowerBar(self, true, false)
-		addDebuffs(self, 'TOPLEFT', self, 'TOPRIGHT', config.SPACING, 0, 25, 85, 3, 25, 'RIGHT', 'UP', true)
-		addTags(self, false, false, false)
-	end,
-}
-
-local function Style(self, unit)
-	-- Shared layout code.
-	self.colors = config.COLORS
-
-	self:RegisterForClicks('AnyUp')
-	self:SetScript('OnEnter', UnitFrame_OnEnter)
-	self:SetScript('OnLeave', UnitFrame_OnLeave)
-
-	self:SetBackdrop(config.BACKDROP)
-	self:SetBackdropColor(0, 0, 0)
-
-
-	addHealthBar(self)
-	addRaidIcon(self)
-
-	if UnitSpecific[unit] then
-		return UnitSpecific[unit](self)
+		self.disallowVehicleSwap = true
 	end
-
-	self.disallowVehicleSwap = true
 end
 
 oUF:RegisterStyle('oUF_EP', Style)

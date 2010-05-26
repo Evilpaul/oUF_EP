@@ -1,9 +1,5 @@
 local _, ns = ...
 local config = ns.config
-local addHealthBar = ns.addHealthBar
-local addDebuffHighlightBackdrop = ns.addDebuffHighlightBackdrop
-local addHealCommBars = ns.addHealCommBars
-local addRange = ns.addRange
 
 -- power bar function
 local addPowerBar
@@ -193,35 +189,42 @@ local ClassSpecific = {
 	end,
 }
 
-local function Style(self, unit)
-	self.colors = config.COLORS
+local Style
+do
+	local addHealthBar = ns.addHealthBar
+	local addHealCommBars = ns.addHealCommBars
+	local addRange = ns.addRange
+	local addDebuffHighlightBackdrop = ns.addDebuffHighlightBackdrop
 
-	self:SetScript('OnEnter', UnitFrame_OnEnter)
-	self:SetScript('OnLeave', UnitFrame_OnLeave)
+	function Style(self, unit)
+		self.colors = config.COLORS
 
-	self:SetBackdrop(config.BACKDROP)
-	self:SetBackdropColor(0, 0, 0)
+		self:SetScript('OnEnter', UnitFrame_OnEnter)
+		self:SetScript('OnLeave', UnitFrame_OnLeave)
 
+		self:SetBackdrop(config.BACKDROP)
+		self:SetBackdropColor(0, 0, 0)
 
 		self:SetAttribute('initial-height', config.UNITHEIGHT)
 		self:SetAttribute('initial-width', config.RAIDUNITWIDTH)
-	addHealthBar(self)
-	addPowerBar(self)
-	addDebuffHighlightBackdrop(self)
-	addHealCommBars(self, false)
-	addTags(self)
-	addRange(self)
-	addReadyCheck(self)
-	addThreat(self)
 
-	local _, class = UnitClass('player')
-	if ClassSpecific[class] then
-		return ClassSpecific[class](self)
+		addHealthBar(self)
+		addPowerBar(self)
+		addDebuffHighlightBackdrop(self)
+		addHealCommBars(self, false)
+		addTags(self)
+		addRange(self)
+		addReadyCheck(self)
+		addThreat(self)
+
+		local _, class = UnitClass('player')
+		if ClassSpecific[class] then
+			return ClassSpecific[class](self)
+		end
+
+		self.disallowVehicleSwap = true
 	end
-
-	self.disallowVehicleSwap = true
 end
-
 oUF:RegisterStyle('oUF_EPRaid', Style)
 
 local spawnFunction
@@ -282,5 +285,4 @@ do
 		updateFrame:RegisterEvent('UNIT_EXITED_VEHICLE')
 	end
 end
-
 oUF:Factory(spawnFunction)

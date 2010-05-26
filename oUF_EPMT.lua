@@ -1,8 +1,5 @@
 local _, ns = ...
 local config = ns.config
-local addHealthBar = ns.addHealthBar
-local addRaidIcon = ns.addRaidIcon
-local addRange = ns.addRange
 
 -- power bar function
 local addPowerBar
@@ -49,28 +46,35 @@ local function addTags(self)
 	self:Tag(name, '[ep:name]')
 end
 
-local function Style(self, unit)
-	self.colors = config.COLORS
+local Style
+do
+	local addHealthBar = ns.addHealthBar
+	local addRaidIcon = ns.addRaidIcon
+	local addRange = ns.addRange
 
-	self:SetScript('OnEnter', UnitFrame_OnEnter)
-	self:SetScript('OnLeave', UnitFrame_OnLeave)
+	function Style(self, unit)
+		self.colors = config.COLORS
 
-	self:SetBackdrop(config.BACKDROP)
-	self:SetBackdropColor(0, 0, 0)
+		self:SetScript('OnEnter', UnitFrame_OnEnter)
+		self:SetScript('OnLeave', UnitFrame_OnLeave)
 
+		self:SetBackdrop(config.BACKDROP)
+		self:SetBackdropColor(0, 0, 0)
 
 		self:SetAttribute('initial-height', config.UNITHEIGHT)
 		self:SetAttribute('initial-width', config.TERTIARYUNITWIDTH)
-	addHealthBar(self)
-	addPowerBar(self, self:GetAttribute('unitsuffix') == 'target')
-	addRaidIcon(self)
-	addTags(self)
 
-	if self:GetAttribute('unitsuffix') ~= 'target' then
-		addRange(self)
+		addHealthBar(self)
+		addPowerBar(self, self:GetAttribute('unitsuffix') == 'target')
+		addRaidIcon(self)
+		addTags(self)
+
+		if self:GetAttribute('unitsuffix') ~= 'target' then
+			addRange(self)
+		end
+
+		self.disallowVehicleSwap = true
 	end
-
-	self.disallowVehicleSwap = true
 end
 
 oUF:RegisterStyle('oUF_EPMT', Style)
