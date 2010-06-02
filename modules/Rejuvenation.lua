@@ -33,7 +33,7 @@ local function GetBuffInfo(unit)
 		-- buff does not exist, quit out of the loop
 		if not spellId then return end
 
-		if rejuvRanks[spellId] and UnitIsUnit('player', unitCaster) then
+		if rejuvRanks[spellId] and unitCaster and UnitIsUnit('player', unitCaster) then
 			return true
 		end
 

@@ -15,7 +15,7 @@ local function GetBuffInfo(unit)
 		-- buff does not exist, quit out of the loop
 		if not spellId then return end
 
-		if spellId == 54646 and UnitIsUnit('player', unitCaster) then
+		if spellId == 54646 and unitCaster and UnitIsUnit('player', unitCaster) then
 			return true
 		end
 

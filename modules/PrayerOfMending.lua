@@ -21,7 +21,7 @@ local function GetBuffInfo(unit)
 		-- buff does not exist, quit out of the loop
 		if not spellId then return end
 
-		if pomRanks[spellId] and UnitIsUnit('player', unitCaster) then
+		if pomRanks[spellId] and unitCaster and UnitIsUnit('player', unitCaster) then
 			return true, count
 		end
 
