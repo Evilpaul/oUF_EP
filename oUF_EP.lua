@@ -391,8 +391,6 @@ do
 
 	function Style(self, unit)
 		-- Shared layout code.
-		self.colors = config.COLORS
-
 		self:RegisterForClicks('AnyUp')
 		self:SetScript('OnEnter', UnitFrame_OnEnter)
 		self:SetScript('OnLeave', UnitFrame_OnLeave)

@@ -197,8 +197,6 @@ do
 	local addDebuffHighlightBackdrop = ns.addDebuffHighlightBackdrop
 
 	function Style(self, unit)
-		self.colors = config.COLORS
-
 		self:SetScript('OnEnter', UnitFrame_OnEnter)
 		self:SetScript('OnLeave', UnitFrame_OnLeave)
 

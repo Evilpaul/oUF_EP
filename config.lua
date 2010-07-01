@@ -19,17 +19,6 @@ local config = {
 		}
 	},
 
-	COLORS = setmetatable({
-		power = setmetatable({
-			MANA = {0, 144 / 255, 1}
-		}, {__index = oUF.colors.power}),
-		reaction = setmetatable({
-			[2] = {1, 0, 0},
-			[4] = {1, 1, 0},
-			[5] = {0, 1, 0}
-		}, {__index = oUF.colors.reaction}),
-	}, {__index = oUF.colors}),
-
 	SPACING = 4,
 
 	HEALTHHEIGHT = 21,

@@ -53,8 +53,6 @@ do
 	local addRange = ns.addRange
 
 	function Style(self, unit)
-		self.colors = config.COLORS
-
 		self:SetScript('OnEnter', UnitFrame_OnEnter)
 		self:SetScript('OnLeave', UnitFrame_OnLeave)
 
