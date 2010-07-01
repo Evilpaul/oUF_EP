@@ -235,9 +235,13 @@ do
 		-- define the raid groups
 		local raid = {}
 		for group = 1, NUM_RAID_GROUPS do
-			local header = self:SpawnHeader(nil, nil, 'party,raid', 'showPlayer', group == 1, 'showParty', group == 1, 'showRaid', true)
+			local header = self:SpawnHeader(nil, nil, 'party,raid',
+							'showPlayer', true,
+							'showParty', true,
+							'showRaid', true,
+							'yOffset', -config.SPACING
+			)
 			header:SetAttribute('groupFilter', group)
-			header:SetAttribute('yOffset', -config.SPACING)
 
 			if group > 1 then
 				header:SetPoint('TOPLEFT', raid[group - 1], 'TOPRIGHT', config.SPACING, 0)
@@ -249,13 +253,17 @@ do
 		end
 
 		-- define the pet header
-		local petHeader = self:SpawnHeader(nil, 'SecureGroupPetHeaderTemplate', 'party,raid', 'showPlayer', true, 'ShowParty', true, 'showRaid', true)
-		petHeader:SetAttribute('yOffset', -config.SPACING)
-		petHeader:SetAttribute('xOffset', config.SPACING)
-		petHeader:SetAttribute('maxColumns', 8)
-		petHeader:SetAttribute('unitsPerColumn', 5)
-		petHeader:SetAttribute('columnSpacing', 5)
-		petHeader:SetAttribute('columnAnchorPoint', 'LEFT')
+		local petHeader = self:SpawnHeader(nil, 'SecureGroupPetHeaderTemplate', 'party,raid',
+							'showPlayer', true,
+							'ShowParty', true,
+							'showRaid', true,
+							'maxColumns', 8,
+							'unitsPerColumn', 5,
+							'columnSpacing', 5,
+							'columnAnchorPoint', 'LEFT',
+							'yOffset', -config.SPACING,
+							'xOffset', config.SPACING
+		)
 		petHeader:Show()
 
 		local updateFrame = CreateFrame('Frame')

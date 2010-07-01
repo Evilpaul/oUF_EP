@@ -80,9 +80,12 @@ oUF:RegisterStyle('oUF_EPMT', Style)
 oUF:Factory(function(self)
 	self:SetActiveStyle('oUF_EPMT')
 
-	local frame = self:SpawnHeader(nil, nil, 'raid', 'showRaid', true, 'groupFilter', 'MAINTANK')
+	local frame = self:SpawnHeader(nil, nil, 'raid',
+					'showRaid', true,
+					'yOffset', -10,
+					'template', 'oUF_MT',
+					'groupFilter', 'MAINTANK'
+	)
 	frame:SetPoint('TOPLEFT', UIParent, 'TOPLEFT', 15, -350)
-	frame:SetAttribute('yOffset', -10)
-	frame:SetAttribute('template', 'oUF_MT')
 	frame:Show()
 end)
