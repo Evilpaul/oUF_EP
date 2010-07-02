@@ -228,6 +228,7 @@ oUF:RegisterStyle('oUF_EPRaid', Style)
 local spawnFunction
 do
 	local mmax = math.max
+	local toStr = tostring
 
 	function spawnFunction(self)
 		self:SetActiveStyle('oUF_EPRaid')
@@ -239,9 +240,9 @@ do
 							'showPlayer', true,
 							'showParty', true,
 							'showRaid', true,
+							'groupFilter', toStr(group),
 							'yOffset', -config.SPACING
 			)
-			header:SetAttribute('groupFilter', group)
 
 			if group > 1 then
 				header:SetPoint('TOPLEFT', raid[group - 1], 'TOPRIGHT', config.SPACING, 0)
