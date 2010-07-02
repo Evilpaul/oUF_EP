@@ -258,9 +258,9 @@ do
 							'showPlayer', true,
 							'ShowParty', true,
 							'showRaid', true,
-							'maxColumns', 8,
-							'unitsPerColumn', 5,
-							'columnSpacing', 5,
+							'maxColumns', NUM_RAID_GROUPS,
+							'unitsPerColumn', MEMBERS_PER_RAID_GROUP,
+							'columnSpacing', config.SPACING,
 							'columnAnchorPoint', 'LEFT',
 							'yOffset', -config.SPACING,
 							'xOffset', config.SPACING
