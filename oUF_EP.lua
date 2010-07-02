@@ -131,6 +131,35 @@ do
 	end
 end
 
+-- temporary enchants function
+local addWeaponEnchants
+do
+	local function PostCreateEnchantIcon(element, button)
+		button:SetBackdrop(config.BACKDROP)
+		button:SetBackdropColor(0, 0, 0)
+
+		button.count:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
+
+		button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+		button.icon:SetDrawLayer('ARTWORK')
+	end
+
+	function addWeaponEnchants(self, point, relativeFrame, relativePoint, ofsx, ofsy, height, width, num, size, growthx, growthy)
+		local enchants = CreateFrame('Frame', nil, self)
+		enchants:SetPoint(point, relativeFrame, relativePoint, ofsx, ofsy)
+		enchants:SetSize(width, height)
+		enchants.num = num
+		enchants.size = size
+		enchants.spacing = config.SPACING
+		enchants.initialAnchor = point
+		enchants['growth-x'] = growthx
+		enchants['growth-y'] = growthy
+		enchants.PostCreateIcon = PostCreateEnchantIcon
+
+		self.Enchants = enchants
+	end
+end
+
 -- cast bar function
 local addCastBar
 do
@@ -333,11 +362,13 @@ do
 			-- Turn off some Blizzard stuff
 			BuffFrame:Hide()
 			BuffFrame:UnregisterEvent('UNIT_AURA')
+			TemporaryEnchantFrame:Hide()
 			TicketStatusFrame:EnableMouse(false)
 			TicketStatusFrame:SetFrameStrata('BACKGROUND')
 
 			addBuffs(self, 'TOPRIGHT', Minimap, 'TOPLEFT', -config.SPACING, 0, 83, 344, 36, config.UNITHEIGHT, 'LEFT', 'DOWN')
 			addDebuffs(self, 'BOTTOMRIGHT', Minimap, 'BOTTOMLEFT', -config.SPACING, 0, 54, 344, 24, config.UNITHEIGHT, 'LEFT', 'DOWN', false)
+			addWeaponEnchants(self, 'BOTTOMRIGHT', Minimap, 'BOTTOMLEFT', -config.SPACING, -54, 25, 54, 2, config.UNITHEIGHT, 'LEFT', 'DOWN')
 			addDebuffHighlightBackdrop(self)
 			addRuneBar(self)
 		end,

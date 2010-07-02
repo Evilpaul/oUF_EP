@@ -36,6 +36,7 @@
 	<Script file='modules\Soulstone.lua'/>
 	<Script file='modules\Vigilance.lua'/>
 	<Script file='modules\WeakenedSoul.lua'/>
+	<Script file='modules\WeaponEnchant.lua'/>
 
 	<Script file='config.lua'/>
 	<Script file='common.lua'/>
