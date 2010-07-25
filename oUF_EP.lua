@@ -266,7 +266,7 @@ local function addPVPFlag(self)
 end
 
 -- Tag function
-local function addTags(self, showPower, showHealComm, showCombo)
+local function addTags(self, showPower, showHealPrediction, showCombo)
 	local healthValue = self.Health:CreateFontString(nil, 'OVERLAY')
 	healthValue:SetPoint('RIGHT', self.Health, 'RIGHT', -2, 0)
 	healthValue:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
@@ -283,15 +283,14 @@ local function addTags(self, showPower, showHealComm, showCombo)
 		self:Tag(info, '[ep:name][|cff0090ff >rare<|r]')
 	end
 
-	if showHealComm then
-		local healcommtext = self.Health:CreateFontString(nil, 'OVERLAY')
-		healcommtext:SetPoint('RIGHT', healthValue, 'LEFT', -config.SPACING, 0)
-		healcommtext:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
-		healcommtext:SetTextColor(0, 1, 0)
-		healcommtext:SetJustifyH('RIGHT')
-		self.HealCommText = healcommtext
+	if showHealPrediction then
+		local healpredictiontext = self.Health:CreateFontString(nil, 'OVERLAY')
+		healpredictiontext:SetPoint('RIGHT', healthValue, 'LEFT', -config.SPACING, 0)
+		healpredictiontext:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
+		healpredictiontext:SetJustifyH('RIGHT')
+		self:Tag(healpredictiontext, '[|cff00ff00 >ep:healpredictionall<|r]')
 
-		info:SetPoint('RIGHT', healcommtext, 'LEFT', -config.SPACING, 0)
+		info:SetPoint('RIGHT', healpredictiontext, 'LEFT', -config.SPACING, 0)
 	else
 		info:SetPoint('RIGHT', healthValue, 'LEFT', -config.SPACING, 0)
 	end
@@ -344,7 +343,7 @@ end
 local UnitSpecific
 do
 	local addDebuffHighlightBackdrop = ns.addDebuffHighlightBackdrop
-	local addHealCommBars = ns.addHealCommBars
+	local addHealPredictionBars = ns.addHealPredictionBars
 
 	UnitSpecific = {
 		player = function(self)
@@ -356,7 +355,7 @@ do
 			addRaidRole(self)
 			addLFDRole(self)
 			addPVPFlag(self)
-			addHealCommBars(self, true)
+			addHealPredictionBars(self, true)
 			addTags(self, true, true, false)
 
 			-- Turn off some Blizzard stuff
@@ -380,7 +379,7 @@ do
 			addPowerBar(self, true, false)
 			addCastBar(self, true, false)
 			addLFDRole(self)
-			addHealCommBars(self, true)
+			addHealPredictionBars(self, true)
 			addTags(self, false, true, true)
 			addBuffs(self, 'BOTTOMLEFT', self, 'BOTTOMRIGHT', config.SPACING, 0, 54, 236, 20, config.UNITHEIGHT, 'RIGHT', 'UP')
 			addDebuffs(self, 'TOPLEFT', self, 'BOTTOMRIGHT', config.SPACING, -config.SPACING, 54, 236, 20, config.UNITHEIGHT, 'RIGHT', 'DOWN', false)

@@ -41,16 +41,31 @@ end
 ns.addDebuffHighlightBackdrop = addDebuffHighlightBackdrop
 
 -- Healcomm bar function
-local function addHealCommBars(self, allowOverflow)
-	local healcommbar = CreateFrame('StatusBar', nil, self.Health)
-	healcommbar:SetStatusBarTexture(config.TEXTURE)
-	healcommbar:SetStatusBarColor(0, 1, 0, 0.25)
-	healcommbar:SetPoint('LEFT', self.Health, 'LEFT', 0, 0)
-	self.allowHealCommOverflow = allowOverflow
+local function addHealPredictionBars(self, allowOverflow)
+	local mhpb = CreateFrame('StatusBar', nil, self.Health)
+	mhpb:SetPoint('TOPLEFT', self.Health:GetStatusBarTexture(), 'TOPRIGHT', 0, 0)
+	mhpb:SetPoint('BOTTOMLEFT', self.Health:GetStatusBarTexture(), 'BOTTOMRIGHT', 0, 0)
+	mhpb:SetWidth(self.Health:GetWidth())
+	mhpb:SetStatusBarTexture(config.TEXTURE)
+	mhpb:SetStatusBarColor(0, 1, 0.5, 0.25)
 
-	self.HealCommBar = healcommbar
+	local ohpb = CreateFrame('StatusBar', nil, self.Health)
+	ohpb:SetPoint('TOPLEFT', mhpb:GetStatusBarTexture(), 'TOPRIGHT', 0, 0)
+	ohpb:SetPoint('BOTTOMLEFT', mhpb:GetStatusBarTexture(), 'BOTTOMRIGHT', 0, 0)
+	ohpb:SetWidth(self.Health:GetWidth())
+	ohpb:SetStatusBarTexture(config.TEXTURE)
+	ohpb:SetStatusBarColor(0, 1, 0, 0.25)
+
+	self.myHealPredictionBar = mhpb
+	self.otherHealPredictionBar = ohpb
+
+	if allowOverflow then
+		self.maxHealPredictionOverflow = 1.05
+	else
+		self.maxHealPredictionOverflow = 1
+	end
 end
-ns.addHealCommBars = addHealCommBars
+ns.addHealPredictionBars = addHealPredictionBars
 
 -- Range function
 local function addRange(self)

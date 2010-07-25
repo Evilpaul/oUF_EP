@@ -192,7 +192,7 @@ local ClassSpecific = {
 local Style
 do
 	local addHealthBar = ns.addHealthBar
-	local addHealCommBars = ns.addHealCommBars
+	local addHealPredictionBars = ns.addHealPredictionBars
 	local addRange = ns.addRange
 	local addDebuffHighlightBackdrop = ns.addDebuffHighlightBackdrop
 
@@ -209,7 +209,7 @@ do
 		addHealthBar(self)
 		addPowerBar(self)
 		addDebuffHighlightBackdrop(self)
-		addHealCommBars(self, false)
+		addHealPredictionBars(self, false)
 		addTags(self)
 		addRange(self)
 		addReadyCheck(self)
