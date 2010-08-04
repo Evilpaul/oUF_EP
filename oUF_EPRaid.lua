@@ -49,14 +49,10 @@ do
 		info:SetFont(config.FONT, config.FONTSIZESMALL, config.FONTBORDER)
 		self:Tag(info, '[ep:raidname]')
 
-		local healcommtext = self.Health:CreateFontString(nil, 'OVERLAY')
-		healcommtext:SetPoint('TOP', info, 'BOTTOM', 0, 0)
-		healcommtext:SetFont(config.FONT, config.FONTSIZESMALL, config.FONTBORDER)
-		healcommtext:SetTextColor(0, 1, 0)
-
-		self.HealCommTextFormat = shortVal
-
-		self.HealCommText = healcommtext
+		local healpredictiontext = self.Health:CreateFontString(nil, 'OVERLAY')
+		healpredictiontext:SetPoint('TOP', info, 'BOTTOM', 0, 0)
+		healpredictiontext:SetFont(config.FONT, config.FONTSIZESMALL, config.FONTBORDER)
+		self:Tag(healpredictiontext, '[|cff00ff00 >ep:healpredictionall<|r]')
 	end
 end
 

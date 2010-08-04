@@ -40,7 +40,7 @@ local function addDebuffHighlightBackdrop(self)
 end
 ns.addDebuffHighlightBackdrop = addDebuffHighlightBackdrop
 
--- Healcomm bar function
+-- Heal Prediction bar function
 local function addHealPredictionBars(self, allowOverflow)
 	local mhpb = CreateFrame('StatusBar', nil, self.Health)
 	mhpb:SetPoint('TOPLEFT', self.Health:GetStatusBarTexture(), 'TOPRIGHT', 0, 0)
