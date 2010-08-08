@@ -1,4 +1,137 @@
 local _, ns = ...
+local playerName, _ = UnitName('player')
+
+local auraFilter = {
+	-- General buffs
+	[10060] = true, -- Buff: Power Infusion
+	[15359] = true, -- Buff: Inspiration
+	[16240] = true, -- Buff: Ancestral Healing
+	[29166] = true, -- Buff: Innervate
+	[32182] = true, -- Buff: Heroism
+	[33206] = true, -- Buff: Pain Suppression
+	[47788] = true, -- Buff: Guardian Spirit
+	[49016] = true, -- Buff: Hysteria
+}
+
+if playerName == 'Evilbadger' then
+	-- Class specific buffs
+	auraFilter[5229] = true  -- Druid: Enrage
+	auraFilter[16870] = true -- Druid: Clearcast
+	auraFilter[22812] = true -- Druid: Barkskin
+	auraFilter[22842] = true -- Druid: Frenzied Regeneration
+	auraFilter[33357] = true -- Druid: Dash
+	auraFilter[50213] = true -- Druid: Tiger's Fury
+	auraFilter[50334] = true -- Druid: Berserk
+	auraFilter[52610] = true -- Druid: Savage Roar
+	auraFilter[61336] = true -- Druid: Survival Instincts
+	auraFilter[62606] = true -- Druid: Savage Defense
+	auraFilter[69369] = true -- Druid: Predator's Swiftness
+
+	-- Tier procs
+	auraFilter[70725] = true -- Druid: Enraged Defense (4-part T-10)
+
+	-- Trinket procs
+	auraFilter[71586] = true -- Corroded Skeleton Key
+	auraFilter[67694] = true -- Glyph of Indomitability
+	auraFilter[67699] = true -- Satrina's Impeding Scarab (normal)
+	auraFilter[60233] = true -- Darkmoon Card: Greatness (Agility)
+	auraFilter[71575] = true -- Unidentifiable Organ (normal)
+	auraFilter[71396] = true -- Herkuml War Token
+	auraFilter[71403] = true -- Needle-Encrusted Scorpion
+
+	-- Weapon Proc
+	auraFilter[28093] = true -- Mongoose
+
+	-- Ring proc
+	auraFilter[72414] = true -- ICC Rep Ring
+
+	-- Relic
+	auraFilter[71175] = true -- Idol of the Crying Moon
+
+elseif playerName == 'Evilmagic' then
+	-- Class specific buffs
+	auraFilter[12042] = true -- Mage: Arcane Power
+	auraFilter[12043] = true -- Mage: Presence of Mind
+	auraFilter[12472] = true -- Mage: Icy Veins
+	auraFilter[12536] = true -- Mage: Clearcasting (Arcane Concentration)
+	auraFilter[32612] = true -- Mage: Invisibility
+	auraFilter[36032] = true -- Mage: Arcane Blast (Debuff)
+	auraFilter[44401] = true -- Mage: Missile Barrage
+	auraFilter[45438] = true -- Mage: Ice Block
+	auraFilter[54648] = true -- Mage: Focus Magic
+	auraFilter[55342] = true -- Mage: Mirror Image
+	auraFilter[57531] = true -- Mage: Arcane Potency
+
+	-- Tier procs
+	auraFilter[70753] = true -- Mage: Pushing the Limit (2-part T-10)
+	auraFilter[70747] = true -- Mage: Quad Core (4-part T-10)
+
+	-- Trinket procs
+	auraFilter[67669] = true -- Abyssal Rune
+	auraFilter[67684] = true -- Talisman of Resurgance
+
+	-- Trade skill buffs
+	auraFilter[55637] = true -- Lightweave Embroidery
+
+elseif playerName == 'Evilpaul' then
+	-- Class specific buffs
+	auraFilter[14751] = true -- Priest: Inner Focus
+	auraFilter[33151] = true -- Priest: Surge of Light
+	auraFilter[59891] = true -- Priest: Borrowed Time
+	auraFilter[63725] = true -- Priest: Holy Concentration
+	auraFilter[63734] = true -- Priest: Serendipity
+	auraFilter[63944] = true -- Priest: Renewed Hope
+
+	-- Trinket procs
+	auraFilter[71568] = true -- Ephemeral Snowflake
+	auraFilter[60525] = true -- Majestic Dragon Figurine
+	auraFilter[71564] = true -- Nevermelting Ice Crystal
+
+	-- Ring proc
+	auraFilter[72418] = true -- ICC Rep Ring
+
+elseif playerName == 'Evilundead' then
+	-- Class specific buffs
+	auraFilter[871] = true   -- Warrior: Shield Wall
+	auraFilter[1719] = true  -- Warrior: Recklessness
+	auraFilter[2565] = true  -- Warrior: Shield Block
+	auraFilter[12292] = true -- Warrior: Death Wish
+	auraFilter[12328] = true -- Warrior: Sweeping Strikes
+	auraFilter[12970] = true -- Warrior: Flurry
+	auraFilter[12976] = true -- Warrior: Last Stand
+	auraFilter[14204] = true -- Warrior: Enrage
+	auraFilter[18499] = true -- Warrior: Berserker Rage
+	auraFilter[23920] = true -- Warrior: Spell Reflection
+	auraFilter[29131] = true -- Warrior: Bloodrage
+	auraFilter[46916] = true -- Warrior: Slam
+	auraFilter[50227] = true -- Warrior: Sword and Board
+	auraFilter[52437] = true -- Warrior: Sudden Death
+	auraFilter[55694] = true -- Warrior: Enraged Regeneration
+	auraFilter[57516] = true -- Warrior: Enrage (Improved Defensive Stance)
+	auraFilter[57522] = true -- Warrior: Enrage (Wrecking Crew)
+	auraFilter[60503] = true -- Warrior: Taste for Blood
+	auraFilter[65156] = true -- Warrior: Juggernaut
+
+	-- Trinket procs
+	auraFilter[67671] = true -- Banner of Victory
+	auraFilter[71403] = true -- Needle-Encrusted Scorpion
+	auraFilter[67694] = true -- Glyph of Indomitability
+	auraFilter[67631] = true -- The Black Heart
+
+	-- Weapon Proc
+	auraFilter[28093] = true -- Mongoose
+
+	-- Ring proc
+	auraFilter[72414] = true -- ICC Rep Ring
+
+	-- Glyph Proc
+	auraFilter[58363] = true -- Glyph of Revenge
+	auraFilter[58374] = true -- Glyph of Blocking
+
+	-- Trade skill buffs
+	auraFilter[55503] = true -- Lifeblood
+
+end
 
 local config = {
 	FONT = [=[Interface\AddOns\oUF_EP\fonts\Sansation_Regular.ttf]=],
@@ -30,5 +163,6 @@ local config = {
 	TERTIARYUNITWIDTH = 100, -- tertiary frames (maintank, maintanktarget, boss)
 	RAIDUNITWIDTH = 25, -- raid frames
 
+	AURAS = auraFilter,
 }
 ns.config = config
