@@ -23,20 +23,20 @@
 		</Frames>
 	</Button>
 
-	<Script file='modules\BeaconOfLight.lua'/>
-	<Script file='modules\DebuffHighlight.lua'/>
-	<Script file='modules\EarthShield.lua'/>
-	<Script file='modules\FocusMagic.lua'/>
-	<Script file='modules\Lifebloom.lua'/>
-	<Script file='modules\PrayerOfMending.lua'/>
-	<Script file='modules\Regrowth.lua'/>
-	<Script file='modules\Rejuvenation.lua'/>
-	<Script file='modules\Renew.lua'/>
-	<Script file='modules\SacredShield.lua'/>
-	<Script file='modules\Soulstone.lua'/>
-	<Script file='modules\Vigilance.lua'/>
-	<Script file='modules\WeakenedSoul.lua'/>
-	<Script file='modules\WeaponEnchant.lua'/>
+	<Script file='elements\BeaconOfLight.lua'/>
+	<Script file='elements\DebuffHighlight.lua'/>
+	<Script file='elements\EarthShield.lua'/>
+	<Script file='elements\FocusMagic.lua'/>
+	<Script file='elements\Lifebloom.lua'/>
+	<Script file='elements\PrayerOfMending.lua'/>
+	<Script file='elements\Regrowth.lua'/>
+	<Script file='elements\Rejuvenation.lua'/>
+	<Script file='elements\Renew.lua'/>
+	<Script file='elements\SacredShield.lua'/>
+	<Script file='elements\Soulstone.lua'/>
+	<Script file='elements\Vigilance.lua'/>
+	<Script file='elements\WeakenedSoul.lua'/>
+	<Script file='elements\WeaponEnchant.lua'/>
 
 	<Script file='config.lua'/>
 	<Script file='common.lua'/>
