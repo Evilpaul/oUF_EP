@@ -4,24 +4,6 @@ local _, ns = ...
 local oUF = ns.oUF or oUF
 assert(oUF, 'Rejuvenation was unable to locate oUF install')
 
-local rejuvRanks = {
-	[774] = true,
-	[1058] = true,
-	[1430] = true,
-	[2090] = true,
-	[2091] = true,
-	[3627] = true,
-	[8910] = true,
-	[9839] = true,
-	[9840] = true,
-	[9841] = true,
-	[25299] = true,
-	[26981] = true,
-	[26982] = true,
-	[48440] = true,
-	[48441] = true,
-}
-
 local function GetBuffInfo(unit)
 	if not UnitCanAssist('player', unit) then return end
 
@@ -33,7 +15,7 @@ local function GetBuffInfo(unit)
 		-- buff does not exist, quit out of the loop
 		if not spellId then return end
 
-		if rejuvRanks[spellId] and unitCaster and UnitIsUnit('player', unitCaster) then
+		if spellId == 774 and unitCaster and UnitIsUnit('player', unitCaster) then
 			return true
 		end
 

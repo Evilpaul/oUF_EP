@@ -4,12 +4,6 @@ local _, ns = ...
 local oUF = ns.oUF or oUF
 assert(oUF, 'PrayerOfMending was unable to locate oUF install')
 
-local pomRanks = {
-	[41635] = true,
-	[48110] = true,
-	[48111] = true,
-}
-
 local function GetBuffInfo(unit)
 	if not UnitCanAssist('player', unit) then return end
 
@@ -21,7 +15,7 @@ local function GetBuffInfo(unit)
 		-- buff does not exist, quit out of the loop
 		if not spellId then return end
 
-		if pomRanks[spellId] and unitCaster and UnitIsUnit('player', unitCaster) then
+		if spellId == 41635 and unitCaster and UnitIsUnit('player', unitCaster) then
 			return true, count
 		end
 

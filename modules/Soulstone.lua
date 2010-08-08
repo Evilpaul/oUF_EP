@@ -4,16 +4,6 @@ local _, ns = ...
 local oUF = ns.oUF or oUF
 assert(oUF, 'Soulstone was unable to locate oUF install')
 
-local ssRanks = {
-	[20707] = true,
-	[20762] = true,
-	[20763] = true,
-	[20764] = true,
-	[20765] = true,
-	[27239] = true,
-	[47883] = true,
-}
-
 local function GetBuffInfo(unit)
 	if not UnitCanAssist('player', unit) then return end
 
@@ -25,7 +15,7 @@ local function GetBuffInfo(unit)
 		-- buff does not exist, quit out of the loop
 		if not spellId then return end
 
-		if ssRanks[spellId] and unitCaster and UnitIsUnit('player', unitCaster) then
+		if spellId == 20707 and unitCaster and UnitIsUnit('player', unitCaster) then
 			return true
 		end
 

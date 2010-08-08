@@ -4,14 +4,6 @@ local _, ns = ...
 local oUF = ns.oUF or oUF
 assert(oUF, 'EarthShield was unable to locate oUF install')
 
-local esRanks = {
-	[974] = true,
-	[32593] = true,
-	[32594] = true,
-	[49283] = true,
-	[49284] = true,
-}
-
 local function GetBuffInfo(unit)
 	if not UnitCanAssist('player', unit) then return end
 
@@ -23,7 +15,7 @@ local function GetBuffInfo(unit)
 		-- buff does not exist, quit out of the loop
 		if not spellId then return end
 
-		if esRanks[spellId] and unitCaster and UnitIsUnit('player', unitCaster) then
+		if spellId == 974 and unitCaster and UnitIsUnit('player', unitCaster) then
 			return true, count
 		end
 

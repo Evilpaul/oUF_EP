@@ -4,22 +4,6 @@ local _, ns = ...
 local oUF = ns.oUF or oUF
 assert(oUF, 'Renew was unable to locate oUF install')
 
-local renewRanks = {
-	[139] = true,
-	[6074] = true,
-	[6075] = true,
-	[6076] = true,
-	[6078] = true,
-	[10927] = true,
-	[10928] = true,
-	[10929] = true,
-	[25315] = true,
-	[25221] = true,
-	[25222] = true,
-	[48067] = true,
-	[48068] = true,
-}
-
 local function GetBuffInfo(unit)
 	if not UnitCanAssist('player', unit) then return end
 
@@ -31,7 +15,7 @@ local function GetBuffInfo(unit)
 		-- buff does not exist, quit out of the loop
 		if not spellId then return end
 
-		if renewRanks[spellId] and unitCaster and UnitIsUnit('player', unitCaster) then
+		if spellId == 139 and unitCaster and UnitIsUnit('player', unitCaster) then
 			return true
 		end
 

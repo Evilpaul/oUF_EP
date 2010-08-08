@@ -4,21 +4,6 @@ local _, ns = ...
 local oUF = ns.oUF or oUF
 assert(oUF, 'Regrowth was unable to locate oUF install')
 
-local regrowthRanks = {
-	[8936] = true,
-	[8938] = true,
-	[8939] = true,
-	[8940] = true,
-	[8941] = true,
-	[9750] = true,
-	[9856] = true,
-	[9857] = true,
-	[9858] = true,
-	[26980] = true,
-	[48442] = true,
-	[48443] = true,
-}
-
 local function GetBuffInfo(unit)
 	if not UnitCanAssist('player', unit) then return end
 
@@ -30,7 +15,7 @@ local function GetBuffInfo(unit)
 		-- buff does not exist, quit out of the loop
 		if not spellId then return end
 
-		if regrowthRanks[spellId] and unitCaster and UnitIsUnit('player', unitCaster) then
+		if spellId == 8936 and unitCaster and UnitIsUnit('player', unitCaster) then
 			return true
 		end
 

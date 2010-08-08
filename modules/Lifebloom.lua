@@ -4,12 +4,6 @@ local _, ns = ...
 local oUF = ns.oUF or oUF
 assert(oUF, 'Lifebloom was unable to locate oUF install')
 
-local lbRanks = {
-	[33763] = true,
-	[48450] = true,
-	[48451] = true,
-}
-
 local function GetBuffInfo(unit)
 	if not UnitCanAssist('player', unit) then return end
 
@@ -21,7 +15,7 @@ local function GetBuffInfo(unit)
 		-- buff does not exist, quit out of the loop
 		if not spellId then return end
 
-		if lbRanks[spellId] and unitCaster and UnitIsUnit('player', unitCaster) then
+		if spellId == 33763 and unitCaster and UnitIsUnit('player', unitCaster) then
 			return true, count
 		end
 
