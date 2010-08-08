@@ -9,7 +9,7 @@
 				<Anchors>
 					<Anchor point='TOPLEFT' relativePoint='TOPRIGHT' relativeTo='$parent'>
 						<Offset>
-							<AbsDimension x='5' y='0'/>
+							<AbsDimension x='4' y='0'/>
 						</Offset>
 					</Anchor>
 				</Anchors>
