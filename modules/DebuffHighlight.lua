@@ -5,10 +5,10 @@ assert(oUF, 'DebuffHighlight was unable to locate oUF install')
 local _, playerClass = UnitClass('player')
 local CanDispel = {
 	PRIEST = { Magic = true, Disease = true },
-	SHAMAN = { Curse = true, Poison = true, Disease = true },
+	SHAMAN = { Magic = true, Curse = true },
 	PALADIN = { Magic = true, Poison = true, Disease = true },
 	MAGE = { Curse = true },
-	DRUID = { Curse = true, Poison = true }
+	DRUID = { Magic = true, Curse = true, Poison = true }
 }
 local unfilteredList = { Magic = true, Curse = true, Poison = true, Disease = true }
 local dispellist = CanDispel[playerClass] or {}
