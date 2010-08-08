@@ -31,11 +31,11 @@ if playerName == 'Evilbadger' then
 	auraFilter[70725] = true -- Druid: Enraged Defense (4-part T-10)
 
 	-- Trinket procs
-	auraFilter[71586] = true -- Corroded Skeleton Key
+	auraFilter[60233] = true -- Darkmoon Card: Greatness (Agility)
 	auraFilter[67694] = true -- Glyph of Indomitability
 	auraFilter[67699] = true -- Satrina's Impeding Scarab (normal)
-	auraFilter[60233] = true -- Darkmoon Card: Greatness (Agility)
 	auraFilter[71575] = true -- Unidentifiable Organ (normal)
+	auraFilter[71586] = true -- Corroded Skeleton Key
 	auraFilter[71396] = true -- Herkuml War Token
 	auraFilter[71403] = true -- Needle-Encrusted Scorpion
 
@@ -63,8 +63,8 @@ elseif playerName == 'Evilmagic' then
 	auraFilter[57531] = true -- Mage: Arcane Potency
 
 	-- Tier procs
-	auraFilter[70753] = true -- Mage: Pushing the Limit (2-part T-10)
 	auraFilter[70747] = true -- Mage: Quad Core (4-part T-10)
+	auraFilter[70753] = true -- Mage: Pushing the Limit (2-part T-10)
 
 	-- Trinket procs
 	auraFilter[67669] = true -- Abyssal Rune
@@ -83,9 +83,9 @@ elseif playerName == 'Evilpaul' then
 	auraFilter[63944] = true -- Priest: Renewed Hope
 
 	-- Trinket procs
-	auraFilter[71568] = true -- Ephemeral Snowflake
 	auraFilter[60525] = true -- Majestic Dragon Figurine
 	auraFilter[71564] = true -- Nevermelting Ice Crystal
+	auraFilter[71568] = true -- Ephemeral Snowflake
 
 	-- Ring proc
 	auraFilter[72418] = true -- ICC Rep Ring
@@ -93,17 +93,13 @@ elseif playerName == 'Evilpaul' then
 elseif playerName == 'Evilundead' then
 	-- Class specific buffs
 	auraFilter[871] = true   -- Warrior: Shield Wall
-	auraFilter[1719] = true  -- Warrior: Recklessness
 	auraFilter[2565] = true  -- Warrior: Shield Block
-	auraFilter[12292] = true -- Warrior: Death Wish
 	auraFilter[12328] = true -- Warrior: Sweeping Strikes
-	auraFilter[12970] = true -- Warrior: Flurry
 	auraFilter[12976] = true -- Warrior: Last Stand
-	auraFilter[14204] = true -- Warrior: Enrage
 	auraFilter[18499] = true -- Warrior: Berserker Rage
 	auraFilter[23920] = true -- Warrior: Spell Reflection
 	auraFilter[29131] = true -- Warrior: Bloodrage
-	auraFilter[46916] = true -- Warrior: Slam
+	auraFilter[46924] = true -- Warrior: Bladestorm
 	auraFilter[50227] = true -- Warrior: Sword and Board
 	auraFilter[52437] = true -- Warrior: Sudden Death
 	auraFilter[55694] = true -- Warrior: Enraged Regeneration
@@ -115,11 +111,12 @@ elseif playerName == 'Evilundead' then
 	-- Trinket procs
 	auraFilter[67671] = true -- Banner of Victory
 	auraFilter[71403] = true -- Needle-Encrusted Scorpion
-	auraFilter[67694] = true -- Glyph of Indomitability
 	auraFilter[67631] = true -- The Black Heart
+	auraFilter[67694] = true -- Glyph of Indomitability
 
 	-- Weapon Proc
 	auraFilter[28093] = true -- Mongoose
+	auraFilter[59620] = true -- Berserking
 
 	-- Ring proc
 	auraFilter[72414] = true -- ICC Rep Ring
