@@ -48,4 +48,5 @@
 	<Script file='oUF_EPRaid.lua'/>
 	<Script file='oUF_EPMT.lua'/>
 	<Script file='oUF_EPBoss.lua'/>
+	<Script file='oUF_EPArena.lua'/>
 </Ui>
