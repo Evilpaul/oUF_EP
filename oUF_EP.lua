@@ -2,23 +2,6 @@
 local _, ns = ...
 local config = ns.config
 
--- menu function
-local addMenu
-do
-	local format = string.format
-	local gsub = string.gsub
-	local upper = string.upper
-
-	local function SpawnMenu(self)
-		ToggleDropDownMenu(1, nil, _G[format('%sFrameDropDown', gsub(self.unit, '^.', upper))], 'cursor')
-	end
-
-	function addMenu(self)
-		self.menu = SpawnMenu
-		self:SetAttribute('type2', 'menu')
-	end
-end
-
 -- power bar function
 local addPowerBar
 do
@@ -391,6 +374,7 @@ local UnitSpecific
 do
 	local addDebuffHighlightBackdrop = ns.addDebuffHighlightBackdrop
 	local addHealCommBars = ns.addHealCommBars
+	local addMenu = ns.addMenu
 
 	UnitSpecific = {
 		player = function(self)
@@ -447,6 +431,7 @@ do
 		targettarget = function(self)
 			-- Targettarget specific layout code.
 			self:SetAttribute('initial-width', config.SECONDARYUNITWIDTH)
+			addMenu(self)
 			addPowerBar(self, true, false)
 			addDebuffs(self, 'TOPRIGHT', self, 'TOPLEFT', -config.SPACING, 0, 25, 85, 3, config.UNITHEIGHT, 'LEFT', 'UP', false)
 			addTags(self, false, false, false)
@@ -455,6 +440,7 @@ do
 		focus = function(self)
 			-- Focus specific layout code.
 			self:SetAttribute('initial-width', config.SECONDARYUNITWIDTH)
+			addMenu(self)
 			addPowerBar(self, true, false)
 			addDebuffs(self, 'TOPLEFT', self, 'TOPRIGHT', config.SPACING, 0, 25, 85, 3, config.UNITHEIGHT, 'RIGHT', 'UP', true)
 			addTags(self, false, false, false)

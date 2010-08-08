@@ -202,6 +202,7 @@ do
 	local addHealCommBars = ns.addHealCommBars
 	local addRange = ns.addRange
 	local addDebuffHighlightBackdrop = ns.addDebuffHighlightBackdrop
+	local addMenu = ns.addMenu
 
 	function Style(self, unit)
 		self:SetScript('OnEnter', UnitFrame_OnEnter)
@@ -213,6 +214,7 @@ do
 		self:SetAttribute('initial-height', config.UNITHEIGHT)
 		self:SetAttribute('initial-width', config.RAIDUNITWIDTH)
 
+		addMenu(self)
 		addHealthBar(self)
 		addPowerBar(self)
 		addDebuffHighlightBackdrop(self)

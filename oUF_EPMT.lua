@@ -51,6 +51,7 @@ do
 	local addHealthBar = ns.addHealthBar
 	local addRaidIcon = ns.addRaidIcon
 	local addRange = ns.addRange
+	local addMenu = ns.addMenu
 
 	function Style(self, unit)
 		self:SetScript('OnEnter', UnitFrame_OnEnter)
@@ -62,6 +63,7 @@ do
 		self:SetAttribute('initial-height', config.UNITHEIGHT)
 		self:SetAttribute('initial-width', config.TERTIARYUNITWIDTH)
 
+		addMenu(self)
 		addHealthBar(self)
 		addPowerBar(self, self:GetAttribute('unitsuffix') == 'target')
 		addRaidIcon(self)
