@@ -32,6 +32,7 @@
 	<Script file='elements\Regrowth.lua'/>
 	<Script file='elements\Rejuvenation.lua'/>
 	<Script file='elements\Renew.lua'/>
+	<Script file='elements\Riptide.lua'/>
 	<Script file='elements\SacredShield.lua'/>
 	<Script file='elements\Soulstone.lua'/>
 	<Script file='elements\Vigilance.lua'/>

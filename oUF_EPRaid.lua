@@ -167,6 +167,13 @@ local ClassSpecific = {
 
 		self.EarthShield = es
 
+		local riptide = self.Health:CreateTexture(nil, 'OVERLAY')
+		riptide:SetPoint('TOPRIGHT', self.EarthShield, 'TOPLEFT', -1, 0)
+		riptide:SetSize(3, 3)
+		riptide:SetTexture(0, 1, 0)
+
+		self.Riptide = riptide
+
 		addDebuffHighlightIcon(self)
 	end,
 
