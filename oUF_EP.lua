@@ -489,11 +489,11 @@ do
 		addHealthBar(self)
 		addRaidIcon(self)
 
+		self.disallowVehicleSwap = true
+
 		if UnitSpecific[unit] then
 			return UnitSpecific[unit](self)
 		end
-
-		self.disallowVehicleSwap = true
 	end
 end
 

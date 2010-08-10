@@ -233,12 +233,12 @@ do
 		addReadyCheck(self)
 		addThreat(self)
 
+		self.disallowVehicleSwap = true
+
 		local _, class = UnitClass('player')
 		if ClassSpecific[class] then
 			return ClassSpecific[class](self)
 		end
-
-		self.disallowVehicleSwap = true
 	end
 end
 oUF:RegisterStyle('oUF_EPRaid', Style)
