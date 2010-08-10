@@ -69,7 +69,18 @@ local addAuras
 do
 	local spellIDs = config.AURAS
 
-	local function CustomAuraFilter(_, _, _, _, _, _, _, _, _, _, _, _, _, spellID)
+	local function CustomAuraFilter(icons, _, icon, name, _, _, _, _, _, _, caster, _, _, spellID)
+		local isPlayer
+
+		if(caster == 'player' or caster == 'vehicle') then
+			isPlayer = true
+		end
+
+		if((icons.onlyShowPlayer and isPlayer) or (not icons.onlyShowPlayer and name)) then
+			icon.isPlayer = isPlayer
+			icon.owner = caster
+		end
+
 		return spellIDs[spellID]
 	end
 
@@ -97,7 +108,18 @@ local CustomBuffFilter
 do
 	local spellIDs = config.AURAS
 
-	function CustomBuffFilter(_, _, _, _, _, _, _, _, _, _, _, _, _, spellID)
+	function CustomBuffFilter(icons, _, icon, name, _, _, _, _, _, _, caster, _, _, spellID)
+		local isPlayer
+
+		if(caster == 'player' or caster == 'vehicle') then
+			isPlayer = true
+		end
+
+		if((icons.onlyShowPlayer and isPlayer) or (not icons.onlyShowPlayer and name)) then
+			icon.isPlayer = isPlayer
+			icon.owner = caster
+		end
+
 		return not spellIDs[spellID]
 	end
 end
