@@ -19,7 +19,7 @@ do
 		power.colorClass = true
 		power.colorReaction = isTarget
 
-		power.PostUpdate = isTarget and PostUpdatePower or nil
+		power.PostUpdate = PostUpdatePower
 
 		local powerBG = power:CreateTexture(nil, 'BORDER')
 		powerBG:SetAllPoints(power)

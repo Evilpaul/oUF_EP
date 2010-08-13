@@ -1,4 +1,3 @@
--- Big thanks to P3lim, a lot of this code is shamelessly ripped off from his work
 local _, ns = ...
 local config = ns.config
 
@@ -7,7 +6,7 @@ local addPowerBar
 do
 	local PostUpdatePower = ns.PostUpdatePower
 
-	function addPowerBar(self, postUpdate, isPet)
+	function addPowerBar(self)
 		local power = CreateFrame('StatusBar', nil, self)
 		power:SetPoint('BOTTOMRIGHT', self, 'BOTTOMRIGHT', 0, 0)
 		power:SetPoint('BOTTOMLEFT', self, 'BOTTOMLEFT', 0, 0)
@@ -17,13 +16,10 @@ do
 
 		power.colorTapping = true
 		power.colorDisconnected = true
-		power.colorPower = isPet
-		power.colorClass = not isPet
-		power.colorReaction = not isPet
+		power.colorClass = true
+		power.colorReaction = true
 
-		if postUpdate then
-			power.PostUpdate = PostUpdatePower
-		end
+		power.PostUpdate = PostUpdatePower
 
 		local powerBG = power:CreateTexture(nil, 'BORDER')
 		powerBG:SetAllPoints(power)
@@ -403,7 +399,7 @@ do
 			-- Player specific layout code.
 			self:SetAttribute('initial-width', config.PRIMARYUNITWIDTH)
 			addMenu(self)
-			addPowerBar(self, false, false)
+			addPowerBar(self)
 			addCastBar(self, false, false)
 			addRaidRole(self)
 			addLFDRole(self)
@@ -430,7 +426,7 @@ do
 			-- Target specific layout code.
 			self:SetAttribute('initial-width', config.PRIMARYUNITWIDTH)
 			addMenu(self)
-			addPowerBar(self, true, false)
+			addPowerBar(self)
 			addCastBar(self, true, false)
 			addLFDRole(self)
 			addHealCommBars(self, true)
@@ -444,7 +440,7 @@ do
 			-- Pet specific layout code.
 			self:SetAttribute('initial-width', config.SECONDARYUNITWIDTH)
 			addMenu(self)
-			addPowerBar(self, false, true)
+			addPowerBar(self)
 			addCastBar(self, false, true)
 			addTags(self, true, true, false)
 			addDebuffs(self, 'TOPRIGHT', self, 'TOPLEFT', -config.SPACING, 0, 25, 85, 3, config.UNITHEIGHT, 'LEFT', 'UP', false)
@@ -454,7 +450,7 @@ do
 			-- Targettarget specific layout code.
 			self:SetAttribute('initial-width', config.SECONDARYUNITWIDTH)
 			addMenu(self)
-			addPowerBar(self, true, false)
+			addPowerBar(self)
 			addDebuffs(self, 'TOPRIGHT', self, 'TOPLEFT', -config.SPACING, 0, 25, 85, 3, config.UNITHEIGHT, 'LEFT', 'UP', false)
 			addTags(self, false, false, false)
 		end,
@@ -463,7 +459,7 @@ do
 			-- Focus specific layout code.
 			self:SetAttribute('initial-width', config.SECONDARYUNITWIDTH)
 			addMenu(self)
-			addPowerBar(self, true, false)
+			addPowerBar(self)
 			addDebuffs(self, 'TOPLEFT', self, 'TOPRIGHT', config.SPACING, 0, 25, 85, 3, config.UNITHEIGHT, 'RIGHT', 'UP', true)
 			addTags(self, false, false, false)
 		end,
