@@ -84,7 +84,7 @@ do
 		local auras = CreateFrame('Frame', nil, self)
 		auras:SetPoint(position.anchorPoint, position.relativeFrame and position.relativeFrame or self, position.relativePoint, position.offsetX, position.offsetY)
 		auras:SetSize(position.width, position.height)
-		auras.num = position.num
+		auras.num = position.number
 		auras.size = position.size
 		auras.spacing = config.SPACING
 		auras.initialAnchor = position.anchorPoint
@@ -126,7 +126,7 @@ local function addBuffs(self, position)
 	local buffs = CreateFrame('Frame', nil, self)
 	buffs:SetPoint(position.anchorPoint, position.relativeFrame and position.relativeFrame or self, position.relativePoint, position.offsetX, position.offsetY)
 	buffs:SetSize(position.width, position.height)
-	buffs.num = position.num
+	buffs.num = position.number
 	buffs.size = position.size
 	buffs.spacing = config.SPACING
 	buffs.initialAnchor = position.anchorPoint
@@ -161,7 +161,7 @@ do
 		local debuffs = CreateFrame('Frame', nil, self)
 		debuffs:SetPoint(position.anchorPoint, position.relativeFrame and position.relativeFrame or self, position.relativePoint, position.offsetX, position.offsetY)
 		debuffs:SetSize(position.width, position.height)
-		debuffs.num = position.num
+		debuffs.num = position.number
 		debuffs.size = position.size
 		debuffs.spacing = config.SPACING
 		debuffs.initialAnchor = position.anchorPoint
@@ -196,7 +196,7 @@ do
 		local enchants = CreateFrame('Frame', nil, self)
 		enchants:SetPoint(position.anchorPoint, position.relativeFrame and position.relativeFrame or self, position.relativePoint, position.offsetX, position.offsetY)
 		enchants:SetSize(position.width, position.height)
-		enchants.num = position.num
+		enchants.num = position.number
 		enchants.size = position.size
 		enchants.spacing = config.SPACING
 		enchants.initialAnchor = position.anchorPoint
