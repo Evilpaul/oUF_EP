@@ -80,15 +80,6 @@ local function addThreat(self)
 end
 
 local ClassSpecific = {
-	DEATHKNIGHT = function(self)
-		local hys = self.Health:CreateTexture(nil, 'OVERLAY')
-		hys:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
-		hys:SetSize(3, 3)
-		hys:SetTexture(1, 0.6, 0)
-
-		self.Hysteria = hys
-	end,
-
 	DRUID = function(self)
 		local rejuv = self.Health:CreateTexture(nil, 'OVERLAY')
 		rejuv:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
