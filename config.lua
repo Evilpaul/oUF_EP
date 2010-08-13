@@ -1,6 +1,8 @@
 local _, ns = ...
 local playerName, _ = UnitName('player')
 
+local spacing = 4
+local unitHeight = 25 -- should always equal healthHeight + powerHeight
 local auraFilter = {
 	-- General buffs
 	[10060] = true, -- Buff: Power Infusion
@@ -149,17 +151,169 @@ local config = {
 		}
 	},
 
-	SPACING = 4,
+	SPACING = spacing,
 
 	HEALTHHEIGHT = 21,
 	POWERHEIGHT = 4,
-	UNITHEIGHT = 25, -- should always equal healthHeight + powerHeight
+	UNITHEIGHT = unitHeight,
 
 	PRIMARYUNITWIDTH = 230, -- primary frames (player & target)
 	SECONDARYUNITWIDTH = 144, -- secondary frames (pet, focus & targettarget)
-	TERTIARYUNITWIDTH = 100, -- tertiary frames (maintank, maintanktarget, boss)
+	TERTIARYUNITWIDTH = 100, -- tertiary frames (maintank, maintanktarget, boss, arena, arenatarget)
 	RAIDUNITWIDTH = 25, -- raid frames
 
-	AURAS = auraFilter,
+	AURAFILTER = {
+		-- General buffs
+		[10060] = true, -- Buff: Power Infusion
+		[15359] = true, -- Buff: Inspiration
+		[16240] = true, -- Buff: Ancestral Healing
+		[29166] = true, -- Buff: Innervate
+		[32182] = true, -- Buff: Heroism
+		[33206] = true, -- Buff: Pain Suppression
+		[47788] = true, -- Buff: Guardian Spirit
+		[49016] = true, -- Buff: Hysteria
+	},
+
+	BUFFPOSITIONS = {
+		player = {
+			anchorPoint = 'TOPRIGHT',
+			relativeFrame = Minimap,
+			relativePoint = 'TOPLEFT',
+			offsetX = -spacing,
+			offsetY = 0,
+			height = 83,
+			width = 344,
+			number = 36,
+			size = unitHeight,
+			growthX = 'LEFT',
+			growthY = 'DOWN',
+			filter = true,
+		},
+		target = {
+			anchorPoint = 'BOTTOMLEFT',
+			relativeFrame = nil, -- default to self
+			relativePoint = 'BOTTOMRIGHT',
+			offsetX = spacing,
+			offsetY = 0,
+			height = 54,
+			width = 236,
+			number = 20,
+			size = unitHeight,
+			growthX = 'RIGHT',
+			growthY = 'UP',
+			filter = false,
+		},
+	},
+
+	DEBUFFPOSITIONS = {
+		player = {
+			anchorPoint = 'BOTTOMRIGHT',
+			relativeFrame = Minimap,
+			relativePoint = 'BOTTOMLEFT',
+			offsetX = -spacing,
+			offsetY = 0,
+			height = 54,
+			width = 344,
+			number = 24,
+			size = unitHeight,
+			growthX = 'LEFT',
+			growthY = 'DOWN',
+			playerOnly = false,
+			filter = true,
+		},
+		target = {
+			anchorPoint = 'TOPLEFT',
+			relativeFrame = nil, -- default to self
+			relativePoint = 'BOTTOMRIGHT',
+			offsetX = spacing,
+			offsetY = -spacing,
+			height = 54,
+			width = 236,
+			number = 20,
+			size = unitHeight,
+			growthX = 'RIGHT',
+			growthY = 'DOWN',
+			playerOnly = false,
+			filter = false,
+		},
+		pet = {
+			anchorPoint = 'TOPRIGHT',
+			relativeFrame = nil, -- default to self
+			relativePoint = 'TOPLEFT',
+			offsetX = -spacing,
+			offsetY = 0,
+			height = 25,
+			width = 85,
+			number = 3,
+			size = unitHeight,
+			growthX = 'LEFT',
+			growthY = 'UP',
+			playerOnly = false,
+			filter = false,
+		},
+		targettarget = {
+			anchorPoint = 'TOPRIGHT',
+			relativeFrame = nil, -- default to self
+			relativePoint = 'TOPLEFT',
+			offsetX = -spacing,
+			offsetY = 0,
+			height = 25,
+			width = 85,
+			number = 3,
+			size = unitHeight,
+			growthX = 'LEFT',
+			growthY = 'UP',
+			playerOnly = false,
+			filter = false,
+		},
+		focus = {
+			anchorPoint = 'TOPLEFT',
+			relativeFrame = nil, -- default to self
+			relativePoint = 'TOPRIGHT',
+			offsetX = -spacing,
+			offsetY = 0,
+			height = 25,
+			width = 85,
+			number = 3,
+			size = unitHeight,
+			growthX = 'RIGHT',
+			growthY = 'UP',
+			playerOnly = true,
+			filter = false,
+		},
+	},
+
+	AURAPOSITIONS = {
+		anchorPoint = 'BOTTOMLEFT',
+		relativeFrame = nil, -- default to self
+		relativePoint = 'BOTTOMRIGHT',
+		offsetX = spacing,
+		offsetY = 0,
+		height = 83,
+		width = 112,
+		number = 8,
+		size = unitHeight,
+		growthX = 'RIGHT',
+		growthY = 'UP',
+		filter = true,
+	},
+
+	TEMPENCHANTPOSITIONS = {
+		anchorPoint = 'BOTTOMRIGHT',
+		relativeFrame = Minimap,
+		relativePoint = 'BOTTOMLEFT',
+		offsetX = -spacing,
+		offsetY = -54,
+		height = 25,
+		width = 54,
+		number = 2,
+		size = unitHeight,
+		growthX = 'LEFT',
+		growthY = 'DOWN',
+	},
 }
+
+----------------------------
+-- Do not edit below here --
+----------------------------
 ns.config = config

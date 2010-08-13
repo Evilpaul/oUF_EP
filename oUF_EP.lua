@@ -63,7 +63,7 @@ end
 -- auras function
 local addAuras
 do
-	local spellIDs = config.AURAS
+	local spellIDs = config.AURAFILTER
 
 	local function CustomAuraFilter(icons, _, icon, name, _, _, _, _, _, _, caster, _, _, spellID)
 		local isPlayer
@@ -80,19 +80,19 @@ do
 		return spellIDs[spellID]
 	end
 
-	function addAuras(self, point, relativeFrame, relativePoint, ofsx, ofsy, height, width, num, size, growthx, growthy, filter)
+	function addAuras(self, position)
 		local auras = CreateFrame('Frame', nil, self)
-		auras:SetPoint(point, relativeFrame, relativePoint, ofsx, ofsy)
-		auras:SetSize(width, height)
-		auras.num = num
-		auras.size = size
+		auras:SetPoint(position.anchorPoint, position.relativeFrame and position.relativeFrame or self, position.relativePoint, position.offsetX, position.offsetY)
+		auras:SetSize(position.width, position.height)
+		auras.num = position.num
+		auras.size = position.size
 		auras.spacing = config.SPACING
-		auras.initialAnchor = point
-		auras['growth-x'] = growthx
-		auras['growth-y'] = growthy
+		auras.initialAnchor = position.anchorPoint
+		auras['growth-x'] = position.growthX
+		auras['growth-y'] = position.growthY
 		auras.PostCreateIcon = PostCreateIcon
 
-		if filter then
+		if position.filter then
 			auras.CustomFilter = CustomAuraFilter
 		end
 
@@ -100,9 +100,10 @@ do
 	end
 end
 
+-- filter function (buffs and debuffs)
 local CustomBuffFilter
 do
-	local spellIDs = config.AURAS
+	local spellIDs = config.AURAFILTER
 
 	function CustomBuffFilter(icons, _, icon, name, _, _, _, _, _, _, caster, _, _, spellID)
 		local isPlayer
@@ -121,19 +122,19 @@ do
 end
 
 -- buffs function
-local function addBuffs(self, point, relativeFrame, relativePoint, ofsx, ofsy, height, width, num, size, growthx, growthy, filter)
+local function addBuffs(self, position)
 	local buffs = CreateFrame('Frame', nil, self)
-	buffs:SetPoint(point, relativeFrame, relativePoint, ofsx, ofsy)
-	buffs:SetSize(width, height)
-	buffs.num = num
-	buffs.size = size
+	buffs:SetPoint(position.anchorPoint, position.relativeFrame and position.relativeFrame or self, position.relativePoint, position.offsetX, position.offsetY)
+	buffs:SetSize(position.width, position.height)
+	buffs.num = position.num
+	buffs.size = position.size
 	buffs.spacing = config.SPACING
-	buffs.initialAnchor = point
-	buffs['growth-x'] = growthx
-	buffs['growth-y'] = growthy
+	buffs.initialAnchor = position.anchorPoint
+	buffs['growth-x'] = position.growthX
+	buffs['growth-y'] = position.growthY
 	buffs.PostCreateIcon = PostCreateIcon
 
-	if filter then
+	if position.filter then
 		buffs.CustomFilter = CustomBuffFilter
 	end
 
@@ -156,21 +157,21 @@ do
 		end
 	end
 
-	function addDebuffs(self, point, relativeFrame, relativePoint, ofsx, ofsy, height, width, num, size, growthx, growthy, playerOnly, filter)
+	function addDebuffs(self, position)
 		local debuffs = CreateFrame('Frame', nil, self)
-		debuffs:SetPoint(point, relativeFrame, relativePoint, ofsx, ofsy)
-		debuffs:SetSize(width, height)
-		debuffs.num = num
-		debuffs.size = size
+		debuffs:SetPoint(position.anchorPoint, position.relativeFrame and position.relativeFrame or self, position.relativePoint, position.offsetX, position.offsetY)
+		debuffs:SetSize(position.width, position.height)
+		debuffs.num = position.num
+		debuffs.size = position.size
 		debuffs.spacing = config.SPACING
-		debuffs.initialAnchor = point
-		debuffs['growth-x'] = growthx
-		debuffs['growth-y'] = growthy
-		debuffs.onlyShowPlayer = playerOnly
+		debuffs.initialAnchor = position.anchorPoint
+		debuffs['growth-x'] = position.growthX
+		debuffs['growth-y'] = position.growthY
+		debuffs.onlyShowPlayer = position.playerOnly
 		debuffs.PostCreateIcon = PostCreateIcon
 		debuffs.PostUpdateIcon = PostUpdateIcon
 
-		if filter then
+		if position.filter then
 			debuffs.CustomFilter = CustomBuffFilter
 		end
 
@@ -191,16 +192,16 @@ do
 		button.icon:SetDrawLayer('ARTWORK')
 	end
 
-	function addWeaponEnchants(self, point, relativeFrame, relativePoint, ofsx, ofsy, height, width, num, size, growthx, growthy)
+	function addWeaponEnchants(self, position)
 		local enchants = CreateFrame('Frame', nil, self)
-		enchants:SetPoint(point, relativeFrame, relativePoint, ofsx, ofsy)
-		enchants:SetSize(width, height)
-		enchants.num = num
-		enchants.size = size
+		enchants:SetPoint(position.anchorPoint, position.relativeFrame and position.relativeFrame or self, position.relativePoint, position.offsetX, position.offsetY)
+		enchants:SetSize(position.width, position.height)
+		enchants.num = position.num
+		enchants.size = position.size
 		enchants.spacing = config.SPACING
-		enchants.initialAnchor = point
-		enchants['growth-x'] = growthx
-		enchants['growth-y'] = growthy
+		enchants.initialAnchor = position.anchorPoint
+		enchants['growth-x'] = position.growthX
+		enchants['growth-y'] = position.growthY
 		enchants.PostCreateIcon = PostCreateEnchantIcon
 
 		self.Enchants = enchants
@@ -414,10 +415,10 @@ do
 			TicketStatusFrame:EnableMouse(false)
 			TicketStatusFrame:SetFrameStrata('BACKGROUND')
 
-			addAuras(self, 'BOTTOMLEFT', self, 'BOTTOMRIGHT', config.SPACING, 0, 83, 112, 8, config.UNITHEIGHT, 'RIGHT', 'UP', true)
-			addBuffs(self, 'TOPRIGHT', Minimap, 'TOPLEFT', -config.SPACING, 0, 83, 344, 36, config.UNITHEIGHT, 'LEFT', 'DOWN', true)
-			addDebuffs(self, 'BOTTOMRIGHT', Minimap, 'BOTTOMLEFT', -config.SPACING, 0, 54, 344, 24, config.UNITHEIGHT, 'LEFT', 'DOWN', false, true)
-			addWeaponEnchants(self, 'BOTTOMRIGHT', Minimap, 'BOTTOMLEFT', -config.SPACING, -54, 25, 54, 2, config.UNITHEIGHT, 'LEFT', 'DOWN')
+			addAuras(self, config.AURAPOSITIONS)
+			addBuffs(self, config.BUFFPOSITIONS.player)
+			addDebuffs(self, config.DEBUFFPOSITIONS.player)
+			addWeaponEnchants(self, config.TEMPENCHANTPOSITIONS)
 			addDebuffHighlightBackdrop(self)
 			addRuneBar(self)
 		end,
@@ -431,8 +432,8 @@ do
 			addLFDRole(self)
 			addHealCommBars(self, true)
 			addTags(self, false, true, true)
-			addBuffs(self, 'BOTTOMLEFT', self, 'BOTTOMRIGHT', config.SPACING, 0, 54, 236, 20, config.UNITHEIGHT, 'RIGHT', 'UP', false)
-			addDebuffs(self, 'TOPLEFT', self, 'BOTTOMRIGHT', config.SPACING, -config.SPACING, 54, 236, 20, config.UNITHEIGHT, 'RIGHT', 'DOWN', false, false)
+			addBuffs(self, config.BUFFPOSITIONS.target)
+			addDebuffs(self, config.DEBUFFPOSITIONS.target)
 			addDebuffHighlightBackdrop(self)
 		end,
 
@@ -443,7 +444,7 @@ do
 			addPowerBar(self)
 			addCastBar(self, false, true)
 			addTags(self, true, true, false)
-			addDebuffs(self, 'TOPRIGHT', self, 'TOPLEFT', -config.SPACING, 0, 25, 85, 3, config.UNITHEIGHT, 'LEFT', 'UP', false)
+			addDebuffs(self, config.DEBUFFPOSITIONS.pet)
 		end,
 
 		targettarget = function(self)
@@ -451,7 +452,7 @@ do
 			self:SetAttribute('initial-width', config.SECONDARYUNITWIDTH)
 			addMenu(self)
 			addPowerBar(self)
-			addDebuffs(self, 'TOPRIGHT', self, 'TOPLEFT', -config.SPACING, 0, 25, 85, 3, config.UNITHEIGHT, 'LEFT', 'UP', false)
+			addDebuffs(self, config.DEBUFFPOSITIONS.targettarget)
 			addTags(self, false, false, false)
 		end,
 
@@ -460,7 +461,7 @@ do
 			self:SetAttribute('initial-width', config.SECONDARYUNITWIDTH)
 			addMenu(self)
 			addPowerBar(self)
-			addDebuffs(self, 'TOPLEFT', self, 'TOPRIGHT', config.SPACING, 0, 25, 85, 3, config.UNITHEIGHT, 'RIGHT', 'UP', true)
+			addDebuffs(self, config.DEBUFFPOSITIONS.focus)
 			addTags(self, false, false, false)
 		end,
 	}
