@@ -230,22 +230,24 @@ do
 		self:SetActiveStyle('oUF_EPRaid')
 
 		-- define the raid groups
-		local raid = self:SpawnHeader(nil, nil, 'party,raid',
+		local raid = {}
+		for group = 1, NUM_RAID_GROUPS do
+			local header = self:SpawnHeader(nil, nil, 'party,raid',
 							'showPlayer', true,
 							'showParty', true,
 							'showRaid', true,
-							'maxColumns', NUM_RAID_GROUPS,
-							'unitsPerColumn', MEMBERS_PER_RAID_GROUP,
-							'groupFilter', '1,2,3,4,5,6,7,8',
-							'groupingOrder', '1,2,3,4,5,6,7,8',
-							'groupBy', 'GROUP',
-							'columnSpacing', config.SPACING,
-							'columnAnchorPoint', 'LEFT',
-							'xoffset', config.SPACING,
+							'groupFilter', toStr(group),
 							'yOffset', -config.SPACING
-		)
-		raid:SetPoint('TOPLEFT', UIParent, 'BOTTOMLEFT', 15, 350)
-		raid:Show()
+			)
+
+			if group > 1 then
+				header:SetPoint('TOPLEFT', raid[group - 1], 'TOPRIGHT', config.SPACING, 0)
+			else
+				header:SetPoint('TOPLEFT', UIParent, 'BOTTOMLEFT', 15, 350)
+			end
+			header:Show()
+			raid[group] = header
+		end
 
 		-- define the pet header
 		local petHeader = self:SpawnHeader(nil, 'SecureGroupPetHeaderTemplate', 'party,raid',
@@ -265,7 +267,18 @@ do
 		updateFrame:SetScript('OnEvent', function(...)
 			if InCombatLockdown() then return end
 
-			petHeader:SetPoint('TOPLEFT', raid, 'TOPRIGHT', config.SPACING, 0)
+			local lastGroup = 1
+			local numRaidMembers = GetNumRaidMembers()
+			if numRaidMembers > 0 then
+				-- loop through ALL raid members and find the last group (blargh)
+				local playerGroup
+				for member = 1, numRaidMembers do
+					_, _, playerGroup, _, _, _, _, _, _, _, _ = GetRaidRosterInfo(member)
+					lastGroup = mmax(lastGroup, playerGroup)
+				end
+			end
+
+			petHeader:SetPoint('TOPLEFT', raid[lastGroup], 'TOPRIGHT', config.SPACING, 0)
 		end)
 		updateFrame:RegisterEvent('PARTY_MEMBERS_CHANGED')
 		updateFrame:RegisterEvent('PLAYER_ENTERING_WORLD')
