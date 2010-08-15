@@ -1,6 +1,36 @@
 local _, ns = ...
 local config = ns.config
 
+-- menu function
+local addMenu
+do
+	local format = string.format
+	local gsub = string.gsub
+	local upper = string.upper
+
+	local function SpawnMenu(self)
+		local dropdown = _G[format('%sFrameDropDown', gsub(self.unit, '(.)', upper, 1))]
+
+		if dropdown then
+			ToggleDropDownMenu(1, nil, dropdown, 'cursor')
+		elseif (self.unit:match('party')) then
+			ToggleDropDownMenu(1, nil, _G[format('PartyMemberFrame%dDropDown', self.id)], 'cursor')
+		else
+			FriendsDropDown.unit = self.unit
+			FriendsDropDown.id = self.id
+			FriendsDropDown.initialize = RaidFrameDropDown_Initialize
+			ToggleDropDownMenu(1, nil, FriendsDropDown, 'cursor')
+		end
+	end
+
+	function addMenu(self)
+		self.menu = SpawnMenu
+		self:RegisterForClicks('anyup')
+		self:SetAttribute('type2', 'menu')
+	end
+end
+ns.addMenu = addMenu
+
 -- health bar function
 local function addHealthBar(self)
 	local health = CreateFrame('StatusBar', nil, self)

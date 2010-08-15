@@ -6,7 +6,7 @@ local addPowerBar
 do
 	local PostUpdatePower = ns.PostUpdatePower
 
-	function addPowerBar(self, isTarget)
+	function addPowerBar(self)
 		local power = CreateFrame('StatusBar', nil, self)
 		power:SetPoint('BOTTOMRIGHT', self, 'BOTTOMRIGHT', 0, 0)
 		power:SetPoint('BOTTOMLEFT', self, 'BOTTOMLEFT', 0, 0)
@@ -14,10 +14,9 @@ do
 		power:SetStatusBarTexture(config.TEXTURE)
 		power:SetHeight(config.POWERHEIGHT)
 
-		power.colorTapping = isTarget
 		power.colorDisconnected = true
 		power.colorClass = true
-		power.colorReaction = isTarget
+		power.colorReaction = true
 
 		power.PostUpdate = PostUpdatePower
 
@@ -50,7 +49,6 @@ local Style
 do
 	local addHealthBar = ns.addHealthBar
 	local addRaidIcon = ns.addRaidIcon
-	local addRange = ns.addRange
 	local addMenu = ns.addMenu
 
 	function Style(self, unit)
@@ -65,29 +63,40 @@ do
 
 		addMenu(self)
 		addHealthBar(self)
-		addPowerBar(self, self:GetAttribute('unitsuffix') == 'target')
+		addPowerBar(self)
 		addRaidIcon(self)
 		addTags(self)
-
-		if self:GetAttribute('unitsuffix') ~= 'target' then
-			addRange(self)
-		end
-
-		self.disallowVehicleSwap = true
 	end
 end
 
-oUF:RegisterStyle('oUF_EPMT', Style)
+oUF:RegisterStyle('oUF_EPArena', Style)
 
 oUF:Factory(function(self)
-	self:SetActiveStyle('oUF_EPMT')
+	self:SetActiveStyle('oUF_EPArena')
 
-	local frame = self:SpawnHeader(nil, nil, 'raid',
-					'showRaid', true,
-					'yOffset', -10,
-					'template', 'oUF_MT',
-					'groupFilter', 'MAINTANK'
-	)
-	frame:SetPoint('TOPLEFT', UIParent, 'TOPLEFT', 15, -350)
-	frame:Show()
+	local arenaFrames = {}
+	for i = 1, 5 do
+		local unit = self:Spawn('arena' .. i)
+
+		if i > 1 then
+			unit:SetPoint('TOPRIGHT', arenaFrames[i - 1], 'BOTTOMRIGHT', 0, -10)
+		else
+			unit:SetPoint('TOPLEFT', UIParent, 'TOPLEFT', 15, -350)
+		end
+
+		unit:Show()
+
+		arenaFrames[i] = unit
+	end
+
+	local arenaTargetFrames = {}
+	for i = 1, 5 do
+		local unit = self:Spawn('arena' .. i .. 'target')
+
+		unit:SetPoint('LEFT', arenaFrames[i], 'RIGHT', config.SPACING, 0)
+
+		unit:Show()
+
+		arenaTargetFrames[i] = unit
+	end
 end)

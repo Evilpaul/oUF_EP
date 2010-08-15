@@ -1,30 +1,12 @@
--- Big thanks to P3lim, a lot of this code is shamelessly ripped off from his work
 local _, ns = ...
 local config = ns.config
-
--- menu function
-local addMenu
-do
-	local format = string.format
-	local gsub = string.gsub
-	local upper = string.upper
-
-	local function SpawnMenu(self)
-		ToggleDropDownMenu(1, nil, _G[format('%sFrameDropDown', gsub(self.unit, '^.', upper))], 'cursor')
-	end
-
-	function addMenu(self)
-		self.menu = SpawnMenu
-		self:SetAttribute('type2', 'menu')
-	end
-end
 
 -- power bar function
 local addPowerBar
 do
 	local PostUpdatePower = ns.PostUpdatePower
 
-	function addPowerBar(self, postUpdate, isPet)
+	function addPowerBar(self)
 		local power = CreateFrame('StatusBar', nil, self)
 		power:SetPoint('BOTTOMRIGHT', self, 'BOTTOMRIGHT', 0, 0)
 		power:SetPoint('BOTTOMLEFT', self, 'BOTTOMLEFT', 0, 0)
@@ -34,13 +16,10 @@ do
 
 		power.colorTapping = true
 		power.colorDisconnected = true
-		power.colorPower = isPet
-		power.colorClass = not isPet
-		power.colorReaction = not isPet
+		power.colorClass = true
+		power.colorReaction = true
 
-		if postUpdate then
-			power.PostUpdate = PostUpdatePower
-		end
+		power.PostUpdate = PostUpdatePower
 
 		local powerBG = power:CreateTexture(nil, 'BORDER')
 		powerBG:SetAllPoints(power)
@@ -81,18 +60,83 @@ do
 	end
 end
 
+-- auras function
+local addAuras
+do
+	local spellIDs = config.AURAFILTER
+
+	local function CustomAuraFilter(icons, _, icon, name, _, _, _, _, _, _, caster, _, _, spellID)
+		local isPlayer
+
+		if(caster == 'player' or caster == 'vehicle') then
+			isPlayer = true
+		end
+
+		if((icons.onlyShowPlayer and isPlayer) or (not icons.onlyShowPlayer and name)) then
+			icon.isPlayer = isPlayer
+			icon.owner = caster
+		end
+
+		return spellIDs[spellID]
+	end
+
+	function addAuras(self, position)
+		local auras = CreateFrame('Frame', nil, self)
+		auras:SetPoint(position.anchorPoint, position.relativeFrame and position.relativeFrame or self, position.relativePoint, position.offsetX, position.offsetY)
+		auras:SetSize(position.width, position.height)
+		auras.num = position.number
+		auras.size = position.size
+		auras.spacing = config.SPACING
+		auras.initialAnchor = position.anchorPoint
+		auras['growth-x'] = position.growthX
+		auras['growth-y'] = position.growthY
+		auras.PostCreateIcon = PostCreateIcon
+
+		if position.filter then
+			auras.CustomFilter = CustomAuraFilter
+		end
+
+		self.Auras = auras
+	end
+end
+
+-- filter function (buffs and debuffs)
+local CustomBuffFilter
+do
+	local spellIDs = config.AURAFILTER
+
+	function CustomBuffFilter(icons, _, icon, name, _, _, _, _, _, _, caster, _, _, spellID)
+		local isPlayer
+
+		if(caster == 'player' or caster == 'vehicle') then
+			isPlayer = true
+		end
+
+		if((icons.onlyShowPlayer and isPlayer) or (not icons.onlyShowPlayer and name)) then
+			icon.isPlayer = isPlayer
+			icon.owner = caster
+		end
+
+		return not spellIDs[spellID]
+	end
+end
+
 -- buffs function
-local function addBuffs(self, point, relativeFrame, relativePoint, ofsx, ofsy, height, width, num, size, growthx, growthy)
+local function addBuffs(self, position)
 	local buffs = CreateFrame('Frame', nil, self)
-	buffs:SetPoint(point, relativeFrame, relativePoint, ofsx, ofsy)
-	buffs:SetSize(width, height)
-	buffs.num = num
-	buffs.size = size
+	buffs:SetPoint(position.anchorPoint, position.relativeFrame and position.relativeFrame or self, position.relativePoint, position.offsetX, position.offsetY)
+	buffs:SetSize(position.width, position.height)
+	buffs.num = position.number
+	buffs.size = position.size
 	buffs.spacing = config.SPACING
-	buffs.initialAnchor = point
-	buffs['growth-x'] = growthx
-	buffs['growth-y'] = growthy
+	buffs.initialAnchor = position.anchorPoint
+	buffs['growth-x'] = position.growthX
+	buffs['growth-y'] = position.growthY
 	buffs.PostCreateIcon = PostCreateIcon
+
+	if position.filter then
+		buffs.CustomFilter = CustomBuffFilter
+	end
 
 	self.Buffs = buffs
 end
@@ -113,19 +157,23 @@ do
 		end
 	end
 
-	function addDebuffs(self, point, relativeFrame, relativePoint, ofsx, ofsy, height, width, num, size, growthx, growthy, playerOnly)
+	function addDebuffs(self, position)
 		local debuffs = CreateFrame('Frame', nil, self)
-		debuffs:SetPoint(point, relativeFrame, relativePoint, ofsx, ofsy)
-		debuffs:SetSize(width, height)
-		debuffs.num = num
-		debuffs.size = size
+		debuffs:SetPoint(position.anchorPoint, position.relativeFrame and position.relativeFrame or self, position.relativePoint, position.offsetX, position.offsetY)
+		debuffs:SetSize(position.width, position.height)
+		debuffs.num = position.number
+		debuffs.size = position.size
 		debuffs.spacing = config.SPACING
-		debuffs.initialAnchor = point
-		debuffs['growth-x'] = growthx
-		debuffs['growth-y'] = growthy
-		debuffs.onlyShowPlayer = playerOnly
+		debuffs.initialAnchor = position.anchorPoint
+		debuffs['growth-x'] = position.growthX
+		debuffs['growth-y'] = position.growthY
+		debuffs.onlyShowPlayer = position.playerOnly
 		debuffs.PostCreateIcon = PostCreateIcon
 		debuffs.PostUpdateIcon = PostUpdateIcon
+
+		if position.filter then
+			debuffs.CustomFilter = CustomBuffFilter
+		end
 
 		self.Debuffs = debuffs
 	end
@@ -144,16 +192,16 @@ do
 		button.icon:SetDrawLayer('ARTWORK')
 	end
 
-	function addWeaponEnchants(self, point, relativeFrame, relativePoint, ofsx, ofsy, height, width, num, size, growthx, growthy)
+	function addWeaponEnchants(self, position)
 		local enchants = CreateFrame('Frame', nil, self)
-		enchants:SetPoint(point, relativeFrame, relativePoint, ofsx, ofsy)
-		enchants:SetSize(width, height)
-		enchants.num = num
-		enchants.size = size
+		enchants:SetPoint(position.anchorPoint, position.relativeFrame and position.relativeFrame or self, position.relativePoint, position.offsetX, position.offsetY)
+		enchants:SetSize(position.width, position.height)
+		enchants.num = position.number
+		enchants.size = position.size
 		enchants.spacing = config.SPACING
-		enchants.initialAnchor = point
-		enchants['growth-x'] = growthx
-		enchants['growth-y'] = growthy
+		enchants.initialAnchor = position.anchorPoint
+		enchants['growth-x'] = position.growthX
+		enchants['growth-y'] = position.growthY
 		enchants.PostCreateIcon = PostCreateEnchantIcon
 
 		self.Enchants = enchants
@@ -344,13 +392,14 @@ local UnitSpecific
 do
 	local addDebuffHighlightBackdrop = ns.addDebuffHighlightBackdrop
 	local addHealPredictionBars = ns.addHealPredictionBars
+	local addMenu = ns.addMenu
 
 	UnitSpecific = {
 		player = function(self)
 			-- Player specific layout code.
 			self:SetAttribute('initial-width', config.PRIMARYUNITWIDTH)
 			addMenu(self)
-			addPowerBar(self, false, false)
+			addPowerBar(self)
 			addCastBar(self, false, false)
 			addRaidRole(self)
 			addLFDRole(self)
@@ -365,9 +414,10 @@ do
 			TicketStatusFrame:EnableMouse(false)
 			TicketStatusFrame:SetFrameStrata('BACKGROUND')
 
-			addBuffs(self, 'TOPRIGHT', Minimap, 'TOPLEFT', -config.SPACING, 0, 83, 344, 36, config.UNITHEIGHT, 'LEFT', 'DOWN')
-			addDebuffs(self, 'BOTTOMRIGHT', Minimap, 'BOTTOMLEFT', -config.SPACING, 0, 54, 344, 24, config.UNITHEIGHT, 'LEFT', 'DOWN', false)
-			addWeaponEnchants(self, 'BOTTOMRIGHT', Minimap, 'BOTTOMLEFT', -config.SPACING, -54, 25, 54, 2, config.UNITHEIGHT, 'LEFT', 'DOWN')
+			addAuras(self, config.AURAPOSITIONS)
+			addBuffs(self, config.BUFFPOSITIONS.player)
+			addDebuffs(self, config.DEBUFFPOSITIONS.player)
+			addWeaponEnchants(self, config.TEMPENCHANTPOSITIONS)
 			addDebuffHighlightBackdrop(self)
 			addRuneBar(self)
 		end,
@@ -376,13 +426,13 @@ do
 			-- Target specific layout code.
 			self:SetAttribute('initial-width', config.PRIMARYUNITWIDTH)
 			addMenu(self)
-			addPowerBar(self, true, false)
+			addPowerBar(self)
 			addCastBar(self, true, false)
 			addLFDRole(self)
 			addHealPredictionBars(self, true)
 			addTags(self, false, true, true)
-			addBuffs(self, 'BOTTOMLEFT', self, 'BOTTOMRIGHT', config.SPACING, 0, 54, 236, 20, config.UNITHEIGHT, 'RIGHT', 'UP')
-			addDebuffs(self, 'TOPLEFT', self, 'BOTTOMRIGHT', config.SPACING, -config.SPACING, 54, 236, 20, config.UNITHEIGHT, 'RIGHT', 'DOWN', false)
+			addBuffs(self, config.BUFFPOSITIONS.target)
+			addDebuffs(self, config.DEBUFFPOSITIONS.target)
 			addDebuffHighlightBackdrop(self)
 		end,
 
@@ -390,25 +440,27 @@ do
 			-- Pet specific layout code.
 			self:SetAttribute('initial-width', config.SECONDARYUNITWIDTH)
 			addMenu(self)
-			addPowerBar(self, false, true)
+			addPowerBar(self)
 			addCastBar(self, false, true)
 			addTags(self, true, true, false)
-			addDebuffs(self, 'TOPRIGHT', self, 'TOPLEFT', -config.SPACING, 0, 25, 85, 3, config.UNITHEIGHT, 'LEFT', 'UP', false)
+			addDebuffs(self, config.DEBUFFPOSITIONS.pet)
 		end,
 
 		targettarget = function(self)
 			-- Targettarget specific layout code.
 			self:SetAttribute('initial-width', config.SECONDARYUNITWIDTH)
-			addPowerBar(self, true, false)
-			addDebuffs(self, 'TOPRIGHT', self, 'TOPLEFT', -config.SPACING, 0, 25, 85, 3, config.UNITHEIGHT, 'LEFT', 'UP', false)
+			addMenu(self)
+			addPowerBar(self)
+			addDebuffs(self, config.DEBUFFPOSITIONS.targettarget)
 			addTags(self, false, false, false)
 		end,
 
 		focus = function(self)
 			-- Focus specific layout code.
 			self:SetAttribute('initial-width', config.SECONDARYUNITWIDTH)
-			addPowerBar(self, true, false)
-			addDebuffs(self, 'TOPLEFT', self, 'TOPRIGHT', config.SPACING, 0, 25, 85, 3, config.UNITHEIGHT, 'RIGHT', 'UP', true)
+			addMenu(self)
+			addPowerBar(self)
+			addDebuffs(self, config.DEBUFFPOSITIONS.focus)
 			addTags(self, false, false, false)
 		end,
 	}
@@ -433,11 +485,11 @@ do
 		addHealthBar(self)
 		addRaidIcon(self)
 
+		self.disallowVehicleSwap = true
+
 		if UnitSpecific[unit] then
 			return UnitSpecific[unit](self)
 		end
-
-		self.disallowVehicleSwap = true
 	end
 end
 

@@ -156,6 +156,13 @@ local ClassSpecific = {
 
 		self.EarthShield = es
 
+		local riptide = self.Health:CreateTexture(nil, 'OVERLAY')
+		riptide:SetPoint('TOPRIGHT', self.EarthShield, 'TOPLEFT', -1, 0)
+		riptide:SetSize(3, 3)
+		riptide:SetTexture(0, 1, 0)
+
+		self.Riptide = riptide
+
 		addDebuffHighlightIcon(self)
 	end,
 
@@ -184,6 +191,7 @@ do
 	local addHealPredictionBars = ns.addHealPredictionBars
 	local addRange = ns.addRange
 	local addDebuffHighlightBackdrop = ns.addDebuffHighlightBackdrop
+	local addMenu = ns.addMenu
 
 	function Style(self, unit)
 		self:SetScript('OnEnter', UnitFrame_OnEnter)
@@ -195,6 +203,7 @@ do
 		self:SetAttribute('initial-height', config.UNITHEIGHT)
 		self:SetAttribute('initial-width', config.RAIDUNITWIDTH)
 
+		addMenu(self)
 		addHealthBar(self)
 		addPowerBar(self)
 		addDebuffHighlightBackdrop(self)
@@ -208,8 +217,6 @@ do
 		if ClassSpecific[class] then
 			return ClassSpecific[class](self)
 		end
-
-		self.disallowVehicleSwap = true
 	end
 end
 oUF:RegisterStyle('oUF_EPRaid', Style)
