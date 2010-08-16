@@ -389,6 +389,45 @@ local function addRuneBar(self)
 	end
 end
 
+-- Totem bar function
+local function addTotemBar(self)
+	local _, class = UnitClass('player')
+
+	if IsAddOnLoaded('oUF_TotemBar') and class == 'SHAMAN' then
+		local totems = CreateFrame('Frame', nil, self)
+		totems:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -1)
+		totems:SetSize(230, 4)
+		totems:SetBackdrop(config.BACKDROP)
+		totems:SetBackdropColor(0, 0, 0)
+
+		totems.Destroy = true
+
+		for i = 1, MAX_TOTEMS do
+			local totem = CreateFrame('StatusBar', nil, self)
+			totem:SetSize((230 / MAX_TOTEMS) - 1, 4)
+			totem:SetStatusBarTexture(config.TEXTURE)
+			totem:SetBackdrop(config.BACKDROP)
+			totem:SetBackdropColor(0, 0, 0)
+			totem:SetMinMaxValues(0, 1)
+
+			if i > 1 then
+				totem:SetPoint('LEFT', totems[i - 1], 'RIGHT', 1, 0)
+			else
+				totem:SetPoint('BOTTOMLEFT', totems, 'BOTTOMLEFT', 1, 0)
+			end
+
+			local totemBG = totem:CreateTexture(nil, 'BACKGROUND')
+			totemBG:SetAllPoints(totem)
+			totemBG:SetTexture(1 / 3, 1 / 3, 1/ 3)
+
+			totem.bg = totemBG
+			totems[i] = totem
+		end
+
+		self.TotemBar = totems
+	end
+end
+
 local UnitSpecific
 do
 	local addDebuffHighlightBackdrop = ns.addDebuffHighlightBackdrop
@@ -421,6 +460,7 @@ do
 			addWeaponEnchants(self, config.TEMPENCHANTPOSITIONS)
 			addDebuffHighlightBackdrop(self)
 			addRuneBar(self)
+			addTotemBar(self)
 		end,
 
 		target = function(self)
