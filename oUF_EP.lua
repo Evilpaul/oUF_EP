@@ -229,6 +229,8 @@ do
 	end
 
 	function addCastBar(self, inverted, isPet)
+		local relativeFrame = self.Runes and self.Runes or self.TotemBar and self.TotemBar or self
+
 		local castbar = CreateFrame('StatusBar', nil, self)
 		castbar:SetSize((isPet and config.SECONDARYUNITWIDTH or config.PRIMARYUNITWIDTH) - 25, 16)
 		castbar:SetStatusBarTexture(config.TEXTURE)
@@ -268,10 +270,10 @@ do
 		if inverted then
 			castbar.PostCastStart = PostCastStart
 			castbar.PostChannelStart = PostCastStart
-			castbar:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -config.SPACING)
+			castbar:SetPoint('TOPLEFT', relativeFrame, 'BOTTOMLEFT', 0, -config.SPACING)
 			castbarDummy:SetPoint('TOPLEFT', castbar, 'TOPRIGHT', config.SPACING, 0)
 		else
-			castbar:SetPoint('TOPRIGHT', self, 'BOTTOMRIGHT', 0, -config.SPACING)
+			castbar:SetPoint('TOPRIGHT', relativeFrame, 'BOTTOMRIGHT', 0, -config.SPACING)
 			castbarDummy:SetPoint('TOPRIGHT', castbar, 'TOPLEFT', -config.SPACING, 0)
 			castbar.SafeZone = castbar:CreateTexture(nil, 'ARTWORK')
 		end
@@ -388,6 +390,45 @@ local function addRuneBar(self)
 	end
 end
 
+-- Totem bar function
+local function addTotemBar(self)
+	local _, class = UnitClass('player')
+
+	if IsAddOnLoaded('oUF_TotemBar') and class == 'SHAMAN' then
+		local totems = CreateFrame('Frame', nil, self)
+		totems:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -1)
+		totems:SetSize(230, 4)
+		totems:SetBackdrop(config.BACKDROP)
+		totems:SetBackdropColor(0, 0, 0)
+
+		totems.Destroy = true
+
+		for i = 1, MAX_TOTEMS do
+			local totem = CreateFrame('StatusBar', nil, self)
+			totem:SetSize((230 / MAX_TOTEMS) - 1, 4)
+			totem:SetStatusBarTexture(config.TEXTURE)
+			totem:SetBackdrop(config.BACKDROP)
+			totem:SetBackdropColor(0, 0, 0)
+			totem:SetMinMaxValues(0, 1)
+
+			if i > 1 then
+				totem:SetPoint('LEFT', totems[i - 1], 'RIGHT', 1, 0)
+			else
+				totem:SetPoint('BOTTOMLEFT', totems, 'BOTTOMLEFT', 1, 0)
+			end
+
+			local totemBG = totem:CreateTexture(nil, 'BACKGROUND')
+			totemBG:SetAllPoints(totem)
+			totemBG:SetTexture(1 / 3, 1 / 3, 1/ 3)
+
+			totem.bg = totemBG
+			totems[i] = totem
+		end
+
+		self.TotemBar = totems
+	end
+end
+
 local UnitSpecific
 do
 	local addDebuffHighlightBackdrop = ns.addDebuffHighlightBackdrop
@@ -400,7 +441,6 @@ do
 			self:SetAttribute('initial-width', config.PRIMARYUNITWIDTH)
 			addMenu(self)
 			addPowerBar(self)
-			addCastBar(self, false, false)
 			addRaidRole(self)
 			addLFDRole(self)
 			addPVPFlag(self)
@@ -420,6 +460,9 @@ do
 			addWeaponEnchants(self, config.TEMPENCHANTPOSITIONS)
 			addDebuffHighlightBackdrop(self)
 			addRuneBar(self)
+			addTotemBar(self)
+
+			addCastBar(self, false, false)
 		end,
 
 		target = function(self)
@@ -427,13 +470,14 @@ do
 			self:SetAttribute('initial-width', config.PRIMARYUNITWIDTH)
 			addMenu(self)
 			addPowerBar(self)
-			addCastBar(self, true, false)
 			addLFDRole(self)
 			addHealPredictionBars(self, true)
 			addTags(self, false, true, true)
 			addBuffs(self, config.BUFFPOSITIONS.target)
 			addDebuffs(self, config.DEBUFFPOSITIONS.target)
 			addDebuffHighlightBackdrop(self)
+
+			addCastBar(self, true, false)
 		end,
 
 		pet = function(self)
@@ -441,9 +485,10 @@ do
 			self:SetAttribute('initial-width', config.SECONDARYUNITWIDTH)
 			addMenu(self)
 			addPowerBar(self)
-			addCastBar(self, false, true)
 			addTags(self, true, true, false)
 			addDebuffs(self, config.DEBUFFPOSITIONS.pet)
+
+			addCastBar(self, false, true)
 		end,
 
 		targettarget = function(self)
