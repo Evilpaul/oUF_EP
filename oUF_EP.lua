@@ -229,6 +229,8 @@ do
 	end
 
 	function addCastBar(self, inverted, isPet)
+		local relativeFrame = self.Runes and self.Runes or self.TotemBar and self.TotemBar or self
+
 		local castbar = CreateFrame('StatusBar', nil, self)
 		castbar:SetSize((isPet and config.SECONDARYUNITWIDTH or config.PRIMARYUNITWIDTH) - 25, 16)
 		castbar:SetStatusBarTexture(config.TEXTURE)
@@ -268,10 +270,10 @@ do
 		if inverted then
 			castbar.PostCastStart = PostCastStart
 			castbar.PostChannelStart = PostCastStart
-			castbar:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -config.SPACING)
+			castbar:SetPoint('TOPLEFT', relativeFrame, 'BOTTOMLEFT', 0, -config.SPACING)
 			castbarDummy:SetPoint('TOPLEFT', castbar, 'TOPRIGHT', config.SPACING, 0)
 		else
-			castbar:SetPoint('TOPRIGHT', self, 'BOTTOMRIGHT', 0, -config.SPACING)
+			castbar:SetPoint('TOPRIGHT', relativeFrame, 'BOTTOMRIGHT', 0, -config.SPACING)
 			castbarDummy:SetPoint('TOPRIGHT', castbar, 'TOPLEFT', -config.SPACING, 0)
 			castbar.SafeZone = castbar:CreateTexture(nil, 'ARTWORK')
 		end
@@ -440,7 +442,6 @@ do
 			self:SetAttribute('initial-width', config.PRIMARYUNITWIDTH)
 			addMenu(self)
 			addPowerBar(self)
-			addCastBar(self, false, false)
 			addRaidRole(self)
 			addLFDRole(self)
 			addPVPFlag(self)
@@ -461,6 +462,8 @@ do
 			addDebuffHighlightBackdrop(self)
 			addRuneBar(self)
 			addTotemBar(self)
+
+			addCastBar(self, false, false)
 		end,
 
 		target = function(self)
@@ -468,13 +471,14 @@ do
 			self:SetAttribute('initial-width', config.PRIMARYUNITWIDTH)
 			addMenu(self)
 			addPowerBar(self)
-			addCastBar(self, true, false)
 			addLFDRole(self)
 			addHealCommBars(self, true)
 			addTags(self, false, true, true)
 			addBuffs(self, config.BUFFPOSITIONS.target)
 			addDebuffs(self, config.DEBUFFPOSITIONS.target)
 			addDebuffHighlightBackdrop(self)
+
+			addCastBar(self, true, false)
 		end,
 
 		pet = function(self)
@@ -482,9 +486,10 @@ do
 			self:SetAttribute('initial-width', config.SECONDARYUNITWIDTH)
 			addMenu(self)
 			addPowerBar(self)
-			addCastBar(self, false, true)
 			addTags(self, true, true, false)
 			addDebuffs(self, config.DEBUFFPOSITIONS.pet)
+
+			addCastBar(self, false, true)
 		end,
 
 		targettarget = function(self)
