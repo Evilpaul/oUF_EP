@@ -4,13 +4,6 @@ local _, ns = ...
 local oUF = ns.oUF or oUF
 assert(oUF, 'Riptide was unable to locate oUF install')
 
-local riptideRanks = {
-	[61295] = true,
-	[61299] = true,
-	[61300] = true,
-	[61301] = true,
-}
-
 local function GetBuffInfo(unit)
 	if not UnitCanAssist('player', unit) then return end
 
@@ -22,7 +15,7 @@ local function GetBuffInfo(unit)
 		-- buff does not exist, quit out of the loop
 		if not spellId then return end
 
-		if riptideRanks[spellId] and unitCaster and UnitIsUnit('player', unitCaster) then
+		if spellId == 61295 and unitCaster and UnitIsUnit('player', unitCaster) then
 			return true
 		end
 
