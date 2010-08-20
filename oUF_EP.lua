@@ -84,7 +84,8 @@ do
 		local auras = CreateFrame('Frame', nil, self)
 		auras:SetPoint(position.anchorPoint, position.relativeFrame and position.relativeFrame or self, position.relativePoint, position.offsetX, position.offsetY)
 		auras:SetSize(position.width, position.height)
-		auras.num = position.number
+		auras.numBuffs = position.numBuffs
+		auras.numDebuffs = position.numDebuffs
 		auras.size = position.size
 		auras.spacing = config.SPACING
 		auras.initialAnchor = position.anchorPoint
