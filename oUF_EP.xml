@@ -40,6 +40,7 @@
 	<Script file='elements\WeaponEnchant.lua'/>
 
 	<Script file='config.lua'/>
+	<Script file='aurafilter.lua'/>
 	<Script file='common.lua'/>
 
 	<Script file='oUF_EPTags.lua'/>
