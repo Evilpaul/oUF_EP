@@ -86,14 +86,11 @@ local function addHealPredictionBars(self, allowOverflow)
 	ohpb:SetStatusBarTexture(config.TEXTURE)
 	ohpb:SetStatusBarColor(0, 1, 0, 0.25)
 
-	self.myHealPredictionBar = mhpb
-	self.otherHealPredictionBar = ohpb
-
-	if allowOverflow then
-		self.maxHealPredictionOverflow = 1.05
-	else
-		self.maxHealPredictionOverflow = 1
-	end
+	self.HealPrediction = {
+		myBar = mhpb,
+		otherBar = ohpb,
+		maxOverflow = allowOverflow and 1.05 or 1,
+	}
 end
 ns.addHealPredictionBars = addHealPredictionBars
 
