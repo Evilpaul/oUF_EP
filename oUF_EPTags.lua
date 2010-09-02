@@ -64,7 +64,7 @@ oUF.Tags['ep:power'] = function(unit)
 		return format('%s%d|r', Hex(colors[type] or colors['FUEL']), power)
 	end
 end
-oUF.TagEvents['ep:power'] = 'UNIT_ENERGY UNIT_FOCUS UNIT_MANA UNIT_RAGE UNIT_RUNIC_POWER'
+oUF.TagEvents['ep:power'] = 'UNIT_POWER'
 
 oUF.Tags['ep:druid'] = function(unit)
 	local min, max = UnitPower(unit, 0), UnitPowerMax(unit, 0)
@@ -73,7 +73,7 @@ oUF.Tags['ep:druid'] = function(unit)
 		return format('|cff0090ff%d%%|r', min / max * 100)
 	end
 end
-oUF.TagEvents['ep:druid'] = 'UNIT_MANA'
+oUF.TagEvents['ep:druid'] = 'UNIT_POWER UNIT_MAXPOWER'
 
 oUF.Tags['ep:name'] = function(unit)
 	local reaction = UnitReaction(unit, 'player')
