@@ -71,18 +71,18 @@ end
 ns.addDebuffHighlightBackdrop = addDebuffHighlightBackdrop
 
 -- Heal Prediction bar function
-local function addHealPredictionBars(self, allowOverflow)
+local function addHealPredictionBars(self, width, allowOverflow)
 	local mhpb = CreateFrame('StatusBar', nil, self.Health)
 	mhpb:SetPoint('TOPLEFT', self.Health:GetStatusBarTexture(), 'TOPRIGHT', 0, 0)
 	mhpb:SetPoint('BOTTOMLEFT', self.Health:GetStatusBarTexture(), 'BOTTOMRIGHT', 0, 0)
-	mhpb:SetWidth(self.Health:GetWidth())
+	mhpb:SetWidth(width)
 	mhpb:SetStatusBarTexture(config.TEXTURE)
 	mhpb:SetStatusBarColor(0, 1, 0.5, 0.25)
 
 	local ohpb = CreateFrame('StatusBar', nil, self.Health)
 	ohpb:SetPoint('TOPLEFT', mhpb:GetStatusBarTexture(), 'TOPRIGHT', 0, 0)
 	ohpb:SetPoint('BOTTOMLEFT', mhpb:GetStatusBarTexture(), 'BOTTOMRIGHT', 0, 0)
-	ohpb:SetWidth(self.Health:GetWidth())
+	ohpb:SetWidth(width)
 	ohpb:SetStatusBarTexture(config.TEXTURE)
 	ohpb:SetStatusBarColor(0, 1, 0, 0.25)
 

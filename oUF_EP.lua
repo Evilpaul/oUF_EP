@@ -445,7 +445,7 @@ do
 			addRaidRole(self)
 			addLFDRole(self)
 			addPVPFlag(self)
-			addHealPredictionBars(self, true)
+			addHealPredictionBars(self, config.PRIMARYUNITWIDTH, true)
 			addTags(self, true, true, false)
 
 			-- Turn off some Blizzard stuff
@@ -472,7 +472,7 @@ do
 			addMenu(self)
 			addPowerBar(self)
 			addLFDRole(self)
-			addHealPredictionBars(self, true)
+			addHealPredictionBars(self, config.PRIMARYUNITWIDTH, true)
 			addTags(self, false, true, true)
 			addBuffs(self, config.BUFFPOSITIONS.target)
 			addDebuffs(self, config.DEBUFFPOSITIONS.target)

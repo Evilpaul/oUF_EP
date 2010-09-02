@@ -207,7 +207,7 @@ do
 		addHealthBar(self)
 		addPowerBar(self)
 		addDebuffHighlightBackdrop(self)
-		addHealPredictionBars(self, false)
+		addHealPredictionBars(self, config.RAIDUNITWIDTH, false)
 		addTags(self)
 		addRange(self)
 		addReadyCheck(self)
