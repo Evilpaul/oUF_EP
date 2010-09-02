@@ -89,7 +89,7 @@ oUF.Tags['ep:name'] = function(unit)
 
 	return format('%s%s|r', Hex(r, g, b), UnitName(unit))
 end
-oUF.TagEvents['ep:name'] = 'UNIT_NAME_UPDATE UNIT_REACTION UNIT_FACTION'
+oUF.TagEvents['ep:name'] = 'UNIT_NAME_UPDATE UNIT_REACTION UNIT_FACTION UNIT_CONNECTION'
 
 oUF.Tags['ep:raidname'] = function(unit)
 	local r, g, b = 1, 1, 1
@@ -114,7 +114,7 @@ oUF.Tags['ep:raidname'] = function(unit)
 
 	return format('%s%s|r', Hex(r, g, b), utf8sub(unitName, 4))
 end
-oUF.TagEvents['ep:raidname'] = 'UNIT_NAME_UPDATE UNIT_REACTION UNIT_FACTION UNIT_HEALTH UNIT_MAX_HEALTH'
+oUF.TagEvents['ep:raidname'] = 'UNIT_NAME_UPDATE UNIT_REACTION UNIT_FACTION UNIT_HEALTH UNIT_MAX_HEALTH UNIT_CONNECTION'
 
 oUF.Tags['ep:healpredictionself'] = function(unit)
 	local myIncomingHeal = UnitGetIncomingHeals(unit, 'player') or 0
