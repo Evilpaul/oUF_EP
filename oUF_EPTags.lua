@@ -117,7 +117,7 @@ end
 oUF.TagEvents['ep:raidname'] = 'UNIT_NAME_UPDATE UNIT_REACTION UNIT_FACTION UNIT_HEALTH UNIT_MAX_HEALTH'
 
 oUF.Tags['ep:healpredictionself'] = function(unit)
-	local myIncomingHeal = UnitGetIncomingHeals(self.unit, 'player') or 0
+	local myIncomingHeal = UnitGetIncomingHeals(unit, 'player') or 0
 
 	if myIncomingHeal == 0 then
 		return nil
@@ -128,8 +128,8 @@ end
 oUF.TagEvents['ep:healpredictionself'] = 'UNIT_HEAL_PREDICTION'
 
 oUF.Tags['ep:healpredictionother'] = function(unit)
-	local myIncomingHeal = UnitGetIncomingHeals(self.unit, 'player') or 0
-	local allIncomingHeal = UnitGetIncomingHeals(self.unit) or 0
+	local myIncomingHeal = UnitGetIncomingHeals(unit, 'player') or 0
+	local allIncomingHeal = UnitGetIncomingHeals(unit) or 0
 
 	if(allIncomingHeal < myIncomingHeal) then
 		myIncomingHeal = allIncomingHeal
@@ -147,7 +147,7 @@ end
 oUF.TagEvents['ep:healpredictionother'] = 'UNIT_HEAL_PREDICTION'
 
 oUF.Tags['ep:healpredictionall'] = function(unit)
-	local allIncomingHeal = UnitGetIncomingHeals(self.unit) or 0
+	local allIncomingHeal = UnitGetIncomingHeals(unit) or 0
 
 	if allIncomingHeal == 0 then
 		return nil
