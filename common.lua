@@ -89,7 +89,7 @@ local function addHealPredictionBars(self, width, allowOverflow)
 	self.HealPrediction = {
 		myBar = mhpb,
 		otherBar = ohpb,
-		maxOverflow = allowOverflow and 1.05 or 1,
+		maxOverflow = allowOverflow and 1.25 or 1,
 	}
 end
 ns.addHealPredictionBars = addHealPredictionBars
