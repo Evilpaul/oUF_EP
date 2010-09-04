@@ -253,7 +253,7 @@ do
 
 		local castbarText = castbar:CreateFontString(nil, 'OVERLAY')
 		castbarText:SetPoint('LEFT', castbar, 'LEFT', 2, 0)
-		castbarText:SetPoint('RIGHT', castbarTime, 'LEFT', -5, 0)
+		castbarText:SetPoint('RIGHT', castbarTime, 'LEFT', -config.SPACING, 0)
 		castbarText:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
 		castbarText:SetJustifyH('LEFT')
 		castbar.Text = castbarText
@@ -363,13 +363,13 @@ local function addRuneBar(self)
 	if class == 'DEATHKNIGHT' then
 		local runes = CreateFrame('Frame', nil, self)
 		runes:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -1)
-		runes:SetSize(230, 4)
+		runes:SetSize(config.PRIMARYUNITWIDTH, config.SPACING)
 		runes:SetBackdrop(config.BACKDROP)
 		runes:SetBackdropColor(0, 0, 0)
 
 		for i = 1, 6 do
 			local rune = CreateFrame('StatusBar', nil, runes)
-			rune:SetSize((230 / 6) - 1, 4)
+			rune:SetSize((config.PRIMARYUNITWIDTH / 6) - 1, config.SPACING)
 			rune:SetStatusBarTexture(config.TEXTURE)
 			rune:SetBackdrop(config.BACKDROP)
 			rune:SetBackdropColor(0, 0, 0)
@@ -399,7 +399,7 @@ local function addTotemBar(self)
 	if IsAddOnLoaded('oUF_TotemBar') and class == 'SHAMAN' then
 		local totems = CreateFrame('Frame', nil, self)
 		totems:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -1)
-		totems:SetSize(230, 4)
+		totems:SetSize(config.PRIMARYUNITWIDTH, config.SPACING)
 		totems:SetBackdrop(config.BACKDROP)
 		totems:SetBackdropColor(0, 0, 0)
 
@@ -407,7 +407,7 @@ local function addTotemBar(self)
 
 		for i = 1, MAX_TOTEMS do
 			local totem = CreateFrame('StatusBar', nil, self)
-			totem:SetSize((230 / MAX_TOTEMS) - 1, 4)
+			totem:SetSize((config.PRIMARYUNITWIDTH / MAX_TOTEMS) - 1, config.SPACING)
 			totem:SetStatusBarTexture(config.TEXTURE)
 			totem:SetBackdrop(config.BACKDROP)
 			totem:SetBackdropColor(0, 0, 0)
