@@ -113,17 +113,10 @@ local ClassSpecific = {
 	end,
 
 	PALADIN = function(self)
-		local ss = self.Health:CreateTexture(nil, 'OVERLAY')
-		ss:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
-		ss:SetSize(3, 3)
-		ss:SetTexture(1, 3 / 5, 0)
-
-		self.SacredShield = ss
-
 		local bol = self.Health:CreateTexture(nil, 'OVERLAY')
-		bol:SetPoint('TOPRIGHT', self.SacredShield, 'TOPLEFT', -1, 0)
+		bol:SetPoint('TOPRIGHT', self.Health, 'TOPLEFT', 0, 0)
 		bol:SetSize(3, 3)
-		bol:SetTexture(0, 1, 0)
+		bol:SetTexture(1, 3 / 5, 0)
 
 		self.BeaconOfLight = bol
 
