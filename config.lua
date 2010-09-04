@@ -1,7 +1,7 @@
 local _, ns = ...
 
 local spacing = 4
-local unitHeight = 25 -- should always equal healthHeight + powerHeight
+local unitHeight = 25
 
 local config = {
 	FONT = [=[Interface\AddOns\oUF_EP\fonts\Sansation_Regular.ttf]=],
@@ -24,14 +24,14 @@ local config = {
 
 	SPACING = spacing,
 
-	HEALTHHEIGHT = 21,
-	POWERHEIGHT = 4,
+	HEALTHHEIGHT = unitHeight - spacing,
+	POWERHEIGHT = spacing,
 	UNITHEIGHT = unitHeight,
 
 	PRIMARYUNITWIDTH = 230, -- primary frames (player & target)
 	SECONDARYUNITWIDTH = 144, -- secondary frames (pet, focus & targettarget)
 	TERTIARYUNITWIDTH = 100, -- tertiary frames (maintank, maintanktarget, boss, arena, arenatarget)
-	RAIDUNITWIDTH = 25, -- raid frames
+	RAIDUNITWIDTH = unitHeight, -- raid frames
 
 	AURAFILTER = {}, -- values are set within aurafilter.lua
 

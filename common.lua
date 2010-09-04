@@ -97,8 +97,8 @@ ns.addHealPredictionBars = addHealPredictionBars
 -- Range function
 local function addRange(self)
 	local range = {
-		insideAlpha = 1.0,
-		outsideAlpha = 0.65
+		insideAlpha = 1,
+		outsideAlpha = 2 / 3,
 	}
 	self.Range = range
 end
@@ -125,6 +125,7 @@ do
 end
 ns.shortVal = shortVal
 
+-- post update power function
 local function PostUpdatePower(element, unit, min, max)
 	element:GetParent().Health:SetHeight(max ~= 0 and config.HEALTHHEIGHT or config.UNITHEIGHT)
 end

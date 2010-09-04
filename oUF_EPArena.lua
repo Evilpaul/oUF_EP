@@ -75,8 +75,10 @@ oUF:Factory(function(self)
 	self:SetActiveStyle('oUF_EPArena')
 
 	local arenaFrames = {}
+	local arenaTargetFrames = {}
 	for i = 1, 5 do
 		local unit = self:Spawn('arena' .. i)
+		local unittarget = self:Spawn('arena' .. i .. 'target')
 
 		if i > 1 then
 			unit:SetPoint('TOPRIGHT', arenaFrames[i - 1], 'BOTTOMRIGHT', 0, -10)
@@ -84,19 +86,12 @@ oUF:Factory(function(self)
 			unit:SetPoint('TOPLEFT', UIParent, 'TOPLEFT', 15, -350)
 		end
 
+		unittarget:SetPoint('LEFT', unit, 'RIGHT', config.SPACING, 0)
+
 		unit:Show()
+		unittarget:Show()
 
 		arenaFrames[i] = unit
-	end
-
-	local arenaTargetFrames = {}
-	for i = 1, 5 do
-		local unit = self:Spawn('arena' .. i .. 'target')
-
-		unit:SetPoint('LEFT', arenaFrames[i], 'RIGHT', config.SPACING, 0)
-
-		unit:Show()
-
-		arenaTargetFrames[i] = unit
+		arenaTargetFrames[i] = unittarget
 	end
 end)
