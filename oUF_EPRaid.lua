@@ -84,7 +84,7 @@ local ClassSpecific = {
 		local rejuv = self.Health:CreateTexture(nil, 'OVERLAY')
 		rejuv:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
 		rejuv:SetSize(3, 3)
-		rejuv:SetTexture(1, 0.6, 0)
+		rejuv:SetTexture(1, 3 / 5, 0)
 
 		self.Rejuvenation = rejuv
 
@@ -109,7 +109,7 @@ local ClassSpecific = {
 		local fm = self.Health:CreateTexture(nil, 'OVERLAY')
 		fm:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
 		fm:SetSize(3, 3)
-		fm:SetTexture(1, 0.6, 0)
+		fm:SetTexture(1, 3 / 5, 0)
 
 		self.FocusMagic = fm
 
@@ -120,7 +120,7 @@ local ClassSpecific = {
 		local ss = self.Health:CreateTexture(nil, 'OVERLAY')
 		ss:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
 		ss:SetSize(3, 3)
-		ss:SetTexture(1, 0.6, 0)
+		ss:SetTexture(1, 3 / 5, 0)
 
 		self.SacredShield = ss
 
@@ -138,7 +138,7 @@ local ClassSpecific = {
 		local ws = self.Health:CreateTexture(nil, 'OVERLAY')
 		ws:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
 		ws:SetSize(3, 3)
-		ws:SetTexture(1, 0.6, 0)
+		ws:SetTexture(1, 3 / 5, 0)
 
 		self.WeakenedSoul = ws
 
@@ -163,7 +163,7 @@ local ClassSpecific = {
 		local es = self.Health:CreateTexture(nil, 'OVERLAY')
 		es:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
 		es:SetSize(3, 3)
-		es:SetTexture(1, 0.6, 0)
+		es:SetTexture(1, 3 / 5, 0)
 
 		self.EarthShield = es
 
@@ -181,7 +181,7 @@ local ClassSpecific = {
 		local ss = self.Health:CreateTexture(nil, 'OVERLAY')
 		ss:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
 		ss:SetSize(3, 3)
-		ss:SetTexture(1, 0.6, 0)
+		ss:SetTexture(1, 3 / 5, 0)
 
 		self.Soulstone = ss
 	end,
@@ -190,7 +190,7 @@ local ClassSpecific = {
 		local vig = self.Health:CreateTexture(nil, 'OVERLAY')
 		vig:SetPoint('TOPRIGHT', self.Health, 'TOPRIGHT', 0, 0)
 		vig:SetSize(3, 3)
-		vig:SetTexture(1, 0.6, 0)
+		vig:SetTexture(1, 3 / 5, 0)
 
 		self.Vigilance = vig
 	end,

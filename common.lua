@@ -85,8 +85,8 @@ ns.addHealCommBars = addHealCommBars
 -- Range function
 local function addRange(self)
 	local range = {
-		insideAlpha = 1.0,
-		outsideAlpha = 0.65
+		insideAlpha = 1,
+		outsideAlpha = 2 / 3,
 	}
 	self.Range = range
 end
