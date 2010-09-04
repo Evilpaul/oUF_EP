@@ -309,7 +309,7 @@ end
 
 -- pvp flag function
 local function addPVPFlag(self)
-	local pvpFlag = self.Health:CreateTexture(nil, 'OVERLAY', 0, 8)
+	local pvpFlag = self.Health:CreateTexture(nil, 'OVERLAY')
 	pvpFlag:SetPoint('TOPRIGHT', self, 'TOPRIGHT', 16, 12)
 	pvpFlag:SetSize(32, 32)
 
