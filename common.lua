@@ -113,6 +113,7 @@ do
 end
 ns.shortVal = shortVal
 
+-- post update power function
 local function PostUpdatePower(element, unit, min, max)
 	element:GetParent().Health:SetHeight(max ~= 0 and config.HEALTHHEIGHT or config.UNITHEIGHT)
 end

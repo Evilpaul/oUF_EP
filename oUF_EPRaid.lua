@@ -274,6 +274,7 @@ do
 		)
 		petHeader:Show()
 
+		-- update script to move the petheader dependant upon which is the last raid group
 		local updateFrame = CreateFrame('Frame')
 		updateFrame:SetScript('OnEvent', function(...)
 			if InCombatLockdown() then return end
