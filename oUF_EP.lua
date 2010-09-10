@@ -468,6 +468,35 @@ local function addSoulShards(self)
 	end
 end
 
+-- Holy Power function
+local function addHolyPower(self)
+	local _, class = UnitClass('player')
+
+	if class == 'PALADIN' then
+		local holypower = CreateFrame('Frame', nil, self)
+		holypower:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -1)
+		holypower:SetSize(config.PRIMARYUNITWIDTH, config.SPACING)
+		holypower:SetBackdrop(config.BACKDROP)
+		holypower:SetBackdropColor(0, 0, 0)
+
+		for i = 1, MAX_HOLY_POWER do
+			local holyRune = holypower:CreateTexture(nil, 'OVERLAY')
+			holyRune:SetSize((config.PRIMARYUNITWIDTH / MAX_HOLY_POWER) - 1, config.SPACING)
+			holyRune:SetTexture(1, 3 / 5, 0)
+
+			if i > 1 then
+				holyRune:SetPoint('LEFT', holypower[i - 1], 'RIGHT', 1, 0)
+			else
+				holyRune:SetPoint('BOTTOMLEFT', holypower, 'BOTTOMLEFT', 1, 0)
+			end
+
+			holypower[i] = holyRune
+		end
+
+		self.HolyPower = holypower
+	end
+end
+
 local UnitSpecific
 do
 	local addDebuffHighlightBackdrop = ns.addDebuffHighlightBackdrop
@@ -501,6 +530,7 @@ do
 			addRuneBar(self)
 			addTotemBar(self)
 			addSoulShards(self)
+			addHolyPower(self)
 
 			addCastBar(self, false, false)
 		end,
