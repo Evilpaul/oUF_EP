@@ -497,6 +497,40 @@ local function addHolyPower(self)
 	end
 end
 
+-- Eclipse Bar function
+local function addEclipseBar(self)
+	local _, class = UnitClass('player')
+
+	if class == 'DRUID' then
+		local eclipseBar = CreateFrame('Frame', nil, self)
+		eclipseBar:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -1)
+		eclipseBar:SetSize(config.PRIMARYUNITWIDTH, config.SPACING)
+		eclipseBar:SetBackdrop(config.BACKDROP)
+		eclipseBar:SetBackdropColor(0, 0, 0)
+
+		local lunarBar = CreateFrame('StatusBar', nil, eclipseBar)
+		lunarBar:SetPoint('LEFT', eclipseBar, 'LEFT', 0, 0)
+		lunarBar:SetSize(config.PRIMARYUNITWIDTH, config.SPACING)
+		lunarBar:SetStatusBarTexture(config.TEXTURE)
+		lunarBar:SetStatusBarColor(0, 0, 1)
+		eclipseBar.LunarBar = lunarBar
+
+		local solarBar = CreateFrame('StatusBar', nil, eclipseBar)
+		solarBar:SetPoint('LEFT', lunarBar:GetStatusBarTexture(), 'RIGHT', 0, 0)
+		solarBar:SetSize(config.PRIMARYUNITWIDTH, config.SPACING)
+		solarBar:SetStatusBarTexture(config.TEXTURE)
+		solarBar:SetStatusBarColor(1, 3/5, 0)
+		eclipseBar.SolarBar = solarBar
+
+		local eclipseBarText = solarBar:CreateFontString(nil, 'OVERLAY')
+		eclipseBarText:SetPoint('CENTER', eclipseBar, 'CENTER', 0, 0)
+		eclipseBarText:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
+		eclipseBar.Text = eclipseBarText
+
+		self.EclipseBar = eclipseBar
+	end
+end
+
 local UnitSpecific
 do
 	local addDebuffHighlightBackdrop = ns.addDebuffHighlightBackdrop
@@ -531,6 +565,7 @@ do
 			addTotemBar(self)
 			addSoulShards(self)
 			addHolyPower(self)
+			addEclipseBar(self)
 
 			addCastBar(self, false, false)
 		end,
