@@ -439,6 +439,35 @@ local function addTotemBar(self)
 	end
 end
 
+-- Soul Shards function
+local function addSoulShards(self)
+	local _, class = UnitClass('player')
+
+	if class == 'WARLOCK' then
+		local shards = CreateFrame('Frame', nil, self)
+		shards:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -1)
+		shards:SetSize(config.PRIMARYUNITWIDTH, config.SPACING)
+		shards:SetBackdrop(config.BACKDROP)
+		shards:SetBackdropColor(0, 0, 0)
+
+		for i = 1, SHARD_BAR_NUM_SHARDS do
+			local shard = shards:CreateTexture(nil, 'OVERLAY')
+			shard:SetSize((config.PRIMARYUNITWIDTH / SHARD_BAR_NUM_SHARDS) - 1, config.SPACING)
+			shard:SetTexture(1, 3 / 5, 0)
+
+			if i > 1 then
+				shard:SetPoint('LEFT', shards[i - 1], 'RIGHT', 1, 0)
+			else
+				shard:SetPoint('BOTTOMLEFT', shards, 'BOTTOMLEFT', 1, 0)
+			end
+
+			shards[i] = shard
+		end
+
+		self.SoulShards = shards
+	end
+end
+
 local UnitSpecific
 do
 	local addDebuffHighlightBackdrop = ns.addDebuffHighlightBackdrop
@@ -471,6 +500,7 @@ do
 			addDebuffHighlightBackdrop(self)
 			addRuneBar(self)
 			addTotemBar(self)
+			addSoulShards(self)
 
 			addCastBar(self, false, false)
 		end,
