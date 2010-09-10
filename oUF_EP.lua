@@ -230,7 +230,7 @@ do
 	end
 
 	function addCastBar(self, inverted, isPet)
-		local relativeFrame = self.Runes and self.Runes or self.TotemBar and self.TotemBar or self
+		local relativeFrame = self.Runes and self.Runes or self.TotemBar and self.TotemBar or self.SoulShards and self.SoulShards or self.HolyPower and self.HolyPower or self.EclipseBar and self.EclipseBar or self
 
 		local castbar = CreateFrame('StatusBar', nil, self)
 		castbar:SetSize((isPet and config.SECONDARYUNITWIDTH or config.PRIMARYUNITWIDTH) - 25, 16)
