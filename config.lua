@@ -4,7 +4,7 @@ local spacing = 4
 local unitHeight = 25
 
 local config = {
-	FONT = [=[Interface\AddOns\oUF_EP\fonts\Sansation_Regular.ttf]=],
+	FONT = [=[Interface\AddOns\oUF_EP\fonts\DroidSans.ttf]=],
 	FONTSIZE = 12,
 	FONTSIZESMALL = 10,
 	FONTSIZELARGE = 20,
