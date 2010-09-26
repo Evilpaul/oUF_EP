@@ -230,7 +230,7 @@ do
 	end
 
 	function addCastBar(self, inverted, isPet)
-		local relativeFrame = self.Runes and self.Runes or self.TotemBar and self.TotemBar or self
+		local relativeFrame = self.Runes and self.Runes or self.TotemBar and self.TotemBar or self.SoulShards and self.SoulShards or self.HolyPower and self.HolyPower or self.EclipseBar and self.EclipseBar or self
 
 		local castbar = CreateFrame('StatusBar', nil, self)
 		castbar:SetSize((isPet and config.SECONDARYUNITWIDTH or config.PRIMARYUNITWIDTH) - 25, 16)
@@ -305,6 +305,15 @@ local function addLFDRole(self)
 	lfdRole:SetSize(16, 16)
 
 	self.LFDRole = lfdRole
+end
+
+-- phase icon function
+local function addPhaseIcon(self)
+	local picon = self.Health:CreateTexture(nil, 'OVERLAY')
+	picon:SetPoint('TOPLEFT', self, 'TOPLEFT', 40, 8)
+	picon:SetSize(16, 16)
+
+	self.PhaseIcon = picon
 end
 
 -- pvp flag function
@@ -430,6 +439,98 @@ local function addTotemBar(self)
 	end
 end
 
+-- Soul Shards function
+local function addSoulShards(self)
+	local _, class = UnitClass('player')
+
+	if class == 'WARLOCK' then
+		local shards = CreateFrame('Frame', nil, self)
+		shards:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -1)
+		shards:SetSize(config.PRIMARYUNITWIDTH, config.SPACING)
+		shards:SetBackdrop(config.BACKDROP)
+		shards:SetBackdropColor(0, 0, 0)
+
+		for i = 1, SHARD_BAR_NUM_SHARDS do
+			local shard = shards:CreateTexture(nil, 'OVERLAY')
+			shard:SetSize((config.PRIMARYUNITWIDTH / SHARD_BAR_NUM_SHARDS) - 1, config.SPACING)
+			shard:SetTexture(1, 3 / 5, 0)
+
+			if i > 1 then
+				shard:SetPoint('LEFT', shards[i - 1], 'RIGHT', 1, 0)
+			else
+				shard:SetPoint('BOTTOMLEFT', shards, 'BOTTOMLEFT', 1, 0)
+			end
+
+			shards[i] = shard
+		end
+
+		self.SoulShards = shards
+	end
+end
+
+-- Holy Power function
+local function addHolyPower(self)
+	local _, class = UnitClass('player')
+
+	if class == 'PALADIN' then
+		local holypower = CreateFrame('Frame', nil, self)
+		holypower:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -1)
+		holypower:SetSize(config.PRIMARYUNITWIDTH, config.SPACING)
+		holypower:SetBackdrop(config.BACKDROP)
+		holypower:SetBackdropColor(0, 0, 0)
+
+		for i = 1, MAX_HOLY_POWER do
+			local holyRune = holypower:CreateTexture(nil, 'OVERLAY')
+			holyRune:SetSize((config.PRIMARYUNITWIDTH / MAX_HOLY_POWER) - 1, config.SPACING)
+			holyRune:SetTexture(1, 3 / 5, 0)
+
+			if i > 1 then
+				holyRune:SetPoint('LEFT', holypower[i - 1], 'RIGHT', 1, 0)
+			else
+				holyRune:SetPoint('BOTTOMLEFT', holypower, 'BOTTOMLEFT', 1, 0)
+			end
+
+			holypower[i] = holyRune
+		end
+
+		self.HolyPower = holypower
+	end
+end
+
+-- Eclipse Bar function
+local function addEclipseBar(self)
+	local _, class = UnitClass('player')
+
+	if class == 'DRUID' then
+		local eclipseBar = CreateFrame('Frame', nil, self)
+		eclipseBar:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -1)
+		eclipseBar:SetSize(config.PRIMARYUNITWIDTH, config.SPACING)
+		eclipseBar:SetBackdrop(config.BACKDROP)
+		eclipseBar:SetBackdropColor(0, 0, 0)
+
+		local lunarBar = CreateFrame('StatusBar', nil, eclipseBar)
+		lunarBar:SetPoint('LEFT', eclipseBar, 'LEFT', 0, 0)
+		lunarBar:SetSize(config.PRIMARYUNITWIDTH, config.SPACING)
+		lunarBar:SetStatusBarTexture(config.TEXTURE)
+		lunarBar:SetStatusBarColor(0, 0, 1)
+		eclipseBar.LunarBar = lunarBar
+
+		local solarBar = CreateFrame('StatusBar', nil, eclipseBar)
+		solarBar:SetPoint('LEFT', lunarBar:GetStatusBarTexture(), 'RIGHT', 0, 0)
+		solarBar:SetSize(config.PRIMARYUNITWIDTH, config.SPACING)
+		solarBar:SetStatusBarTexture(config.TEXTURE)
+		solarBar:SetStatusBarColor(1, 3/5, 0)
+		eclipseBar.SolarBar = solarBar
+
+		local eclipseBarText = solarBar:CreateFontString(nil, 'OVERLAY')
+		eclipseBarText:SetPoint('CENTER', eclipseBar, 'CENTER', 0, 0)
+		eclipseBarText:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
+		eclipseBar.Text = eclipseBarText
+
+		self.EclipseBar = eclipseBar
+	end
+end
+
 local UnitSpecific
 do
 	local addDebuffHighlightBackdrop = ns.addDebuffHighlightBackdrop
@@ -462,6 +563,9 @@ do
 			addDebuffHighlightBackdrop(self)
 			addRuneBar(self)
 			addTotemBar(self)
+			addSoulShards(self)
+			addHolyPower(self)
+			addEclipseBar(self)
 
 			addCastBar(self, false, false)
 		end,
@@ -472,6 +576,7 @@ do
 			addMenu(self)
 			addPowerBar(self)
 			addLFDRole(self)
+			addPhaseIcon(self)
 			addHealPredictionBars(self, config.PRIMARYUNITWIDTH, true)
 			addTags(self, false, true, true)
 			addBuffs(self, config.BUFFPOSITIONS.target)
