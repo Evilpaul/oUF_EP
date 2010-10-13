@@ -307,6 +307,15 @@ local function addLFDRole(self)
 	self.LFDRole = lfdRole
 end
 
+-- quest icon function
+local function addQuestIcon(self)
+	local qicon = self.Health:CreateTexture(nil, 'OVERLAY')
+	qicon:SetPoint('TOPLEFT', self, 'TOPLEFT', 0, 8)
+	qicon:SetSize(16, 16)
+
+	self.QuestIcon = qicon
+end
+
 -- phase icon function
 local function addPhaseIcon(self)
 	local picon = self.Health:CreateTexture(nil, 'OVERLAY')
@@ -576,6 +585,7 @@ do
 			addMenu(self)
 			addPowerBar(self)
 			addLFDRole(self)
+			addQuestIcon(self)
 			addPhaseIcon(self)
 			addHealPredictionBars(self, config.PRIMARYUNITWIDTH, true)
 			addTags(self, false, true, true)
@@ -611,6 +621,7 @@ do
 			self:SetWidth(config.SECONDARYUNITWIDTH)
 			addMenu(self)
 			addPowerBar(self)
+			addQuestIcon(self)
 			addDebuffs(self, config.DEBUFFPOSITIONS.focus)
 			addTags(self, false, false, false)
 		end,
