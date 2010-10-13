@@ -52,7 +52,7 @@ do
 		local healpredictiontext = self.Health:CreateFontString(nil, 'OVERLAY')
 		healpredictiontext:SetPoint('TOP', info, 'BOTTOM', 0, 0)
 		healpredictiontext:SetFont(config.FONT, config.FONTSIZESMALL, config.FONTBORDER)
-		self:Tag(healpredictiontext, '[|cff00ff00 >ep:healpredictionall<|r]')
+		self:Tag(healpredictiontext, '[|cff00ff00 >ep:healprediction<|r]')
 	end
 end
 

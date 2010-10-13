@@ -348,7 +348,7 @@ local function addTags(self, showPower, showHealPrediction, showCombo)
 		healpredictiontext:SetPoint('RIGHT', healthValue, 'LEFT', -config.SPACING, 0)
 		healpredictiontext:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
 		healpredictiontext:SetJustifyH('RIGHT')
-		self:Tag(healpredictiontext, '[|cff00ff00 >ep:healpredictionall<|r]')
+		self:Tag(healpredictiontext, '[|cff00ff00 >ep:healprediction<|r]')
 
 		info:SetPoint('RIGHT', healpredictiontext, 'LEFT', -config.SPACING, 0)
 	else
