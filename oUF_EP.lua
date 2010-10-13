@@ -230,7 +230,13 @@ do
 	end
 
 	function addCastBar(self, inverted, isPet)
-		local relativeFrame = self.Runes and self.Runes or self.TotemBar and self.TotemBar or self.SoulShards and self.SoulShards or self.HolyPower and self.HolyPower or self.EclipseBar and self.EclipseBar or self
+		local relativeFrame = self.VengeanceBar and self.VengeanceBar or
+					self.Runes and self.Runes or
+					self.TotemBar and self.TotemBar or
+					self.SoulShards and self.SoulShards or
+					self.HolyPower and self.HolyPower or
+					self.EclipseBar and self.EclipseBar or
+					self
 
 		local castbar = CreateFrame('StatusBar', nil, self)
 		castbar:SetSize((isPet and config.SECONDARYUNITWIDTH or config.PRIMARYUNITWIDTH) - 25, 16)
@@ -540,6 +546,35 @@ local function addEclipseBar(self)
 	end
 end
 
+-- Vengeance Bar function
+local function addVengeanceBar(self)
+	local _, class = UnitClass('player')
+
+	if class == 'DEATHKNIGHT' or class == 'DRUID' or class == 'PALADIN' or class == 'WARRIOR'then
+		local anchor = self.Runes and self.Runes or self.HolyPower and self.HolyPower or self
+
+		local vengeanceBar = CreateFrame('Frame', nil, self)
+		vengeanceBar:SetPoint('TOPLEFT', anchor, 'BOTTOMLEFT', 0, -1)
+		vengeanceBar:SetSize(config.PRIMARYUNITWIDTH, config.SPACING)
+		vengeanceBar:SetBackdrop(config.BACKDROP)
+		vengeanceBar:SetBackdropColor(0, 0, 0)
+
+		local statusBar = CreateFrame('StatusBar', nil, vengeanceBar)
+		statusBar:SetPoint('LEFT', vengeanceBar, 'LEFT', 0, 0)
+		statusBar:SetSize(config.PRIMARYUNITWIDTH, config.SPACING)
+		statusBar:SetStatusBarTexture(config.TEXTURE)
+		statusBar:SetStatusBarColor(0, 0, 1)
+		vengeanceBar.Bar = statusBar
+
+		local vengeanceBarText = statusBar:CreateFontString(nil, 'OVERLAY')
+		vengeanceBarText:SetPoint('CENTER', statusBar, 'CENTER', 0, 0)
+		vengeanceBarText:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
+		vengeanceBar.Text = vengeanceBarText
+
+		self.VengeanceBar = vengeanceBar
+	end
+end
+
 local UnitSpecific
 do
 	local addDebuffHighlightBackdrop = ns.addDebuffHighlightBackdrop
@@ -575,6 +610,7 @@ do
 			addSoulShards(self)
 			addHolyPower(self)
 			addEclipseBar(self)
+			addVengeanceBar(self)
 
 			addCastBar(self, false, false)
 		end,
