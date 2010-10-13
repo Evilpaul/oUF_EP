@@ -7,20 +7,16 @@ assert(oUF, 'Soulstone was unable to locate oUF install')
 local function GetBuffInfo(unit)
 	if not UnitCanAssist('player', unit) then return end
 
-	local spellId, unitCaster
 	local i = 1
-	while true do
-		_, _, _, _, _, _, _, unitCaster, _, _, spellId = UnitAura(unit, i, 'HELPFUL')
-
-		-- buff does not exist, quit out of the loop
-		if not spellId then return end
+	repeat
+		local _, _, _, _, _, _, _, unitCaster, _, _, spellId = UnitAura(unit, i, 'HELPFUL')
 
 		if spellId == 20707 and unitCaster and UnitIsUnit('player', unitCaster) then
 			return true
 		end
 
 		i = i + 1
-	end
+	until not spellId
 end
 
 local function Update(self, event, unit)

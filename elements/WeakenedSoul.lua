@@ -7,20 +7,16 @@ assert(oUF, 'WeakenedSoul was unable to locate oUF install')
 local function GetDebuffInfo(unit)
 	if not UnitCanAssist('player', unit) then return end
 
-	local spellId
 	local i = 1
-	while true do
-		_, _, _, _, _, _, _, _, _, _, spellId = UnitAura(unit, i, 'HARMFUL')
-
-		-- debuff does not exist, quit out of the loop
-		if not spellId then return end
+	repeat
+		local _, _, _, _, _, _, _, _, _, _, spellId = UnitAura(unit, i, 'HARMFUL')
 
 		if spellId == 6788 then
 			return true
 		end
 
 		i = i + 1
-	end
+	until not spellId
 end
 
 local function Update(self, event, unit)

@@ -29,20 +29,16 @@ end
 local function GetDebuffInfo(unit, dispelTypes)
 	if not UnitCanAssist('player', unit) then return end
 
-	local debuffType, texture
 	local i = 1
-	while true do
-		_, _, texture, _, debuffType, _, _, _, _ = UnitAura(unit, i, 'HARMFUL')
-
-		-- debuff does not exist, quit out of the loop
-		if not texture then return end
+	repeat
+		local _, _, texture, _, debuffType, _, _, _, _ = UnitAura(unit, i, 'HARMFUL')
 
 		if dispelTypes[debuffType] then
 			return debuffType, texture
 		end
 
 		i = i + 1
-	end
+	until not texture
 end
 
 local function Update(self, event, unit)
