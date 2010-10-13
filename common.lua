@@ -15,6 +15,7 @@ do
 			ToggleDropDownMenu(1, nil, dropdown, 'cursor')
 		elseif (self.unit:match('party')) then
 			ToggleDropDownMenu(1, nil, _G[format('PartyMemberFrame%dDropDown', self.id)], 'cursor')
+		elseif (self.unit == 'targettarget') then
 		else
 			FriendsDropDown.unit = self.unit
 			FriendsDropDown.id = self.id
