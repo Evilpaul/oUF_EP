@@ -25,8 +25,6 @@ do
 
 	function addMenu(self)
 		self.menu = SpawnMenu
-		self:RegisterForClicks('anyup')
-		self:SetAttribute('type2', 'menu')
 	end
 end
 ns.addMenu = addMenu
