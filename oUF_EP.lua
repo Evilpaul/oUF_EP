@@ -540,7 +540,7 @@ local function addEclipseBar(self)
 		local eclipseBarText = solarBar:CreateFontString(nil, 'OVERLAY')
 		eclipseBarText:SetPoint('CENTER', eclipseBar, 'CENTER', 0, 0)
 		eclipseBarText:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
-		eclipseBar.Text = eclipseBarText
+		self:Tag(eclipseBarText, '[pereclipse]%')
 
 		self.EclipseBar = eclipseBar
 	end
