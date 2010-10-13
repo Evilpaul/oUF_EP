@@ -200,9 +200,6 @@ do
 		self:SetBackdrop(config.BACKDROP)
 		self:SetBackdropColor(0, 0, 0)
 
-		self:SetAttribute('initial-height', config.UNITHEIGHT)
-		self:SetAttribute('initial-width', config.RAIDUNITWIDTH)
-
 		addMenu(self)
 		addHealthBar(self)
 		addPowerBar(self)
@@ -237,7 +234,14 @@ do
 							'showParty', true,
 							'showRaid', true,
 							'groupFilter', toStr(group),
-							'yOffset', -config.SPACING
+							'yOffset', -config.SPACING,
+							'initial-width', config.RAIDUNITWIDTH,
+							'initial-height', config.UNITHEIGHT,
+							'oUF-initialConfigFunction', [[
+								local header = self:GetParent()
+								self:SetWidth(header:GetAttribute('initial-width'))
+								self:SetHeight(header:GetAttribute('initial-height'))
+							]]
 			)
 
 			if group > 1 then
@@ -245,7 +249,6 @@ do
 			else
 				header:SetPoint('TOPLEFT', UIParent, 'BOTTOMLEFT', 15, 350)
 			end
-			header:Show()
 			raid[group] = header
 		end
 
@@ -259,9 +262,15 @@ do
 							'columnSpacing', config.SPACING,
 							'columnAnchorPoint', 'LEFT',
 							'yOffset', -config.SPACING,
-							'xOffset', config.SPACING
+							'xOffset', config.SPACING,
+							'initial-width', config.RAIDUNITWIDTH,
+							'initial-height', config.UNITHEIGHT,
+							'oUF-initialConfigFunction', [[
+								local header = self:GetParent()
+								self:SetWidth(header:GetAttribute('initial-width'))
+								self:SetHeight(header:GetAttribute('initial-height'))
+							]]
 		)
-		petHeader:Show()
 
 		-- update script to move the petheader dependant upon which is the last raid group
 		local updateFrame = CreateFrame('Frame')

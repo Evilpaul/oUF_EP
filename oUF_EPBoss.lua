@@ -57,8 +57,7 @@ do
 		self:SetBackdrop(config.BACKDROP)
 		self:SetBackdropColor(0, 0, 0)
 
-		self:SetAttribute('initial-height', config.UNITHEIGHT)
-		self:SetAttribute('initial-width', config.TERTIARYUNITWIDTH)
+		self:SetSize(config.TERTIARYUNITWIDTH, config.UNITHEIGHT)
 
 		addMenu(self)
 		addHealthBar(self)

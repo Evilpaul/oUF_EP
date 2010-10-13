@@ -540,7 +540,7 @@ do
 	UnitSpecific = {
 		player = function(self)
 			-- Player specific layout code.
-			self:SetAttribute('initial-width', config.PRIMARYUNITWIDTH)
+			self:SetWidth(config.PRIMARYUNITWIDTH)
 			addMenu(self)
 			addPowerBar(self)
 			addRaidRole(self)
@@ -572,7 +572,7 @@ do
 
 		target = function(self)
 			-- Target specific layout code.
-			self:SetAttribute('initial-width', config.PRIMARYUNITWIDTH)
+			self:SetWidth(config.PRIMARYUNITWIDTH)
 			addMenu(self)
 			addPowerBar(self)
 			addLFDRole(self)
@@ -588,7 +588,7 @@ do
 
 		pet = function(self)
 			-- Pet specific layout code.
-			self:SetAttribute('initial-width', config.SECONDARYUNITWIDTH)
+			self:SetWidth(config.SECONDARYUNITWIDTH)
 			addMenu(self)
 			addPowerBar(self)
 			addTags(self, true, true, false)
@@ -599,7 +599,7 @@ do
 
 		targettarget = function(self)
 			-- Targettarget specific layout code.
-			self:SetAttribute('initial-width', config.SECONDARYUNITWIDTH)
+			self:SetWidth(config.SECONDARYUNITWIDTH)
 			addMenu(self)
 			addPowerBar(self)
 			addDebuffs(self, config.DEBUFFPOSITIONS.targettarget)
@@ -608,7 +608,7 @@ do
 
 		focus = function(self)
 			-- Focus specific layout code.
-			self:SetAttribute('initial-width', config.SECONDARYUNITWIDTH)
+			self:SetWidth(config.SECONDARYUNITWIDTH)
 			addMenu(self)
 			addPowerBar(self)
 			addDebuffs(self, config.DEBUFFPOSITIONS.focus)
@@ -631,7 +631,7 @@ do
 		self:SetBackdrop(config.BACKDROP)
 		self:SetBackdropColor(0, 0, 0)
 
-		self:SetAttribute('initial-height', config.UNITHEIGHT)
+		self:SetHeight(config.UNITHEIGHT)
 
 		addHealthBar(self)
 		addRaidIcon(self)

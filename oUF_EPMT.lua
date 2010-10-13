@@ -60,9 +60,6 @@ do
 		self:SetBackdrop(config.BACKDROP)
 		self:SetBackdropColor(0, 0, 0)
 
-		self:SetAttribute('initial-height', config.UNITHEIGHT)
-		self:SetAttribute('initial-width', config.TERTIARYUNITWIDTH)
-
 		addMenu(self)
 		addHealthBar(self)
 		addPowerBar(self, self:GetAttribute('unitsuffix') == 'target')
@@ -86,8 +83,14 @@ oUF:Factory(function(self)
 					'showRaid', true,
 					'yOffset', -10,
 					'template', 'oUF_MT',
-					'groupFilter', 'MAINTANK'
+					'groupFilter', 'MAINTANK',
+					'initial-width', config.TERTIARYUNITWIDTH,
+					'initial-height', config.UNITHEIGHT,
+					'oUF-initialConfigFunction', [[
+						local header = self:GetParent()
+						self:SetWidth(header:GetAttribute('initial-width'))
+						self:SetHeight(header:GetAttribute('initial-height'))
+					]]
 	)
 	frame:SetPoint('TOPLEFT', UIParent, 'TOPLEFT', 15, -350)
-	frame:Show()
 end)
