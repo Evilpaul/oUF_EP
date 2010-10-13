@@ -4,6 +4,6 @@
 ## Title: oUF EP
 ## Notes: Just another oUF layout
 ## RequiredDeps: oUF
-## OptionalDeps: oUF_EPDebuff, oUF_HealPrediction, oUF_ReadyCheck, oUF_TotemBar
+## OptionalDeps: oUF_TotemBar, oUF_VengeanceBar
 
 oUF_EP.xml
