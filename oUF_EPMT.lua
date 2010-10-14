@@ -69,8 +69,6 @@ do
 		if self:GetAttribute('unitsuffix') ~= 'target' then
 			addRange(self)
 		end
-
-		self.disallowVehicleSwap = true
 	end
 end
 
