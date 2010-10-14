@@ -235,13 +235,9 @@ do
 							'showRaid', true,
 							'groupFilter', toStr(group),
 							'yOffset', -config.SPACING,
-							'initial-width', config.RAIDUNITWIDTH,
-							'initial-height', config.UNITHEIGHT,
-							'oUF-initialConfigFunction', [[
-								local header = self:GetParent()
-								self:SetWidth(header:GetAttribute('initial-width'))
-								self:SetHeight(header:GetAttribute('initial-height'))
-							]]
+							'oUF-initialConfigFunction', ([[
+								self:SetSize(%d, %d)
+							]]):format(config.RAIDUNITWIDTH, config.UNITHEIGHT)
 			)
 
 			if group > 1 then
@@ -263,13 +259,9 @@ do
 							'columnAnchorPoint', 'LEFT',
 							'yOffset', -config.SPACING,
 							'xOffset', config.SPACING,
-							'initial-width', config.RAIDUNITWIDTH,
-							'initial-height', config.UNITHEIGHT,
-							'oUF-initialConfigFunction', [[
-								local header = self:GetParent()
-								self:SetWidth(header:GetAttribute('initial-width'))
-								self:SetHeight(header:GetAttribute('initial-height'))
-							]]
+							'oUF-initialConfigFunction', ([[
+								self:SetSize(%d, %d)
+							]]):format(config.RAIDUNITWIDTH, config.UNITHEIGHT)
 		)
 
 		-- update script to move the petheader dependant upon which is the last raid group

@@ -82,13 +82,9 @@ oUF:Factory(function(self)
 					'yOffset', -10,
 					'template', 'oUF_MT',
 					'groupFilter', 'MAINTANK',
-					'initial-width', config.TERTIARYUNITWIDTH,
-					'initial-height', config.UNITHEIGHT,
-					'oUF-initialConfigFunction', [[
-						local header = self:GetParent()
-						self:SetWidth(header:GetAttribute('initial-width'))
-						self:SetHeight(header:GetAttribute('initial-height'))
-					]]
+					'oUF-initialConfigFunction', ([[
+						self:SetSize(%d, %d)
+					]]):format(config.TERTIARYUNITWIDTH, config.UNITHEIGHT)
 	)
 	frame:SetPoint('TOPLEFT', UIParent, 'TOPLEFT', 15, -350)
 end)
