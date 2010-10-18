@@ -80,11 +80,15 @@ oUF:Factory(function(self)
 	local frame = self:SpawnHeader(nil, nil, 'raid',
 					'showRaid', true,
 					'yOffset', -10,
-					'template', 'oUF_MT',
+					--'template', 'oUF_MT',
 					'groupFilter', 'MAINTANK',
-					'oUF-initialConfigFunction', ([[
-						self:SetSize(%d, %d)
-					]]):format(config.TERTIARYUNITWIDTH, config.UNITHEIGHT)
+					'initial-width', config.TERTIARYUNITWIDTH,
+					'initial-height', config.UNITHEIGHT,
+					'oUF-initialConfigFunction', [[
+						local header = self:GetParent()
+						self:SetWidth(header:GetAttribute('initial-width'))
+						self:SetHeight(header:GetAttribute('initial-height'))
+					]]
 	)
 	frame:SetPoint('TOPLEFT', UIParent, 'TOPLEFT', 15, -350)
 end)
