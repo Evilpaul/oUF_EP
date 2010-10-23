@@ -392,7 +392,7 @@ local function addRuneBar(self)
 
 		for i = 1, 6 do
 			local rune = CreateFrame('StatusBar', nil, runes)
-			rune:SetSize((config.PRIMARYUNITWIDTH / 6) - 1, config.SPACING)
+			rune:SetSize((config.PRIMARYUNITWIDTH / 6) - (5 / 6), config.SPACING)
 			rune:SetStatusBarTexture(config.TEXTURE)
 			rune:SetBackdrop(config.BACKDROP)
 			rune:SetBackdropColor(0, 0, 0)
@@ -430,7 +430,7 @@ local function addTotemBar(self)
 
 		for i = 1, MAX_TOTEMS do
 			local totem = CreateFrame('StatusBar', nil, self)
-			totem:SetSize((config.PRIMARYUNITWIDTH / MAX_TOTEMS) - 1, config.SPACING)
+			totem:SetSize((config.PRIMARYUNITWIDTH / MAX_TOTEMS) - ((MAX_TOTEMS - 1) / MAX_TOTEMS), config.SPACING)
 			totem:SetStatusBarTexture(config.TEXTURE)
 			totem:SetBackdrop(config.BACKDROP)
 			totem:SetBackdropColor(0, 0, 0)
@@ -439,7 +439,7 @@ local function addTotemBar(self)
 			if i > 1 then
 				totem:SetPoint('LEFT', totems[i - 1], 'RIGHT', 1, 0)
 			else
-				totem:SetPoint('BOTTOMLEFT', totems, 'BOTTOMLEFT', 1, 0)
+				totem:SetPoint('BOTTOMLEFT', totems, 'BOTTOMLEFT', 0, 0)
 			end
 
 			local totemBG = totem:CreateTexture(nil, 'BACKGROUND')
@@ -467,13 +467,13 @@ local function addSoulShards(self)
 
 		for i = 1, SHARD_BAR_NUM_SHARDS do
 			local shard = shards:CreateTexture(nil, 'OVERLAY')
-			shard:SetSize((config.PRIMARYUNITWIDTH / SHARD_BAR_NUM_SHARDS) - 1, config.SPACING)
-			shard:SetTexture(1, 3 / 5, 0)
+			shard:SetSize((230 / SHARD_BAR_NUM_SHARDS) - ((SHARD_BAR_NUM_SHARDS - 1) / SHARD_BAR_NUM_SHARDS), config.SPACING)
+			shard:SetTexture(1/2, 0, 1)
 
 			if i > 1 then
 				shard:SetPoint('LEFT', shards[i - 1], 'RIGHT', 1, 0)
 			else
-				shard:SetPoint('BOTTOMLEFT', shards, 'BOTTOMLEFT', 1, 0)
+				shard:SetPoint('BOTTOMLEFT', shards, 'BOTTOMLEFT', 0, 0)
 			end
 
 			shards[i] = shard
@@ -496,13 +496,13 @@ local function addHolyPower(self)
 
 		for i = 1, MAX_HOLY_POWER do
 			local holyRune = holypower:CreateTexture(nil, 'OVERLAY')
-			holyRune:SetSize((config.PRIMARYUNITWIDTH / MAX_HOLY_POWER) - 1, config.SPACING)
-			holyRune:SetTexture(1, 3 / 5, 0)
+			holyRune:SetSize((230 / MAX_HOLY_POWER) - ((MAX_HOLY_POWER - 1) / MAX_HOLY_POWER), config.SPACING)
+			holyRune:SetTexture(1, 3/5, 0)
 
 			if i > 1 then
 				holyRune:SetPoint('LEFT', holypower[i - 1], 'RIGHT', 1, 0)
 			else
-				holyRune:SetPoint('BOTTOMLEFT', holypower, 'BOTTOMLEFT', 1, 0)
+				holyRune:SetPoint('BOTTOMLEFT', holypower, 'BOTTOMLEFT', 0, 0)
 			end
 
 			holypower[i] = holyRune
