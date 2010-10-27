@@ -384,6 +384,8 @@ local function addRuneBar(self)
 	local _, class = UnitClass('player')
 
 	if class == 'DEATHKNIGHT' then
+		local MAX_RUNES = 6
+
 		local runes = CreateFrame('Frame', nil, self)
 		runes:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -1)
 		runes:SetSize(config.PRIMARYUNITWIDTH, config.SPACING)
