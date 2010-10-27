@@ -390,9 +390,9 @@ local function addRuneBar(self)
 		runes:SetBackdrop(config.BACKDROP)
 		runes:SetBackdropColor(0, 0, 0)
 
-		for i = 1, 6 do
+		for i = 1, MAX_RUNES do
 			local rune = CreateFrame('StatusBar', nil, runes)
-			rune:SetSize((config.PRIMARYUNITWIDTH / 6) - (5 / 6), config.SPACING)
+			rune:SetSize((config.PRIMARYUNITWIDTH / MAX_RUNES) - ((MAX_RUNES - 1) / MAX_RUNES), config.SPACING)
 			rune:SetStatusBarTexture(config.TEXTURE)
 			rune:SetBackdrop(config.BACKDROP)
 			rune:SetBackdropColor(0, 0, 0)
