@@ -402,7 +402,7 @@ local function addRuneBar(self)
 			if i > 1 then
 				rune:SetPoint('LEFT', runes[i - 1], 'RIGHT', 1, 0)
 			else
-				rune:SetPoint('BOTTOMLEFT', runes, 'BOTTOMLEFT', 1, 0)
+				rune:SetPoint('BOTTOMLEFT', runes, 'BOTTOMLEFT', 0, 0)
 			end
 
 			local runeBG = rune:CreateTexture(nil, 'BACKGROUND')
