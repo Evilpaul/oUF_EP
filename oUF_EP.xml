@@ -1,27 +1,5 @@
 <Ui xmlns='http://www.blizzard.com/wow/ui/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.blizzard.com/wow/ui/
 ..\..\FrameXML\UI.xsd'>
-	<Button name='oUF_MT' inherits='SecureUnitButtonTemplate' hidden='true' virtual='true'>
-		<Frames>
-			<Button name='$parentTarget' inherits='SecureUnitButtonTemplate'>
-				<Size>
-					<AbsDimension x='100' y='25'/>
-				</Size>
-				<Anchors>
-					<Anchor point='TOPLEFT' relativePoint='TOPRIGHT' relativeTo='$parent'>
-						<Offset>
-							<AbsDimension x='4' y='0'/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<Attributes>
-					<Attribute name='unitsuffix' type='string' value='target'/>
-					<Attribute name='useparent-unit' type='boolean' value='true'/>
-					<Attribute name='type1' type='string' value='target'/>
-					<Attribute name='initial-unitWatch' type='boolean' value='true'/>
-				</Attributes>
-			</Button>
-		</Frames>
-	</Button>
 
 	<Script file='elements\BeaconOfLight.lua'/>
 	<Script file='elements\DebuffHighlight.lua'/>

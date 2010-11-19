@@ -77,10 +77,9 @@ oUF:RegisterStyle('oUF_EPMT', Style)
 oUF:Factory(function(self)
 	self:SetActiveStyle('oUF_EPMT')
 
-	local frame = self:SpawnHeader(nil, nil, 'raid',
+	local MTFrame = self:SpawnHeader(nil, nil, 'raid',
 					'showRaid', true,
 					'yOffset', -10,
-					--'template', 'oUF_MT',
 					'groupFilter', 'MAINTANK',
 					'initial-width', config.TERTIARYUNITWIDTH,
 					'initial-height', config.UNITHEIGHT,
@@ -90,5 +89,20 @@ oUF:Factory(function(self)
 						self:SetHeight(header:GetAttribute('initial-height'))
 					]]
 	)
-	frame:SetPoint('TOPLEFT', UIParent, 'TOPLEFT', 15, -350)
+	MTFrame:SetPoint('TOPLEFT', UIParent, 'TOPLEFT', 15, -350)
+
+	local MTTFrame = self:SpawnHeader(nil, nil, 'raid',
+					'showRaid', true,
+					'yOffset', -10,
+					'groupFilter', 'MAINTANK',
+					'initial-width', config.TERTIARYUNITWIDTH,
+					'initial-height', config.UNITHEIGHT,
+					'oUF-initialConfigFunction', [[
+						local header = self:GetParent()
+						self:SetWidth(header:GetAttribute('initial-width'))
+						self:SetHeight(header:GetAttribute('initial-height'))
+						self:SetAttribute('unitsuffix', 'target')
+					]]
+	)
+	MTTFrame:SetPoint('TOPLEFT', MTFrame, 'TOPRIGHT', config.SPACING, 0)
 end)
