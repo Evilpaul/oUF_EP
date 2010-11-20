@@ -269,6 +269,8 @@ do
 								local header = self:GetParent()
 								self:SetWidth(header:GetAttribute('initial-width'))
 								self:SetHeight(header:GetAttribute('initial-height'))
+								self:SetAttribute('useOwnerUnit', 'true')
+								self:SetAttribute('unitsuffix', 'pet')
 							]]
 		)
 
