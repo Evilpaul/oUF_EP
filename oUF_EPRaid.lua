@@ -253,7 +253,7 @@ do
 		end
 
 		-- define the pet header
-		local petHeader = self:SpawnHeader(nil, 'SecureGroupPetHeaderTemplate', 'party,raid',
+		local petHeader = self:SpawnHeader(nil, nil, 'party,raid',
 							'showPlayer', true,
 							'ShowParty', true,
 							'showRaid', true,
