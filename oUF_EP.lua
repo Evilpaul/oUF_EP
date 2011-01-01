@@ -552,7 +552,9 @@ end
 local function addVengeanceBar(self)
 	local _, class = UnitClass('player')
 
-	if class == 'DEATHKNIGHT' or class == 'DRUID' or class == 'PALADIN' or class == 'WARRIOR'then
+	if IsAddOnLoaded('oUF_VengeanceBar') and
+	   (class == 'DEATHKNIGHT' or class == 'DRUID' or class == 'PALADIN' or class == 'WARRIOR') then
+
 		local anchor = self.Runes and self.Runes or self.HolyPower and self.HolyPower or self
 
 		local vengeanceBar = CreateFrame('Frame', nil, self)
