@@ -270,6 +270,7 @@ config.AURAFILTER[16240] = true -- Ancestral Healing
 config.AURAFILTER[29166] = true -- Innervate
 config.AURAFILTER[32182] = true -- Heroism
 config.AURAFILTER[12443] = true -- Bloodlust
+config.AURAFILTER[80353] = true -- Time Warp
 config.AURAFILTER[33206] = true -- Pain Suppression
 config.AURAFILTER[47788] = true -- Guardian Spirit
 config.AURAFILTER[49016] = true -- Hysteria
