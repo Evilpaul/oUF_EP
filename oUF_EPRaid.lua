@@ -242,13 +242,11 @@ do
 							'showRaid', true,
 							'groupFilter', toStr(group),
 							'yOffset', -config.SPACING,
-							'initial-width', config.RAIDUNITWIDTH,
-							'initial-height', config.UNITHEIGHT,
-							'oUF-initialConfigFunction', [[
-								local header = self:GetParent()
-								self:SetWidth(header:GetAttribute('initial-width'))
-								self:SetHeight(header:GetAttribute('initial-height'))
-							]]
+							'oUF-initialConfigFunction', ([[
+								local unit = ...
+								self:SetWidth(%d)
+								self:SetHeight(%d)
+							]]):format(config.RAIDUNITWIDTH, config.UNITHEIGHT)
 			)
 
 			if group > 1 then
