@@ -67,12 +67,6 @@ local RoleSpecific = {
 		-- Weapon Proc
 
 		-- Trinket procs
-		config.AURAFILTER[60233] = true -- Darkmoon Card: Greatness (Agility)
-		config.AURAFILTER[71396] = true -- Herkuml War Token
-		config.AURAFILTER[71403] = true -- Needle-Encrusted Scorpion
-
-		-- ICC Ring proc
-		config.AURAFILTER[72412] = true -- ICC Rep Ring (melee)
 	end,
 
 	TANK = function()
@@ -81,7 +75,6 @@ local RoleSpecific = {
 		-- Weapon Proc
 
 		-- Trinket procs
-		config.AURAFILTER[67631] = true -- The Black Heart
 		config.AURAFILTER[67694] = true -- Glyph of Indomitability
 		config.AURAFILTER[67699] = true -- Satrina's Impeding Scarab (normal)
 		config.AURAFILTER[71575] = true -- Unidentifiable Organ (normal)
