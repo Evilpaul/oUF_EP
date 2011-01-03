@@ -223,6 +223,13 @@ do
 	local mmax = math.max
 	local toStr = tostring
 
+	local function DisableBlizzard()
+		CompactRaidFrameManager:UnregisterAllEvents()
+		CompactRaidFrameContainer:UnregisterAllEvents()
+		CompactRaidFrameManager:Hide()
+		CompactRaidFrameContainer:Hide()
+	end
+
 	function spawnFunction(self)
 		self:SetActiveStyle('oUF_EPRaid')
 
@@ -298,6 +305,8 @@ do
 		updateFrame:RegisterEvent('RAID_ROSTER_UPDATE')
 		updateFrame:RegisterEvent('UNIT_ENTERED_VEHICLE')
 		updateFrame:RegisterEvent('UNIT_EXITED_VEHICLE')
+
+		DisableBlizzard()
 	end
 end
 oUF:Factory(spawnFunction)
