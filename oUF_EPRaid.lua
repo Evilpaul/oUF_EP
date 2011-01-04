@@ -270,13 +270,13 @@ do
 							'xOffset', config.SPACING,
 							'initial-width', config.RAIDUNITWIDTH,
 							'initial-height', config.UNITHEIGHT,
-							'oUF-initialConfigFunction', [[
-								local header = self:GetParent()
-								self:SetWidth(header:GetAttribute('initial-width'))
-								self:SetHeight(header:GetAttribute('initial-height'))
+							'oUF-initialConfigFunction', ([[
+								local unit = ...
+								self:SetWidth(%d)
+								self:SetHeight(%d)
 								self:SetAttribute('useOwnerUnit', 'true')
 								self:SetAttribute('unitsuffix', 'pet')
-							]]
+							]]):format(config.RAIDUNITWIDTH, config.UNITHEIGHT)
 		)
 
 		-- update script to move the petheader dependant upon which is the last raid group
