@@ -12,7 +12,6 @@ local RaceSpecific = {
 	end,
 
 	Dwarf = function()
-		config.AURAFILTER[65116] = true -- Stoneform (Dwarf)
 	end,
 
 	Gnome = function()
@@ -62,11 +61,12 @@ local RoleSpecific = {
 
 	MELEE = function()
 		-- Enchant Proc
-		config.AURAFILTER[28093] = true -- Mongoose
 
 		-- Weapon Proc
 
 		-- Trinket procs
+		config.AURAFILTER[92104] = true -- Fluid Death
+		config.AURAFILTER[96976] = true -- Matrix Restabilizer
 	end,
 
 	TANK = function()
@@ -75,10 +75,6 @@ local RoleSpecific = {
 		-- Weapon Proc
 
 		-- Trinket procs
-		config.AURAFILTER[67694] = true -- Glyph of Indomitability
-		config.AURAFILTER[67699] = true -- Satrina's Impeding Scarab (normal)
-		config.AURAFILTER[71575] = true -- Unidentifiable Organ (normal)
-		config.AURAFILTER[71586] = true -- Corroded Skeleton Key
 
 		-- ICC Ring proc
 	end,
@@ -123,7 +119,8 @@ local ClassSpecific = {
 		config.AURAFILTER[16870] = true -- Clearcast
 
 		-- Tier procs
-		config.AURAFILTER[70725] = true -- Enraged Defense (4-part T-10 - feral)
+		config.AURAFILTER[90165] = true -- Druid T11 Feral 4P Bonus
+		config.AURAFILTER[99009] = true -- Druid T12 Feral 4P Bonus
 
 		-- Relic
 
