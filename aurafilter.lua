@@ -75,6 +75,7 @@ local RoleSpecific = {
 		-- Weapon Proc
 
 		-- Trinket procs
+		config.AURAFILTER[101492] = true -- Moonwell Phial
 
 		-- ICC Ring proc
 	end,
