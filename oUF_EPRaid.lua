@@ -260,7 +260,7 @@ do
 		-- define the pet header
 		local petHeader = self:SpawnHeader(nil, nil, 'party,raid',
 							'showPlayer', true,
-							'ShowParty', true,
+							'showParty', true,
 							'showRaid', true,
 							'maxColumns', NUM_RAID_GROUPS,
 							'unitsPerColumn', MEMBERS_PER_RAID_GROUP,
