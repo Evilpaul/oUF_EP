@@ -66,7 +66,9 @@ local RoleSpecific = {
 
 		-- Trinket procs
 		config.AURAFILTER[92104] = true -- Fluid Death
-		config.AURAFILTER[96976] = true -- Matrix Restabilizer
+		config.AURAFILTER[96977] = true -- Matrix Restabilizer
+		config.AURAFILTER[96978] = true -- Matrix Restabilizer
+		config.AURAFILTER[96979] = true -- Matrix Restabilizer
 	end,
 
 	TANK = function()
