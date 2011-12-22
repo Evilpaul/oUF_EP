@@ -49,6 +49,8 @@ local RoleSpecific = {
 		config.AURAFILTER[74241] = true -- Power Torrent
 
 		-- Trinket procs
+		config.AURAFILTER[102662] = true -- Foul Gift of the Demon Lord
+		config.AURAFILTER[109908] = true -- Foul Gift of the Demon Lord
 
 		-- ICC Ring proc
 	end,
@@ -58,6 +60,8 @@ local RoleSpecific = {
 		config.AURAFILTER[74241] = true -- Power Torrent
 
 		-- Trinket procs
+		config.AURAFILTER[102662] = true -- Foul Gift of the Demon Lord
+		config.AURAFILTER[109908] = true -- Foul Gift of the Demon Lord
 
 		-- ICC Ring proc
 	end,
