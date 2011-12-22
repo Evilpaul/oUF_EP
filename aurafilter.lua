@@ -289,6 +289,8 @@ local ClassSpecific = {
 
 -- General auras
 config.AURAFILTER[10060] = true -- Power Infusion
+config.AURAFILTER[47930] = true -- Grace (Rank 1)
+config.AURAFILTER[77613] = true -- Grace (Rank 2)
 config.AURAFILTER[47753] = true -- Divine Aegis
 config.AURAFILTER[14893] = true -- Inspiration (Rank 1)
 config.AURAFILTER[15357] = true -- Inspiration (Rank 2)
