@@ -188,8 +188,16 @@ local ClassSpecific = {
 
 	PRIEST = function()
 		-- Discipline auras
+		config.AURAFILTER[89485] = true -- Inner Focus
+		config.AURAFILTER[59887] = true -- Borrowed Time (Rank 1)
+		config.AURAFILTER[59888] = true -- Borrowed Time (Rank 1)
+		config.AURAFILTER[96266] = true -- Strength of Soul (Rank 1)
+		config.AURAFILTER[96267] = true -- Strength of Soul (Rank 2)
+		config.AURAFILTER[45241] = true -- Focused Will (Rank 1)
+		config.AURAFILTER[45242] = true -- Focused Will (Rank 2)
 
 		-- Holy auras
+		config.AURAFILTER[88688] = true -- Surge of Light
 
 		-- Shadow auras
 
