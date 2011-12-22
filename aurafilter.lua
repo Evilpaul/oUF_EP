@@ -12,6 +12,7 @@ local RaceSpecific = {
 	end,
 
 	Dwarf = function()
+		config.AURAFILTER[20594] = true -- Stoneform
 	end,
 
 	Gnome = function()
