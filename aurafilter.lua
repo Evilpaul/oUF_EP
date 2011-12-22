@@ -244,12 +244,18 @@ local ClassSpecific = {
 		-- Affliction auras
 
 		-- Demonology auras
+		config.AURAFILTER[63165] = true -- Decimation (Rank 1)
+		config.AURAFILTER[63167] = true -- Decimation (Rank 2)
+		config.AURAFILTER[47383] = true -- Molten Core (Rank 1)
+		config.AURAFILTER[71162] = true -- Molten Core (Rank 2)
+		config.AURAFILTER[71165] = true -- Molten Core (Rank 3)
 
 		-- Destruction auras
 
 		-- Tier procs
 
 		-- Glyph Proc
+		config.AURAFILTER[17941] = true -- Glyph of Corruption
 
 		-- Role specific auras
 		RoleSpecific['CASTER']()
