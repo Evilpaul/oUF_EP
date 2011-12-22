@@ -46,6 +46,7 @@ local RaceSpecific = {
 local RoleSpecific = {
 	CASTER = function()
 		-- Enchant Proc
+		config.AURAFILTER[74241] = true -- Power Torrent
 
 		-- Trinket procs
 
@@ -54,6 +55,7 @@ local RoleSpecific = {
 
 	HEALER = function()
 		-- Enchant Proc
+		config.AURAFILTER[74241] = true -- Power Torrent
 
 		-- Trinket procs
 
