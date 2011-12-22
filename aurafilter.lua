@@ -207,6 +207,9 @@ local ClassSpecific = {
 
 		-- Shadow auras
 
+		-- Tier procs
+		config.AURAFILTER[96219] = true -- Priest PvP 4P Bonus
+
 		-- Glyph Proc
 
 		-- Role specific auras
