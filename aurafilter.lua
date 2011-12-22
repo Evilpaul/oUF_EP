@@ -280,7 +280,8 @@ local ClassSpecific = {
 
 -- General auras
 config.AURAFILTER[10060] = true -- Power Infusion
-config.AURAFILTER[15359] = true -- Inspiration
+config.AURAFILTER[14893] = true -- Inspiration (Rank 1)
+config.AURAFILTER[15357] = true -- Inspiration (Rank 2)
 config.AURAFILTER[16240] = true -- Ancestral Healing
 config.AURAFILTER[29166] = true -- Innervate
 config.AURAFILTER[32182] = true -- Heroism
