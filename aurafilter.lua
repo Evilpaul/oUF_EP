@@ -76,6 +76,7 @@ local RoleSpecific = {
 		config.AURAFILTER[96977] = true -- Matrix Restabilizer
 		config.AURAFILTER[96978] = true -- Matrix Restabilizer
 		config.AURAFILTER[96979] = true -- Matrix Restabilizer
+		config.AURAFILTER[109717] = true -- Wrath of Unchaining (Raid Finder)
 	end,
 
 	TANK = function()
