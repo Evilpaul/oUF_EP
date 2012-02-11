@@ -581,6 +581,41 @@ local function addVengeanceBar(self)
 	end
 end
 
+-- Experience Bar function
+local function addExperienceBar(self)
+	if IsAddOnLoaded('oUF_Experience') then
+
+		-- Position and size
+		local Experience = CreateFrame('StatusBar', nil, self)
+		Experience:SetPoint('TOPLEFT', self.lowestElement, 'BOTTOMLEFT', 0, -1)
+		Experience:SetSize(config.PRIMARYUNITWIDTH, config.SPACING)
+		Experience:SetBackdrop(config.BACKDROP)
+		Experience:SetBackdropColor(0, 0, 0)
+
+		-- Position and size the Rested background-bar
+		local Rested = CreateFrame('StatusBar', nil, Experience)
+		Rested:SetAllPoints(Experience)
+		Rested:SetStatusBarTexture(config.TEXTURE)
+
+		-- Text display
+		local Value = Experience:CreateFontString(nil, 'OVERLAY')
+		Value:SetAllPoints(Experience)
+		Value:SetFont(config.FONT, config.FONTSIZE, config.FONTBORDER)
+		self:Tag(Value, '[curxp] / [maxxp]')
+
+		-- Add a background
+--		local bg = Rested:CreateTexture(nil, 'BACKGROUND')
+--		bg:SetAllPoints(Experience)
+--		bg:SetTexture[[Interface\ChatFrame\ChatFrameBackground]]
+
+		-- Register it with oUF
+		self.Experience = Experience
+		self.Experience.Rested = Rested
+
+		self.lowestElement = self.Experience
+	end
+end
+
 local UnitSpecific
 do
 	local addDebuffHighlightBackdrop = ns.addDebuffHighlightBackdrop
@@ -618,6 +653,7 @@ do
 			addHolyPower(self)
 			addEclipseBar(self)
 			addVengeanceBar(self)
+			addExperienceBar(self)
 
 			addCastBar(self, false, false)
 		end,

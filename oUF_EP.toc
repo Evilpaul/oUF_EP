@@ -4,6 +4,6 @@
 ## Title: oUF EP
 ## Notes: Just another oUF layout
 ## RequiredDeps: oUF
-## OptionalDeps: oUF_TotemBar, oUF_VengeanceBar
+## OptionalDeps: oUF_TotemBar, oUF_VengeanceBar, oUF_Experience
 
 oUF_EP.xml
