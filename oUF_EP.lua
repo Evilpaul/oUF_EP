@@ -230,14 +230,6 @@ do
 	end
 
 	function addCastBar(self, inverted, isPet)
-		local relativeFrame = self.VengeanceBar and self.VengeanceBar or
-					self.Runes and self.Runes or
-					self.TotemBar and self.TotemBar or
-					self.SoulShards and self.SoulShards or
-					self.HolyPower and self.HolyPower or
-					self.EclipseBar and self.EclipseBar or
-					self
-
 		local castbar = CreateFrame('StatusBar', nil, self)
 		castbar:SetSize((isPet and config.SECONDARYUNITWIDTH or config.PRIMARYUNITWIDTH) - 25, 16)
 		castbar:SetStatusBarTexture(config.TEXTURE)
@@ -277,10 +269,10 @@ do
 		if inverted then
 			castbar.PostCastStart = PostCastStart
 			castbar.PostChannelStart = PostCastStart
-			castbar:SetPoint('TOPLEFT', relativeFrame, 'BOTTOMLEFT', 0, -config.SPACING)
+			castbar:SetPoint('TOPLEFT', self.lowestElement, 'BOTTOMLEFT', 0, -config.SPACING)
 			castbarDummy:SetPoint('TOPLEFT', castbar, 'TOPRIGHT', config.SPACING, 0)
 		else
-			castbar:SetPoint('TOPRIGHT', relativeFrame, 'BOTTOMRIGHT', 0, -config.SPACING)
+			castbar:SetPoint('TOPRIGHT', self.lowestElement, 'BOTTOMRIGHT', 0, -config.SPACING)
 			castbarDummy:SetPoint('TOPRIGHT', castbar, 'TOPLEFT', -config.SPACING, 0)
 			castbar.SafeZone = castbar:CreateTexture(nil, 'ARTWORK')
 		end
@@ -414,6 +406,8 @@ local function addRuneBar(self)
 		end
 
 		self.Runes = runes
+
+		self.lowestElement = self.Runes
 	end
 end
 
@@ -453,6 +447,8 @@ local function addTotemBar(self)
 		end
 
 		self.TotemBar = totems
+
+		self.lowestElement = self.TotemBar
 	end
 end
 
@@ -482,6 +478,8 @@ local function addSoulShards(self)
 		end
 
 		self.SoulShards = shards
+
+		self.lowestElement = self.SoulShards
 	end
 end
 
@@ -511,6 +509,8 @@ local function addHolyPower(self)
 		end
 
 		self.HolyPower = holypower
+
+		self.lowestElement = self.HolyPower
 	end
 end
 
@@ -545,6 +545,8 @@ local function addEclipseBar(self)
 		self:Tag(eclipseBarText, '[pereclipse]%')
 
 		self.EclipseBar = eclipseBar
+
+		self.lowestElement = self.EclipseBar
 	end
 end
 
@@ -555,10 +557,8 @@ local function addVengeanceBar(self)
 	if IsAddOnLoaded('oUF_VengeanceBar') and
 	   (class == 'DEATHKNIGHT' or class == 'DRUID' or class == 'PALADIN' or class == 'WARRIOR') then
 
-		local anchor = self.Runes and self.Runes or self.HolyPower and self.HolyPower or self
-
 		local vengeanceBar = CreateFrame('Frame', nil, self)
-		vengeanceBar:SetPoint('TOPLEFT', anchor, 'BOTTOMLEFT', 0, -1)
+		vengeanceBar:SetPoint('TOPLEFT', self.lowestElement, 'BOTTOMLEFT', 0, -1)
 		vengeanceBar:SetSize(config.PRIMARYUNITWIDTH, config.SPACING)
 		vengeanceBar:SetBackdrop(config.BACKDROP)
 		vengeanceBar:SetBackdropColor(0, 0, 0)
@@ -576,6 +576,8 @@ local function addVengeanceBar(self)
 		vengeanceBar.Text = vengeanceBarText
 
 		self.VengeanceBar = vengeanceBar
+
+		self.lowestElement = self.VengeanceBar
 	end
 end
 
@@ -609,6 +611,7 @@ do
 			addDebuffs(self, config.DEBUFFPOSITIONS.player)
 			addWeaponEnchants(self, config.TEMPENCHANTPOSITIONS)
 			addDebuffHighlightBackdrop(self)
+
 			addRuneBar(self)
 			addTotemBar(self)
 			addSoulShards(self)
@@ -686,6 +689,8 @@ do
 
 		addHealthBar(self)
 		addRaidIcon(self)
+
+		self.lowestElement = self
 
 		if UnitSpecific[unit] then
 			return UnitSpecific[unit](self)
