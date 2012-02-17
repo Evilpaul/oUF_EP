@@ -258,7 +258,7 @@ do
 		end
 
 		-- define the pet header
-		local petHeader = self:SpawnHeader(nil, nil, 'party,raid',
+		local petHeader = self:SpawnHeader(nil, 'SecureGroupPetHeaderTemplate', 'party,raid',
 							'showPlayer', true,
 							'showParty', true,
 							'showRaid', true,
@@ -274,8 +274,6 @@ do
 								local unit = ...
 								self:SetWidth(%d)
 								self:SetHeight(%d)
-								self:SetAttribute('useOwnerUnit', 'true')
-								self:SetAttribute('unitsuffix', 'pet')
 							]]):format(config.RAIDUNITWIDTH, config.UNITHEIGHT)
 		)
 
